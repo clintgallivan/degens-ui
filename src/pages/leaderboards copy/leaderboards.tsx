@@ -1,9 +1,10 @@
-import type { NextPage } from 'next'
-import Head from 'next/head'
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
+import type { NextPage } from 'next';
+import Head from 'next/head';
+import Image from 'next/image';
+import styles from './leaderboards.module.css';
+import RetroButton from '../../components/common/RetroButton/RetroButton';
 
-const Home: NextPage = () => {
+const Leaderboards: NextPage = () => {
   return (
     <div className={styles.container}>
       <Head>
@@ -16,6 +17,7 @@ const Home: NextPage = () => {
         <h1 className={styles.title}>
           Welcome to <a href="https://nextjs.org">Next.js!</a>
         </h1>
+        <RetroButton text="Contributors" />
 
         <p className={styles.description}>
           Get started by editing{' '}
@@ -66,7 +68,7 @@ const Home: NextPage = () => {
         </a>
       </footer>
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Leaderboards;

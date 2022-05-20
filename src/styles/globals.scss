@@ -1,0 +1,256 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+div {
+  font-family: 'Montserrat';
+  font-weight: 600
+}
+
+body {
+  width: 100% !important;
+  height: 10% !important;
+  background-repeat: no-repeat !important;
+  background-size: cover !important;
+  margin: 0px;
+  color: var(--black);
+  font-family: 'Montserrat';
+  font-weight: 600;
+  background-image: url('../../public/stacked-peaks.svg');
+  background-color:  var(--purple-10);
+  
+  
+}
+
+h1 {
+  font-weight: var(--font-weight-xxb);
+  font-size: var(--font-size-xxxl);
+  margin: 0px;
+}
+h2 {
+  font-size: var(--font-size-xl);
+}
+h3 {
+  font-size: var(--font-size-l);
+}
+h4 {
+  font-size: var(--font-size-md);
+}
+h5 {
+  font-size: var(--font-size-sm);
+}
+h6 {
+  font-size: var(--font-size-xsm);
+}
+
+//*font weight
+.fw-md {
+  font-weight: var(--font-weight-md);
+}
+.fw-sb {
+  font-weight:var(--font-weight-sb);
+}
+.fw-b {
+  font-weight:var(--font-weight-b);
+}
+.fw-xb {
+  font-weight:var(--font-weight-xb);
+}
+.fw-xxb {
+  font-weight:var(--font-weight-xxb);
+}
+
+//* font size
+.fs-xsm {
+  font-size: var(--font-size-xsm);
+}
+.fs-sm {
+  font-size :var(--font-size-sm);
+}
+.fs-md {
+  font-size: var(--font-size-md);
+}
+.fs-l {
+  font-size: var(--font-size-l);
+}
+.fs-xl {
+  font-size: var(--font-size-xl);
+}
+.fs-xxl {
+  font-size: var(--font-size-xxl);
+}
+.fs-xxxl {
+  font-size: var(--font-size-xxxl);
+}
+
+:focus {
+  outline: 0.15rem dashed var(--white);
+  outline-offset: 0.25rem;
+}
+main:focus {
+  outline: none;
+}
+
+img {
+  max-width: 100%;
+}
+
+.row {
+  flex-direction: row;
+  display: flex;
+}
+
+.row-flex-1 {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
+.col-flex-1 {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+
+.navBar {
+  background-color:  rgba($color: #373D9D, $alpha: .5) ;
+  transition: 0.5s;
+  width: 0px;
+  top: 0px;
+  position: fixed;
+  display:flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding-left: 40px;
+  padding-right: 40px;
+}
+
+.header {
+  height: 76px;
+  justify-content: space-between;
+  padding-left: 10px;
+  padding-right: 10px;
+  flex-direction: row;
+  align-items: center;
+  display: flex;
+}
+
+.content-area {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  transition: 0.5s;
+  margin-right: 10px;
+  margin-left: 10px;
+}
+
+@media screen and (min-width: 320px) {
+  h1 {
+    font-weight: var(--font-weight-xxb);
+    font-size: var(--font-size-xxl);
+    margin: 0px;
+  }
+
+  .navBar {
+    position: absolute;
+    left: -81px;
+    transition: 0.5s;
+    width: 80px;
+    height: 100%;
+    padding-left: 10px;
+    padding-right: 10px;
+    display:flex;
+    top: 0px;
+    position: fixed;
+  }
+
+  
+}
+
+@media screen and (min-width: 480px) {
+  h1 {
+    font-weight: var(--font-weight-xxb);
+    font-size: var(--font-size-xxxl);
+    margin: 0px;
+  }
+
+  .navBar {
+    position: absolute;
+    left: -81px;
+    transition: 0.5s;
+    width: 80px;
+    height: 100%;
+    padding-right: 10px;
+    display:flex;
+    top: 0px;
+    position: fixed;
+
+  }
+  
+}
+
+@media screen and (min-width: 768px) {
+  .navBar {
+    transition: 0.5s;
+    left: 0px;
+    width: 80px;
+    height: 100%;
+    padding-left: 10px;
+    padding-right: 10px;
+    display:flex;
+    top: 0px;
+  position: fixed;
+  }
+
+  .content-area {
+    display: flex;
+    transition: 0.5s;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    margin-left: 100px;
+    margin-right: 20px;
+  }
+  
+}
+
+@media screen and (min-width: 1024px) {
+  .navBar {
+    transition: 0.5s;
+    width: 80px;
+    height: 100%;
+    display:flex;
+    top: 0px;
+    position: fixed;
+  }
+  
+  
+}
+
+@media screen and (min-width: 1200px) {
+  .navBar {
+    transition: 0.5s;
+    min-width: 230px 0.2s ease;
+    width: 240px;
+    padding-left: 20px;
+    padding-right: 20px;
+    top: 0px;
+    position: fixed;
+    display:flex;
+  }
+
+  .content-area {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    margin-left: 260px;
+    margin-right: 20px;
+    transition: 0.5s;
+  }
+  
+}
