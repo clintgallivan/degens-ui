@@ -124,6 +124,7 @@ img {
 }
 
 .col-flex-1 {
+  width: 100%;
   display: flex;
   flex: 1;
   flex-direction: column;
@@ -144,7 +145,11 @@ img {
 }
 
 .header {
-  height: 76px;
+  // height: 76px;
+  margin-top: 20px;;
+  margin-bottom: 50px;
+  
+  // background-color: blue;
   justify-content: space-between;
   padding-left: 10px;
   padding-right: 10px;
@@ -155,7 +160,6 @@ img {
 
 .content-area {
   display: flex;
-
   flex: 1;
   flex-direction: column;
   align-items: center;
@@ -163,6 +167,8 @@ img {
   transition: 0.5s;
   margin-right: 10px;
   margin-left: 10px;
+  margin-bottom: 20px;
+  
 }
 
 @media screen and (min-width: 320px) {
@@ -224,6 +230,7 @@ img {
   }
 
   .content-area {
+
     display: flex;
     transition: 0.5s;
     flex: 1;

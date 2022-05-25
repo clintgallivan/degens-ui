@@ -1,3 +1,29 @@
+.container {
+  display: flex;
+  width: 100%;
+  overflow-x: scroll;
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+    scrollbar-width: none;  /* Firefox */
+  box-sizing: content-box;
+  
+}
+
+.container::-webkit-scrollbar {
+  width: 0.7em;
+  height: 5px;
+  background: transparent;
+}
+.container::-webkit-scrollbar-thumb {
+  background: var(--white);
+  height: 3px;
+  border-radius: 5px;
+}
+
+.container::-webkit-scrollbar-track-piece
+{
+   display:none;
+}
+
 .grid_point_container {
   display: flex;
   align-items: center;
@@ -23,3 +49,7 @@
   display: flex;
   height: 50px
 }
+.head {
+  color: white;
+}
+

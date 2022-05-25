@@ -1,0 +1,26 @@
+.container {
+  background-color: black;
+  height: 50px;
+  width: 210px;
+  border-radius: 8px;;
+  border-right: black solid 5px;
+  border-bottom: black solid 58px;
+  border-bottom-left-radius: 12px;
+  border-top-right-radius: 12px;
+  transition: 0.05s;
+
+}
+
+.container:hover {
+  cursor: pointer;
+  margin-top: 6px;
+  margin-left: 0px;
+  background-color: black;
+  border-radius: 8px;;
+  border-right: black solid 0px;
+  border-bottom: black solid 52px;
+  border-bottom-right-radius: 8px;
+  border-bottom-left-radius: 8px;
+  border-top-right-radius: 8px;
+  transition: 0.2s;
+}
