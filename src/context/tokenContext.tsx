@@ -3,8 +3,8 @@ import axios from 'axios';
 
 const TokenContext = createContext({});
 
-const TokenProvider = ({ children }) => {
-  const [token, setToken] = useState({});
+export const TokenProvider = ({ children }) => {
+  const [token, setToken] = useState();
 
   // useEffect(() => {
   //   const dataFetcher = async () => {
@@ -37,4 +37,7 @@ const TokenProvider = ({ children }) => {
   );
 };
 
-export { TokenContext, TokenProvider };
+export const useTokenContext = () => {
+  return useContext(TokenContext);
+};
+// export { TokenContext, TokenProvider };

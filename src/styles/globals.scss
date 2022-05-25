@@ -24,6 +24,18 @@ body {
   
 }
 
+
+th {
+  color: var(--white);
+}
+
+td {
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-b);
+  color: var(--white);
+}
+
+
 h1 {
   font-weight: var(--font-weight-xxb);
   font-size: var(--font-size-xxxl);
@@ -63,11 +75,14 @@ h6 {
 }
 
 //* font size
+.fs-xxsm {
+  font-size: var(--font-size-xxsm);
+}
 .fs-xsm {
-  font-size: var(--font-size-xsm);
+  font-size :var(--font-size-xsm);
 }
 .fs-sm {
-  font-size :var(--font-size-sm);
+  font-size: var(--font-size-sm);
 }
 .fs-md {
   font-size: var(--font-size-md);
@@ -140,7 +155,9 @@ img {
 
 .content-area {
   display: flex;
+
   flex: 1;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   transition: 0.5s;

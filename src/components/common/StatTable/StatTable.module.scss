@@ -1,0 +1,25 @@
+.grid_point_container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.item_name_container {
+  display: flex;
+  align-items: center;
+}
+
+.row_container {
+  align-items: center;
+}
+.icon_container {
+  display: flex;  
+  height: 34px;  
+  align-items: center;
+  justify-content: center;
+}
+.head_container {
+  // background-color: green;
+  align-items: center;
+  display: flex;
+  height: 50px
+}
