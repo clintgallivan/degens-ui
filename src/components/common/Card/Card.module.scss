@@ -4,5 +4,10 @@
   border-radius: 30px;
   border: var(--green-10) 3px solid;
   padding: 20px;
-  
+  display: flex;
+  flex-direction: column;
+  // justify-content: center;
+  // align-content: center;
+  text-align: center;
+  width: 100%;
 }
