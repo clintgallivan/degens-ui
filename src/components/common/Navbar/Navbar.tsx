@@ -54,7 +54,7 @@ export default function Navbar() {
 
         <br />
         <br />
-        {/* <TextComponent text="Home" icon={<BsGlobe size={24} />} /> */}
+        <TextComponent text="Home" icon={<BsGlobe size={24} />} />
         <br />
         <TextComponent text="Shitcoins" icon={<BsAward size={24} />} />
         <br />

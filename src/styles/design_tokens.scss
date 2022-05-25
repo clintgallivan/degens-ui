@@ -1,29 +1,38 @@
 :root {
-  --green: #3FE79E;
+  // --green: #3FE79E;
   --dark: #0F0235;
   --peach: #FFCCCC;
   --black: #000000;
   --dark-purple: #9038A3;
   --white: #FFFFFF;
   
+
+  --green-10: #99D1BB;
   
   --purple-10: #8f94fa;
   --purple-20: #373D9D;
-
+  --purple-30: rgba(30,35,138);
+  --purple-30-50: rgba(30,35,138, .5);
+  
 
   --space-sm: 0.5rem;
   --space-md: 1rem;
   --space-lg: 1.5rem;
 
+//* BORDER RADIUS
+  --rad-l: 30px; 
   
-  --font-size-xsm: 14px;
-  --font-size-sm: 16px;
-  --font-size-md: 20px;
-  --font-size-l: 24px;
-  --font-size-xl: 32px;
+//* FONT SIZE
+  --font-size-xxsm: 14px;
+  --font-size-xsm: 16px;
+  --font-size-sm: 20px;
+  --font-size-md: 24px;
+  --font-size-l: 32px;
+  --font-size-xl: 40px;
   --font-size-xxl: 48px;
   --font-size-xxxl: 90px;
 
+  //* FONT WEIGHT
   --font-weight-md: 500;
   --font-weight-sb: 600;
   --font-weight-b: 700;
