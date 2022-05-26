@@ -13,7 +13,7 @@ const StatTable = ({ props }) => {
   const RowHandler = () => {
     let count = 0;
     return topTokenData[selectedColumn].map((item) => {
-      if (count < 5) {
+      if (count < 100) {
         count++;
         return (
           <tr className={styles.row_container}>

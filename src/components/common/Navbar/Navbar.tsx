@@ -24,7 +24,7 @@ export default function Navbar() {
     const child = () => {
       return (
         <>
-          <div className={styles.button_container}>
+          <div className={styles.button_subcontainer}>
             {width < 1200 ? (
               <>{icon}</>
             ) : (
@@ -52,24 +52,27 @@ export default function Navbar() {
         <RetroLogo />
         {/* <LogoIcon /> */}
 
-        <br />
-        <br />
+        <div className={styles.break} />
+        <div className={styles.break} />
         <TextComponent text="Home" icon={<BsGlobe size={24} />} />
-        <br />
+        <div className={styles.break} />
         <TextComponent text="Shitcoins" icon={<BsAward size={24} />} />
-        <br />
+        <div className={styles.break} />
         <TextComponent text="Leaderboards" icon={<GrCubes size={24} />} />
-        <br />
+        <div className={styles.break} />
         <TextComponent text="Profile" icon={<BsPerson size={24} />} />
-        <br />
-        <br />
-        <br />
+        <div className={styles.break} />
+        <div className={styles.break} />
+        <div className={styles.break} />
+
         <TextComponent text="Settings" icon={<FiSettings size={24} />} />
-        <br />
+        <div className={styles.break} />
+
         <TextComponent text="Logout" icon={<BiLogOut size={24} />} />
-        <br />
-        <br />
-        <br />
+        <div className={styles.break} />
+        <div className={styles.break} />
+        <div className={styles.break} />
+
         <TextComponent text="About" icon={<RiPulseLine size={24} />} />
         <br />
         <SocialIcons />

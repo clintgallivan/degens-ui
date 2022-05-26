@@ -1,3 +1,10 @@
+.total_container {
+  // align-items: center;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 40px;
+}
+
 .container {
   margin-top: 0px;
   align-items: center;
@@ -7,3 +14,78 @@
   color: var(--white);
   text-align: center;
 }
+
+.email_container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  // background-color: blue;
+  // width: 100%;
+}
+
+
+// @media screen and (min-width: 320px) {
+//   .coin_box {
+//     // background-color: green;
+//     display: flex;
+//     align-self: flex-end;
+//     margin-left: -80px;
+//     margin-bottom: 200px;
+//     // width: 200px
+//     width: 200px;
+//     transition: .5s;
+    
+//   }
+  
+// }
+@media screen and (min-width: 768px) {
+  .coin_box {
+    // background-color: green;
+    display: flex;
+    align-self: flex-end;
+    margin-left: -80px;
+    margin-bottom: 200px;
+    // width: 200px
+    width: 200px;
+    transition: .5s;
+    
+  }
+
+  .container {
+    margin-top: 0px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: row;
+    color: var(--white);
+    text-align: center;
+  }
+  
+}
+
+@media screen and (min-width: 1024px) {
+  .coin_box {
+    background-color: transparent;
+    display: flex;
+    align-self: flex-end;
+    margin-bottom: 60px;
+    margin-left: -30px;
+    transition: .5s;
+    width: auto;
+  }
+  
+}
+
+@media screen and (min-width: 1200px) {
+  .coin_box {
+    // background-color: green;
+    display: flex;
+    align-self: flex-end;
+    margin-bottom: 20px;
+    margin-left: -10px;
+    transition: .5s;
+    width: auto;
+  }
+  
+}
+
