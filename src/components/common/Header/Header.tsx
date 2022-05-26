@@ -11,10 +11,13 @@ export default function Header() {
   return (
     <>
       <div className="header">
-        {width < 768 ? <GoThreeBars size={30} /> : <p></p>}
+        {/* {width < 1024 ? <GoThreeBars size={50} /> : <p></p>} */}
+        {/* <p /> */}
         <DegenLogo />
         {/* <h3 className={styles.logo}>Degens</h3> */}
-        <RetroButton children={<BiLogIn size={30} />} />
+
+        {/* <RetroButton children={<BiLogIn size={30} />} /> */}
+
         {/* <BiLogIn size={30} /> */}
       </div>
     </>

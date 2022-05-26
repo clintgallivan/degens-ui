@@ -4,9 +4,11 @@ import Image from 'next/image';
 
 export default function DegenLogo() {
   return (
-    <div className={styles.container}>
-      <Image src={LogoIcon} />
-      {/* // </div> */}
+    <div className={styles.total_container}>
+      <div className={styles.container}>
+        <Image src={LogoIcon} />
+        {/* // </div> */}
+      </div>
     </div>
   );
 }

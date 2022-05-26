@@ -20,6 +20,7 @@ export default function IntroSection() {
         );
     };
     if (validateEmail() != null) {
+      // postToDB()
       console.log('true');
     } else {
       setEmailAlert(true);

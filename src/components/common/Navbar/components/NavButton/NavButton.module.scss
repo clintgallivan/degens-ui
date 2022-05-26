@@ -1,0 +1,13 @@
+.button_subcontainer {
+  flex-direction: 'row';
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+.button_text {
+  display: flex;
+  // background-color: blue;
+  margin-left: 5px;
+  font-weight: var(--font-weight-md)
+}
