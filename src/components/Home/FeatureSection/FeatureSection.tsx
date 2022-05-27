@@ -1,6 +1,6 @@
-import IntroSection from '../components/IntroSection';
-import Card from '../../common/Card';
-import StatTable from '../../common/StatTable';
+import IntroSection from '@components/home/components/IntroSection';
+import Card from '@components/common/Card';
+import StatTable from '@components/common/StatTable';
 
 export default function FeatureSection({ props }) {
   return (

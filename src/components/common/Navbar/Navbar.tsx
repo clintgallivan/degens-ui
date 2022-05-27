@@ -1,28 +1,24 @@
 import { useEffect, useState } from 'react';
-import useWindowSize from '../../../hooks/useWindowSize';
-import RetroButton from '../RetroButton';
-import RetroLogo from '../RetroLogo';
-import styles from './Navbar.module.scss';
+import { Button } from 'react-bootstrap';
 import {
   BsGlobe,
   BsAward,
   BsPerson,
   BsTwitter,
   BsTelegram,
-  BsList,
 } from 'react-icons/bs';
 import { FaDiscord } from 'react-icons/fa';
-
 import { GrCubes } from 'react-icons/gr';
 import { FiSettings } from 'react-icons/fi';
 import { BiLogOut } from 'react-icons/bi';
 import { RiPulseLine } from 'react-icons/ri';
 import { IoClose } from 'react-icons/io5';
-import LogoIcon from '../../../../public/LogoIcon.svg';
-import { Button } from 'react-bootstrap';
 import { GoThreeBars } from 'react-icons/go';
-import NavButton from './components/NavButton/NavButton';
-import { useLayoutContext } from '../../../context/layoutContext';
+
+import { useLayoutContext } from '@context/layoutContext';
+import useWindowSize from '@hooks/useWindowSize';
+import NavButton from './components/NavButton';
+import styles from './Navbar.module.scss';
 
 export default function Navbar() {
   const { width = 1024 } = useWindowSize();

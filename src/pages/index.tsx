@@ -1,13 +1,13 @@
 import type { NextPage, GetServerSideProps } from 'next';
-import { useTokenContext } from '../context/tokenContext';
 import Head from 'next/head';
 import Image from 'next/image';
-import clientPromise from '../utils/mongodb';
+import clientPromise from '@utils/mongodb';
+import { useTokenContext } from '@context/tokenContext';
+import { useLayoutContext } from '@context/layoutContext';
 
-import Navbar from '../components/common/Navbar';
-import Header from '../components/common/Header';
-import FeatureSection from '../components/Home/FeatureSection';
-import { useLayoutContext } from '../context/layoutContext';
+import Navbar from '@components/common/Navbar';
+import Header from '@components/common/Header';
+import FeatureSection from '@components/home/FeatureSection';
 
 const Home: NextPage = (props) => {
   const { navIsExpanded, setNavIsExpanded } = useLayoutContext();
