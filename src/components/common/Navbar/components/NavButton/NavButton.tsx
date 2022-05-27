@@ -1,4 +1,6 @@
-import RetroButton from '../../../RetroButton';
+import React from 'react';
+import Link from 'next/link';
+import RetroButton from '@components/common/RetroButton';
 import styles from './NavButton.module.scss';
 
 export default function NavButton({ text, icon, isExpanded }) {
@@ -19,5 +21,11 @@ export default function NavButton({ text, icon, isExpanded }) {
     );
   };
 
-  return <RetroButton children={child()} variant="white" />;
+  return (
+    <Link href="/token-leaderboards">
+      <a>
+        <RetroButton children={child()} variant="white" />
+      </a>
+    </Link>
+  );
 }

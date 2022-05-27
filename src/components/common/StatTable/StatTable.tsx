@@ -1,8 +1,9 @@
 import { useState } from 'react';
-import { Table } from 'react-bootstrap';
-import RetroButton from '../RetroButton';
 import Image from 'next/image';
+import { Table } from 'react-bootstrap';
 import { BsAward } from 'react-icons/bs';
+
+import RetroButton from '@components/common/RetroButton';
 import styles from './StatTable.module.scss';
 
 const StatTable = ({ props }) => {
@@ -12,11 +13,11 @@ const StatTable = ({ props }) => {
 
   const RowHandler = () => {
     let count = 0;
-    return topTokenData[selectedColumn].map((item) => {
+    return topTokenData[selectedColumn].map((item: any) => {
       if (count < 100) {
         count++;
         return (
-          <tr className={styles.row_container}>
+          <tr key={item.name} className={styles.row_container}>
             <td>
               <div className={styles.icon_container}>
                 <img src={item.image} height={24} width={24} />
