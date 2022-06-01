@@ -23,9 +23,9 @@ export default function NavButton({ text, icon, isExpanded }) {
 
   return (
     <Link href="/token-leaderboards">
-      <a>
-        <RetroButton children={child()} variant="white" />
-      </a>
+      {/* <a className={styles.a_tag}> */}
+      <RetroButton children={child()} variant="white" />
+      {/* </a> */}
     </Link>
   );
 }

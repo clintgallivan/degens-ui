@@ -11,3 +11,10 @@
   margin-left: 5px;
   font-weight: var(--font-weight-md)
 }
+
+.a_tag, .a_tag:link, .a_tag:hover{
+  text-decoration: none;
+  // background-color: blue;
+  // display: flex;
+  // justify-content: stretch;
+}

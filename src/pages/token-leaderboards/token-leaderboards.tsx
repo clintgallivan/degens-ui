@@ -4,7 +4,7 @@ import { useLayoutContext } from '@context/layoutContext';
 
 import Navbar from '@components/common/Navbar';
 import Header from '@components/common/Header';
-import FeatureSection from '@components/home/FeatureSection';
+import TopTokenSection from '@components/token-leaderboards/TokenList';
 
 const TokenLeaderboards: NextPage = (props) => {
   const { navIsExpanded, setNavIsExpanded } = useLayoutContext();
@@ -17,8 +17,7 @@ const TokenLeaderboards: NextPage = (props) => {
           onClick={() => (navIsExpanded ? setNavIsExpanded(false) : null)}
         >
           <Header />
-
-          {/* <FeatureSection props={props} /> */}
+          <TopTokenSection props={props} />
         </div>
       </div>
     </>
