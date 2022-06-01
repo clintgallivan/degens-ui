@@ -61,6 +61,9 @@ h5 {
 h6 {
   font-size: var(--font-size-xsm);
 }
+.link-a-tag, .link-a-tag:link, .link-a-tag:hover {
+text-decoration: none;
+}
 
 //*font weight
 .fw-md {

@@ -1,17 +1,19 @@
+import axios from 'axios';
 import { useState } from 'react';
-import Alert from '../../../common/Alert';
 
-import RetroButton from '../../../common/RetroButton';
-import SpinningCoin from '../../../common/SpinningCoin';
-import EmailForm from '../EmailForm';
-import EmailFormButton from '../EmailFormButton';
+import Alert from '@components/common/Alert';
+import RetroButton from '@components/common/RetroButton';
+import SpinningCoin from '@components/common/SpinningCoin';
+import EmailForm from '@components/home/components/EmailForm';
+import EmailFormButton from '@components/home/components/EmailFormButton';
 import styles from './IntroSection.module.scss';
 
 export default function IntroSection() {
   const [email, setEmail] = useState('');
   const [emailAlert, setEmailAlert] = useState(false);
+  const [emailSuccessAlert, setEmailSuccessAlert] = useState(false);
 
-  const handleEmailSubmit = () => {
+  const handleEmailSubmit = async () => {
     const validateEmail = () => {
       return String(email)
         .toLowerCase()
@@ -20,11 +22,22 @@ export default function IntroSection() {
         );
     };
     if (validateEmail() != null) {
-      // postToDB()
-      console.log('true');
+      try {
+        const res = await axios.post(
+          '/api/email',
+          { email },
+          {
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          }
+        );
+        res.status === 201 ? setEmailSuccessAlert(true) : null;
+      } catch (e) {
+        setEmailAlert(true);
+      }
     } else {
       setEmailAlert(true);
-      console.log('false');
     }
   };
 
@@ -36,6 +49,13 @@ export default function IntroSection() {
         text={'Please Enter a valid email address.'}
         show={emailAlert}
         setShow={() => setEmailAlert(false)}
+      />
+      <Alert
+        variant="success"
+        header={'Email was submitted!'}
+        // text={''}
+        show={emailSuccessAlert}
+        setShow={() => setEmailSuccessAlert(false)}
       />
       <div className={styles.total_container}>
         <div className={styles.container}>
