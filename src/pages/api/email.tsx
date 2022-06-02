@@ -23,12 +23,10 @@ export default async function handler(
       .find({ email: payload['email'] })
       .toArray();
     if (existingDocument.length != 0) {
-      console.log('exists');
       res
         .status(409)
         .json({ message: 'Token already exists', body: existingDocument });
     } else {
-      console.log('dnexists');
       let doc = await db
         .collection('emails')
         .insertOne({ email: payload['email'], timestamp });

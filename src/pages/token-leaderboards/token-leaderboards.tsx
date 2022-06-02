@@ -4,7 +4,7 @@ import { useLayoutContext } from '@context/layoutContext';
 
 import Navbar from '@components/common/Navbar';
 import Header from '@components/common/Header';
-import TopTokenSection from '@components/token-leaderboards/TokenList';
+import TopTokenSection from '@components/token-leaderboards/TopTokenSection';
 
 const TokenLeaderboards: NextPage = (props) => {
   const { navIsExpanded, setNavIsExpanded } = useLayoutContext();

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { Table } from 'react-bootstrap';
 import { BsAward } from 'react-icons/bs';
 import { ImArrowDown2 } from 'react-icons/im';
@@ -16,77 +17,70 @@ const StatTable = ({ props }) => {
     const unselectedColor = 'var(--white)';
     const selectedColor = 'var(--orange-20)';
 
-    let count = 0;
-    return topTokenData[selectedColumn].map((item: any) => {
-      if (count < 10) {
-        count++;
-        return (
-          <tr key={item.name} className={styles.row_container}>
-            <td>
-              <div className={styles.icon_container}>
-                <img src={item.image} height={24} width={24} />
-              </div>
-            </td>
-            <td>
-              <div className={styles.item_name_container}>
-                <a
-                  className={styles.a_tag}
-                  href={`/tokens/${item.coingecko_id}`}
-                >
-                  {item.name}
-                </a>
-              </div>
-            </td>
-            {/* <StatColumns item={item} /> */}
-            <td>
-              <div
-                className={
-                  selectedColumn == 'by_degen_score'
-                    ? styles.grid_point_container && styles.selected_text
-                    : styles.grid_point_container
-                }
+    return topTokenData[selectedColumn].slice(0, 10).map((item: any) => {
+      return (
+        <tr key={item.name} className={styles.row_container}>
+          <td>
+            <div className={styles.icon_container}>
+              <img src={item.image} height={24} width={24} />
+            </div>
+          </td>
+          <td>
+            <div className={styles.item_name_container}>
+              <Link
+                className={styles.a_tag}
+                href={`/tokens/${item.coingecko_id}`}
               >
-                {item.coingecko_score_rank}
-              </div>
-            </td>
-            <td>
-              <div
-                className={
-                  selectedColumn == 'by_developer_score'
-                    ? styles.grid_point_container && styles.selected_text
-                    : styles.grid_point_container
-                }
-              >
-                {item.dev_score_rank}
-              </div>
-            </td>
-            <td>
-              <div
-                className={
-                  selectedColumn == 'by_community_score'
-                    ? styles.grid_point_container && styles.selected_text
-                    : styles.grid_point_container
-                }
-              >
-                {item.community_score_rank}
-              </div>
-            </td>
-            <td>
-              <div
-                className={
-                  selectedColumn == 'by_liquidity_score'
-                    ? styles.grid_point_container && styles.selected_text
-                    : styles.grid_point_container
-                }
-              >
-                {item.liquidity_score_rank}
-              </div>
-            </td>
-          </tr>
-        );
-      } else {
-        return <></>;
-      }
+                <a className={styles.a_tag}>{item.name}</a>
+              </Link>
+            </div>
+          </td>
+          <td>
+            <div
+              className={
+                selectedColumn == 'by_degen_score'
+                  ? styles.grid_point_container && styles.selected_text
+                  : styles.grid_point_container
+              }
+            >
+              {item.coingecko_score_rank}
+            </div>
+          </td>
+          <td>
+            <div
+              className={
+                selectedColumn == 'by_developer_score'
+                  ? styles.grid_point_container && styles.selected_text
+                  : styles.grid_point_container
+              }
+            >
+              {item.dev_score_rank}
+            </div>
+          </td>
+          <td>
+            <div
+              className={
+                selectedColumn == 'by_community_score'
+                  ? styles.grid_point_container && styles.selected_text
+                  : styles.grid_point_container
+              }
+            >
+              {item.community_score_rank}
+            </div>
+          </td>
+          <td>
+            <div
+              className={
+                selectedColumn == 'by_liquidity_score'
+                  ? styles.grid_point_container && styles.selected_text
+                  : styles.grid_point_container
+              }
+            >
+              {item.liquidity_score_rank}
+            </div>
+          </td>
+        </tr>
+      );
     });
   };
   return (
