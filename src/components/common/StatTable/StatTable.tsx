@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Image from 'next/image';
 import { Table } from 'react-bootstrap';
 import { BsAward } from 'react-icons/bs';
+import { ImArrowDown2 } from 'react-icons/im';
 
 import RetroButton from '@components/common/RetroButton';
 import styles from './StatTable.module.scss';
@@ -12,9 +13,12 @@ const StatTable = ({ props }) => {
   const topTokenData = props.topTokenSnapshot[0];
 
   const RowHandler = () => {
+    const unselectedColor = 'var(--white)';
+    const selectedColor = 'var(--orange-20)';
+
     let count = 0;
     return topTokenData[selectedColumn].map((item: any) => {
-      if (count < 100) {
+      if (count < 10) {
         count++;
         return (
           <tr key={item.name} className={styles.row_container}>
@@ -24,25 +28,57 @@ const StatTable = ({ props }) => {
               </div>
             </td>
             <td>
-              <div className={styles.item_name_container}>{item.name}</div>
+              <div className={styles.item_name_container}>
+                <a
+                  className={styles.a_tag}
+                  href={`/tokens/${item.coingecko_id}`}
+                >
+                  {item.name}
+                </a>
+              </div>
             </td>
+            {/* <StatColumns item={item} /> */}
             <td>
-              <div className={styles.grid_point_container}>
+              <div
+                className={
+                  selectedColumn == 'by_degen_score'
+                    ? styles.grid_point_container && styles.selected_text
+                    : styles.grid_point_container
+                }
+              >
                 {item.coingecko_score_rank}
               </div>
             </td>
             <td>
-              <div className={styles.grid_point_container}>
+              <div
+                className={
+                  selectedColumn == 'by_developer_score'
+                    ? styles.grid_point_container && styles.selected_text
+                    : styles.grid_point_container
+                }
+              >
                 {item.dev_score_rank}
               </div>
             </td>
             <td>
-              <div className={styles.grid_point_container}>
+              <div
+                className={
+                  selectedColumn == 'by_community_score'
+                    ? styles.grid_point_container && styles.selected_text
+                    : styles.grid_point_container
+                }
+              >
                 {item.community_score_rank}
               </div>
             </td>
             <td>
-              <div className={styles.grid_point_container}>
+              <div
+                className={
+                  selectedColumn == 'by_liquidity_score'
+                    ? styles.grid_point_container && styles.selected_text
+                    : styles.grid_point_container
+                }
+              >
                 {item.liquidity_score_rank}
               </div>
             </td>
@@ -71,7 +107,14 @@ const StatTable = ({ props }) => {
               <div className={styles.grid_point_container}>
                 <RetroButton
                   onClick={() => setSelectedColumn('by_degen_score')}
-                  children={<div className="fs-xsm fw-sb">Degen</div>}
+                  children={
+                    <>
+                      <div className="fs-xsm fw-sb">Degen</div>
+                      {selectedColumn == 'by_degen_score' ? (
+                        <ImArrowDown2 className={styles.arrow_icon} />
+                      ) : null}
+                    </>
+                  }
                 />
               </div>
             </th>
@@ -79,7 +122,14 @@ const StatTable = ({ props }) => {
               <div className={styles.grid_point_container}>
                 <RetroButton
                   onClick={() => setSelectedColumn('by_developer_score')}
-                  children={<div className="fs-xsm fw-sb">Developer</div>}
+                  children={
+                    <>
+                      <div className="fs-xsm fw-sb">Developer</div>
+                      {selectedColumn == 'by_developer_score' ? (
+                        <ImArrowDown2 className={styles.arrow_icon} />
+                      ) : null}
+                    </>
+                  }
                 />
               </div>
             </th>
@@ -87,7 +137,14 @@ const StatTable = ({ props }) => {
               <div className={styles.grid_point_container}>
                 <RetroButton
                   onClick={() => setSelectedColumn('by_community_score')}
-                  children={<div className="fs-xsm fw-sb">Community</div>}
+                  children={
+                    <>
+                      <div className="fs-xsm fw-sb">Community</div>
+                      {selectedColumn == 'by_community_score' ? (
+                        <ImArrowDown2 className={styles.arrow_icon} />
+                      ) : null}
+                    </>
+                  }
                 />
               </div>
             </th>
@@ -95,7 +152,14 @@ const StatTable = ({ props }) => {
               <div className={styles.grid_point_container}>
                 <RetroButton
                   onClick={() => setSelectedColumn('by_liquidity_score')}
-                  children={<div className="fs-xsm fw-sb">Liquidity</div>}
+                  children={
+                    <>
+                      <div className="fs-xsm fw-sb">Liquidity</div>
+                      {selectedColumn == 'by_liquidity_score' ? (
+                        <ImArrowDown2 className={styles.arrow_icon} />
+                      ) : null}
+                    </>
+                  }
                 />
               </div>
             </th>

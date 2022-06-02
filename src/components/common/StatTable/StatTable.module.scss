@@ -29,9 +29,20 @@
   align-items: center;
   justify-content: center;
 }
+.selected_text {
+  text-shadow: 2px 2px 2px black;
+  
+  color: var(--green-10)
+  
+}
 .item_name_container {
   display: flex;
   align-items: center;
+  padding-right: 0px;
+  width: 150px;
+}
+.item_name_container:active {
+  color: blue;
 }
 
 .row_container {
@@ -42,14 +53,28 @@
   height: 34px;  
   align-items: center;
   justify-content: center;
+  width:30px;
 }
 .head_container {
-  // background-color: green;
   align-items: center;
   display: flex;
   height: 50px
 }
 .head {
-  color: white;
+  color: var(--white);
+}
+
+.a_tag, .a_tag:link {
+  text-decoration: none;
+  text-align: left;
+  outline: none;
+  color: var(--white)
+}
+.a_tag:hover {
+  text-decoration: underline;
+}
+
+.arrow_icon {
+  margin-left: 5px;
 }
 
