@@ -1,9 +1,9 @@
 :root {
   // --green: #3FE79E;
-  --dark: #0F0235;
-  --peach: #FFCCCC;
+  // --dark: #0F0235;
+  // --peach: #FFCCCC;
   --black: #000000;
-  --dark-purple: #9038A3;
+  // --dark-purple: #9038A3;
   --white: #FFFFFF;
   --white-25: rgba(255, 255, 255, 0.25);
 
@@ -24,6 +24,13 @@
   --space-md: 1rem;
   --space-lg: 1.5rem;
 
+
+  --twitter-blue:#1DA1F2;
+  --discord-purple: #481CC4;
+  --telegram-blue: #0088CC;
+  --reddit-red: #FF5700;
+  
+
 //* BORDER RADIUS
   --rad-l: 30px; 
   
@@ -35,7 +42,8 @@
   --font-size-l: 32px;
   --font-size-xl: 40px;
   --font-size-xxl: 48px;
-  --font-size-xxxl: 90px;
+  --font-size-xxxl: 64px;
+  --font-size-xxxxl: 90px;
 
   //* FONT WEIGHT
   --font-weight-md: 500;

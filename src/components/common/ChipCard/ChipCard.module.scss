@@ -1,0 +1,31 @@
+.container {
+  display: flex;
+  color: var(--white);
+  background-color: var(--purple-30);
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-radius: 15px;
+}
+
+.container_button {
+  flex: 1;
+  color: var(--white); 
+  text-decoration: none;
+  outline:none;
+  display: flex;
+  background-color: var(--purple-30);
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-radius: 15px;
+}
+
+.container_button:hover {
+  color: var(--white); 
+  background-color: var(--purple-10);
+  text-decoration: none;
+  outline:none;
+} 

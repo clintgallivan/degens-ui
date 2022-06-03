@@ -1,5 +1,5 @@
 import styles from './RetroLogo.module.scss';
-import LogoIcon from '../../../../public/LogoIcon.svg';
+import LogoIcon from '@public/LogoIcon.svg';
 import Image from 'next/image';
 
 export default function RetroLogo() {

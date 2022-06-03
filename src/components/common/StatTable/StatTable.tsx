@@ -22,7 +22,12 @@ const StatTable = ({ props }) => {
         <tr key={item.name} className={styles.row_container}>
           <td>
             <div className={styles.icon_container}>
-              <img src={item.image} height={24} width={24} />
+              <Image
+                loader={() => item.image}
+                src={item.image}
+                height={24}
+                width={24}
+              />
             </div>
           </td>
           <td>
