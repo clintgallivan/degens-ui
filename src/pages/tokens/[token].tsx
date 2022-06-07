@@ -7,11 +7,12 @@ import clientPromise from '@utils/mongodb';
 
 import Navbar from '@components/common/Navbar';
 import Header from '@components/common/Header';
+import TokenSection from '@components/tokens/TokenSection';
 
 const Token: NextPage = (props) => {
   const router = useRouter();
   const { token } = router.query;
-  console.log(props);
+  // console.log(props);
 
   const { navIsExpanded, setNavIsExpanded } = useLayoutContext();
   return (
@@ -23,7 +24,7 @@ const Token: NextPage = (props) => {
           onClick={() => (navIsExpanded ? setNavIsExpanded(false) : null)}
         >
           <Header />
-          {/* <TokenSection props={props} /> */}
+          <TokenSection props={props} />
         </div>
       </div>
     </>
