@@ -1,6 +1,7 @@
 import Card from '@components/common/Card';
 import TokenGeneral from '@components/tokens/components/TokenGeneral';
 import TokenRanks from '@components/tokens/components/TokenRanks';
+import TokenChart from '../components/TokenCharts';
 
 export default function TokenSection({ props }) {
   return (
@@ -8,7 +9,7 @@ export default function TokenSection({ props }) {
       <div className="content-area">
         <TokenGeneral props={props} />
         <TokenRanks props={props} />
-        <Card></Card>
+        <TokenChart props={props} />
       </div>
     </>
   );

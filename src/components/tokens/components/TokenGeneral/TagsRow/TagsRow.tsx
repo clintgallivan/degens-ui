@@ -8,8 +8,8 @@ export default function TagsRow({ props }) {
   const Tags = () => {
     return tags.map((item) => {
       return item ? (
-        <div className={styles.tag_container}>
-          <ChipCard key={item} children={`#${item}`} button />
+        <div key={item} className={styles.tag_container}>
+          <ChipCard children={`#${item}`} button />
         </div>
       ) : null;
     });

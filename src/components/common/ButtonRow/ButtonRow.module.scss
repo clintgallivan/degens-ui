@@ -1,0 +1,29 @@
+.button {
+  background-color: transparent;
+
+  border: 0px;
+  border-radius: 4px;
+  color: var(--white);
+  font-weight: var(--font-weight-sb);
+  font-size: var(--font-size-sm)
+}
+
+.button_selected {
+  background-color: transparent;
+  text-decoration-line: underline;
+  text-underline-offset: 8px;
+  text-decoration-color: var(--orange-20);
+  text-decoration-thickness: 4px;
+  border: 0px;
+  border-radius: 4px;
+  color: var(--white);
+  font-weight: var(--font-weight-xb);
+  font-size: var(--font-size-sm)
+}
+.button:hover {
+  background-color: var(--purple-30);
+  border: 0px;
+  border-radius: 4px;
+  color: var(--white);
+  font-size: var(--font-size-sm)
+}
