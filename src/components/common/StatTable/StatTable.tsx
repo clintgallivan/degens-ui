@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import Image from 'next/image';
+import Image, { ImageLoaderProps } from 'next/image';
 import Link from 'next/link';
 import { Table } from 'react-bootstrap';
 import { BsAward } from 'react-icons/bs';
@@ -13,6 +13,10 @@ const StatTable = ({ props }) => {
   const [isLoading, setIsLoading] = useState(true);
   const topTokenData = props.topTokenSnapshot[0];
 
+  const imageLoader = ({ src, width, quality }: ImageLoaderProps) => {
+    return `${src}?w=${width}&q=${quality || 75}`;
+  };
+
   const RowHandler = () => {
     const unselectedColor = 'var(--white)';
     const selectedColor = 'var(--orange-20)';
@@ -23,7 +27,7 @@ const StatTable = ({ props }) => {
           <td>
             <div className={styles.icon_container}>
               <Image
-                loader={() => item.image}
+                loader={imageLoader}
                 src={item.image}
                 height={24}
                 width={24}

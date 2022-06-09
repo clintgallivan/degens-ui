@@ -2,12 +2,26 @@ import { DropdownButton, Dropdown as Dd } from 'react-bootstrap';
 
 import styles from './Dropdown.module.scss';
 
-export default function Dropdown({ children, onClick, selectedChild }) {
-  console.log(children);
+type DropdownPropTypes = {
+  children: any;
+  onClick: (item: any) => void;
+  selectedChild: any;
+};
+
+type ItemPropTypes = {
+  text: string;
+};
+
+export default function Dropdown({
+  children,
+  onClick,
+  selectedChild,
+}: DropdownPropTypes) {
   const MenuItems = () => {
-    return children.map((item) => {
+    return children.map((item: ItemPropTypes) => {
       return (
         <Dd.Item
+          key={item.text}
           className={styles.item}
           href="#/action-1"
           onClick={() => onClick(item)}
@@ -28,12 +42,7 @@ export default function Dropdown({ children, onClick, selectedChild }) {
         {selectedChild || 'Twitter Followers'}
       </Dd.Toggle>
 
-      <Dd.Menu className={styles.menu}>
-        {MenuItems()}
-        {/* <Dd.Item href="#/action-1">Action</Dd.Item>
-        <Dd.Item href="#/action-2">Another action</Dd.Item>
-        <Dd.Item href="#/action-3">Something else</Dd.Item> */}
-      </Dd.Menu>
+      <Dd.Menu className={styles.menu}>{MenuItems()}</Dd.Menu>
     </Dd>
   );
 }

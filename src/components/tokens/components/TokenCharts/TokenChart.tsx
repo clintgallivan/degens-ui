@@ -50,24 +50,102 @@ const initialState = {
 // export default class Example extends PureComponent {
 export default function TokenChart({ props }) {
   const [state, setState] = useState(initialState);
-  // const [dropdown, setDropdown] = useState('Community');
-  const [dropdownText, setDropdownText] = useState('Twitter Followers');
-
   const [group, setGroup] = useState('Community');
+  const [communityDropdownText, setCommunityDropdownText] =
+    useState('Twitter Followers');
+  const [developerDropdownText, setDeveloperDropdownText] =
+    useState('Github Forks');
+  const [generalDropdownText, setGeneralDropdownText] = useState('Degen Rank');
 
-  const datas = [
-    { timestamp: '2022-06-03T15:30:00.521Z', time: '2022-06-03', price: 16.88 },
-    { timestamp: '2022-06-04T16:30:00.521Z', time: '2022-06-04', price: 18.88 },
-    { timestamp: '2022-06-05T14:30:00.521Z', time: '2022-06-05', price: 17.88 },
-  ];
-  // const dataTransformer = () => {
-  //   const output = [];
-  //   props.tokenTimeseries[0].historical.forEach((item) => {
-  //     const obj = {name: item.timestamp,  }
-  //     output.push(obj)
-  //   });
-  // };
-  // dataTransformer();
+  // console.log(props.tokenTimeseries[0].historical);
+  var arr = props.tokenTimeseries[0].historical;
+  var arr = arr.slice().sort((a, b) => {
+    var keyA = new Date(a.timestamp),
+      keyB = new Date(b.timestamp);
+    // Compare the 2 dates
+    if (keyA < keyB) return -1;
+    if (keyA > keyB) return 1;
+    return 0;
+  });
+
+  let key = '';
+  switch (group) {
+    case 'Community':
+      switch (communityDropdownText) {
+        case 'Twitter Followers':
+          key = 'community_data.twitter_followers';
+          break;
+        case 'Reddit Subscribers':
+          key = 'community_data.reddit_subscribers';
+          break;
+        case 'Telegram Channel Members':
+          key = 'community_data.telegram_channel_user_count';
+          break;
+        case '48hr average Reddit posts':
+          key = 'community_data.reddit_average_posts_48h';
+          break;
+        case '48hr average Reddit comments':
+          key = 'community_data.reddit_average_comments_48h';
+          break;
+        case '48hr active Reddit accounts':
+          key = 'community_data.reddit_accounts_active_48h';
+          break;
+        default:
+          key = 'community_data.twitter_followers';
+      }
+      break;
+    case 'Developer':
+      switch (developerDropdownText) {
+        case 'Github Forks':
+          key = 'developer_data.forks';
+          break;
+        case 'Github Stars':
+          key = 'developer_data.stars';
+          break;
+        case 'Github Subscribers':
+          key = 'developer_data.subscribers';
+          break;
+        case 'Github Total Issues':
+          key = 'developer_data.total_issues';
+          break;
+        case 'Github Closed Issues':
+          key = 'developer_data.closed_issues';
+          break;
+        case 'Github Contributors':
+          key = 'developer_data.pull_request_contributors';
+          break;
+        default:
+          key = 'developer_data.forks';
+      }
+      break;
+    case 'General':
+      switch (generalDropdownText) {
+        case 'Price':
+          key = 'price';
+          break;
+        case 'Market Cap':
+          key = 'market_cap';
+          break;
+        case 'Market Cap Rank':
+          key = 'market_cap_rank';
+          break;
+        case 'Degen Rank':
+          key = 'degen_rank';
+          break;
+        case 'Developer Rank':
+          key = 'dev_rank';
+          break;
+        case 'Community Rank':
+          key = 'community_rank';
+          break;
+        case 'Liquidity Rank':
+          key = 'liquidity_rank';
+          break;
+        default:
+          key = 'developer_data.forks';
+      }
+  }
+
   const zoom = () => {
     let { refAreaLeft, refAreaRight } = state;
     const { data } = state;
@@ -137,7 +215,15 @@ export default function TokenChart({ props }) {
             ]}
           />
           <Dropdown
-            selectedChild={dropdownText}
+            selectedChild={
+              group === 'Community'
+                ? communityDropdownText
+                : group === 'Developer'
+                ? developerDropdownText
+                : group === 'General'
+                ? generalDropdownText
+                : null
+            }
             children={
               group === 'Community'
                 ? [
@@ -158,11 +244,25 @@ export default function TokenChart({ props }) {
                     { text: 'Github Contributors' },
                   ]
                 : group === 'General'
-                ? [{ text: 'Degen Rank' }, { text: 'Community Rank' }]
+                ? [
+                    { text: 'Price' },
+                    { text: 'Market Cap' },
+                    { text: 'Market Cap Rank' },
+                    { text: 'Degen Rank' },
+                    { text: 'Developer Rank' },
+                    { text: 'Community Rank' },
+                    { text: 'Liquidity Rank' },
+                  ]
                 : null
             }
             onClick={(item) => {
-              setDropdownText(item.text);
+              group === 'Community'
+                ? setCommunityDropdownText(item.text)
+                : group === 'Developer'
+                ? setDeveloperDropdownText(item.text)
+                : group === 'General'
+                ? setGeneralDropdownText(item.text)
+                : null;
             }}
           />
           {/* <button type="button" className="btn update" onClick={zoomOut}>
@@ -175,7 +275,8 @@ export default function TokenChart({ props }) {
             width={800}
             height={400}
             // data={state.data}
-            data={props.tokenTimeseries[0].historical}
+            // data={props.tokenTimeseries[0].historical}
+            data={arr}
             // data={datas}
             onMouseDown={(e) =>
               setState({ ...state, refAreaLeft: e.activeLabel })
@@ -188,6 +289,7 @@ export default function TokenChart({ props }) {
           >
             <CartesianGrid
               // strokeDasharray="3 3"
+              vertical={false}
               stroke="white"
             />
             {/* <XAxis
@@ -205,7 +307,8 @@ export default function TokenChart({ props }) {
               domain={['auto', 'auto']}
               // domain={[state.left, state.right]}
               name="Time"
-              tickFormatter={(unixTime) => moment(unixTime).format('DD-MM-YY')}
+              tickFormatter={(unixTime) => moment(unixTime).format('l')}
+              // tickFormatter={(unixTime) => moment(unixTime).format('DD')}
               type="category"
               stroke="white"
             />
@@ -237,18 +340,18 @@ export default function TokenChart({ props }) {
               dot={<></>}
               yAxisId="1"
               type="natural"
-              dataKey="price"
+              dataKey={key}
               // dataKey="developer_data.forks"
               stroke="red"
               strokeWidth={2}
-              animationDuration={300}
+              animationDuration={1000}
             />
-            <Area
+            {/* <Area
               type="monotone"
               dataKey="price"
               stroke="#8884d8"
               fill="#8884d8"
-            />
+            /> */}
             {/* <Area
               // type="monotone"
               dataKey="price"
