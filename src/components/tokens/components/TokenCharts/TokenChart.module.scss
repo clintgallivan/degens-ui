@@ -5,3 +5,24 @@
   justify-content: space-between;
 
 }
+.tooltip_container {
+  box-shadow: 50px;
+  filter: drop-shadow(2px 2px 2px var(--black-50));
+  border-radius: 30px;
+  // text-shadow: 20px;
+}
+
+.tooltip_value_row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.tooltip_val {
+  margin-right: 5px;
+  font-size: var(--font-size-sm);
+  text-decoration: underline;
+  text-decoration-color: var(--orange-20);
+  text-decoration-thickness: 3px;
+  text-underline-offset: 3px;
+}

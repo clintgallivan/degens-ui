@@ -57,7 +57,37 @@ export default function TokenChart({ props }) {
     return 0;
   });
 
-  const CustomToolTip = () => {};
+  const CustomTooltip = ({ active, payload, label }) => {
+    function numberWithCommasDecimal(x) {
+      return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',');
+    }
+    console.log(payload);
+    if (active && payload && payload.length) {
+      const day = moment(payload[0]['payload']['timestamp']).format('dddd');
+      const date = moment(payload[0]['payload']['timestamp']).format('LL');
+      const val = payload[0]['value'];
+      const dataKey = payload[0]['name'];
+      const phrase = dataKey
+        .slice(dataKey.indexOf('.') + 1, dataKey.length)
+        .replaceAll('_', ' ');
+      return (
+        <div className={styles.tooltip_container}>
+          <Card>
+            <div className={styles.tooltip_value_row}>
+              <div className={styles.tooltip_val}>
+                {numberWithCommasDecimal(val)}
+              </div>
+              <div>{phrase}</div>
+            </div>
+            <div>
+              {day} {date}
+            </div>
+          </Card>
+        </div>
+      );
+    }
+    return null;
+  };
 
   return (
     <Card>
@@ -148,6 +178,9 @@ export default function TokenChart({ props }) {
               stroke="white"
             />
             <Tooltip
+              content={<CustomTooltip />}
+              position={{ y: 0 }}
+              active={true}
               cursor={{
                 strokeWidth: 5,
                 stroke: 'var(--green-10)',
