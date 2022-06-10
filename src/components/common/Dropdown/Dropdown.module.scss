@@ -1,0 +1,29 @@
+.toggle {
+  background-color: transparent;
+  color: var(--white);
+  font-weight: var(--font-weight-xb);
+  font-size: var(--font-size-sm);
+}
+.toggle:hover {
+  background-color: var(--purple-30);
+  color: var(--white);
+  font-weight: var(--font-weight-xb);
+  font-size: var(--font-size-sm);
+}
+
+.menu {
+  background-color: var(--purple-20);
+  
+}
+
+.item {
+  color: var(--white);
+  text-decoration: none;
+}
+
+.item:hover, .item:active {
+  color: var(--white);
+  background-color: var(--purple-30);
+  text-decoration: none;
+  outline: none;
+}

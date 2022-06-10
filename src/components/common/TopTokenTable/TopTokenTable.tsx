@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import Image from 'next/image';
+import Image, { ImageLoaderProps } from 'next/image';
 import { Table } from 'react-bootstrap';
 import { BsAward } from 'react-icons/bs';
 
@@ -11,6 +11,10 @@ const TopTokenTable = ({ props }) => {
   const [isLoading, setIsLoading] = useState(true);
   const topTokenData = props.topTokenSnapshot[0];
 
+  const imageLoader = ({ src, width, quality }: ImageLoaderProps) => {
+    return `${src}?w=${width}&q=${quality || 75}`;
+  };
+
   const RowHandler = () => {
     let count = 0;
     return topTokenData[selectedColumn].map((item: any) => {
@@ -21,7 +25,7 @@ const TopTokenTable = ({ props }) => {
             <td>
               <div className={styles.icon_container}>
                 <Image
-                  loader={() => item.image}
+                  loader={imageLoader}
                   src={item.image}
                   height={24}
                   width={24}
