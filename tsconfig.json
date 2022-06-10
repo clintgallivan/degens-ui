@@ -20,9 +20,6 @@
     "incremental": true,
     "baseUrl": "./",
     "paths": {
-      "@/*": [
-        "./*"
-      ],
       "@assets/*": [
         "src/assets/*"
       ],
