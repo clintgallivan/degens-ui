@@ -4,8 +4,8 @@ import { useState } from 'react';
 import Alert from '@components/common/Alert';
 import RetroButton from '@components/common/RetroButton';
 import SpinningCoin from '@components/common/SpinningCoin';
-import EmailForm from '@components/home/components/EmailForm';
-import EmailFormButton from '@components/home/components/EmailFormButton';
+import EmailForm from '@components/Home/components/EmailForm';
+import EmailFormButton from '@components/Home/components/EmailFormButton';
 import styles from './IntroSection.module.scss';
 
 export default function IntroSection() {

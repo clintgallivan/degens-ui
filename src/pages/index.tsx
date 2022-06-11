@@ -7,7 +7,7 @@ import { useLayoutContext } from '@context/layoutContext';
 
 import Navbar from '@components/common/Navbar';
 import Header from '@components/common/Header';
-import FeatureSection from '@components/home/FeatureSection';
+import FeatureSection from '@components/Home/FeatureSection';
 
 const Home: NextPage = (props) => {
   const { navIsExpanded, setNavIsExpanded } = useLayoutContext();
