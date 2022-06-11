@@ -48,7 +48,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     };
     const getTokenTimeseries = async () => {
       let output = await db
-        .collection('token-timeseries-2')
+        .collection('token-timeseries')
         .find({ coingecko_id: id })
         .toArray();
       return JSON.parse(JSON.stringify(output));
