@@ -2,14 +2,14 @@ import ChipCard from '@components/common/ChipCard';
 import { Row } from 'react-bootstrap';
 import styles from './TagsRow.module.scss';
 
-export default function TagsRow({ props }) {
+export default function TagsRow({ props }: any) {
   const tags = props.tokenMetadata[0].categories;
 
   const Tags = () => {
-    return tags.map((item) => {
+    return tags.map((item: any) => {
       return item ? (
         <div key={item} className={styles.tag_container}>
-          <ChipCard children={`#${item}`} button />
+          <ChipCard button>{`#${item}`}</ChipCard>
         </div>
       ) : null;
     });

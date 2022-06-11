@@ -3,7 +3,7 @@ import RetroToken from '@components/common/RetroToken';
 import LinkIconRow from './LinkIconRow';
 import TagsRow from './TagsRow';
 
-export default function TokenGeneral({ props }) {
+export default function TokenGeneral({ props }: any) {
   const description = () => {
     const defaultValue = props.tokenMetadata[0].description;
     const cleanText = defaultValue.replace(/<\/?[^>]+(>|$)/g, '');

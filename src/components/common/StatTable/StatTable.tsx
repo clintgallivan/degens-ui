@@ -8,7 +8,7 @@ import { ImArrowDown2 } from 'react-icons/im';
 import RetroButton from '@components/common/RetroButton';
 import styles from './StatTable.module.scss';
 
-const StatTable = ({ props }) => {
+const StatTable = ({ props }: any) => {
   const [selectedColumn, setSelectedColumn] = useState('by_degen_score');
   const [isLoading, setIsLoading] = useState(true);
   const topTokenData = props.topTokenSnapshot[0];
@@ -29,6 +29,7 @@ const StatTable = ({ props }) => {
               <Image
                 loader={imageLoader}
                 src={item.image}
+                alt=""
                 height={24}
                 width={24}
               />
@@ -110,7 +111,8 @@ const StatTable = ({ props }) => {
               <div className={styles.grid_point_container}>
                 <RetroButton
                   onClick={() => setSelectedColumn('by_degen_score')}
-                  children={
+                >
+                  {
                     <>
                       <div className="fs-xsm fw-sb">Degen</div>
                       {selectedColumn == 'by_degen_score' ? (
@@ -118,14 +120,15 @@ const StatTable = ({ props }) => {
                       ) : null}
                     </>
                   }
-                />
+                </RetroButton>
               </div>
             </th>
             <th>
               <div className={styles.grid_point_container}>
                 <RetroButton
                   onClick={() => setSelectedColumn('by_developer_score')}
-                  children={
+                >
+                  {
                     <>
                       <div className="fs-xsm fw-sb">Developer</div>
                       {selectedColumn == 'by_developer_score' ? (
@@ -133,14 +136,15 @@ const StatTable = ({ props }) => {
                       ) : null}
                     </>
                   }
-                />
+                </RetroButton>
               </div>
             </th>
             <th>
               <div className={styles.grid_point_container}>
                 <RetroButton
                   onClick={() => setSelectedColumn('by_community_score')}
-                  children={
+                >
+                  {
                     <>
                       <div className="fs-xsm fw-sb">Community</div>
                       {selectedColumn == 'by_community_score' ? (
@@ -148,14 +152,15 @@ const StatTable = ({ props }) => {
                       ) : null}
                     </>
                   }
-                />
+                </RetroButton>
               </div>
             </th>
             <th>
               <div className={styles.grid_point_container}>
                 <RetroButton
                   onClick={() => setSelectedColumn('by_liquidity_score')}
-                  children={
+                >
+                  {
                     <>
                       <div className="fs-xsm fw-sb">Liquidity</div>
                       {selectedColumn == 'by_liquidity_score' ? (
@@ -163,7 +168,7 @@ const StatTable = ({ props }) => {
                       ) : null}
                     </>
                   }
-                />
+                </RetroButton>
               </div>
             </th>
           </tr>

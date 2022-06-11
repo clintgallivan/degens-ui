@@ -62,13 +62,18 @@ export default function LinkIconRow({ props }: any) {
           scale: 1.4,
         }}
       >
-        <a className={styles.a_tag} href={href} target="_blank">
+        <a
+          className={styles.a_tag}
+          href={href}
+          target="_blank"
+          rel="noreferrer"
+        >
           {logo}
         </a>
       </motion.div>
     );
   };
-  const LinkHandler = () => {
+  const LinkHandler = (): any => {
     return linkArr.map((item) => {
       return item.link !== '' ? (
         item.id == 'twitter' ? (

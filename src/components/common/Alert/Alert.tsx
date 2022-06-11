@@ -15,7 +15,7 @@ type AlertProps = {
   header?: string;
   text?: string;
   show: boolean;
-  setShow: () => void;
+  setShow: (arg: boolean) => void;
 };
 
 export default function Alert({

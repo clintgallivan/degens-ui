@@ -5,7 +5,7 @@ import Image from 'next/image';
 export default function RetroLogo() {
   return (
     <div className={styles.container}>
-      <Image src={LogoIcon} />
+      <Image src={LogoIcon} alt="" />
     </div>
   );
 }
