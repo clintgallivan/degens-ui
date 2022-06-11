@@ -218,11 +218,6 @@ img {
 }
 
 @media screen and (min-width: 768px) {
-  h1 {
-    font-weight: var(--font-weight-xxb);
-    font-size: var(--font-size-xxxxl);
-    margin: 0px;
-  }
   .content-area {
     display: flex;
     transition: 0.5s;
@@ -236,11 +231,6 @@ img {
 }
 
 @media screen and (min-width: 1024px) {
-  h1 {
-    font-weight: var(--font-weight-xxb);
-    font-size: var(--font-size-xxxxl);
-    margin: 0px;
-  }
   .navBar {
     transition: 0.5s;
     left: 0px;
@@ -265,9 +255,5 @@ img {
 }
 
 @media screen and (min-width: 1200px) {
-  h1 {
-    font-weight: var(--font-weight-xxb);
-    font-size: var(--font-size-xxxxl);
-    margin: 0px;
-  }
+
 }
