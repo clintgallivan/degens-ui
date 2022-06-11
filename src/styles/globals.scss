@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700&display=swap");
 *,
 *::before,
 *::after {
@@ -8,7 +9,6 @@ div {
   font-family: 'Montserrat';
   font-weight: 600
 }
-
 body {
   // background-color: blue;
   
@@ -19,6 +19,7 @@ body {
   margin-right: 0px;
   color: var(--black);
   font-family: 'Montserrat';
+  src: url("https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700&display=swap");
   font-weight: 600;
   // background-image: url('../../public/layered-peaks-haikei.svg');
   // background-image: url('../../public/stacked-steps-haikei (16).svg');
