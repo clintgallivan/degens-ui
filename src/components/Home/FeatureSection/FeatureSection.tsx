@@ -2,7 +2,7 @@ import IntroSection from '@components/home/components/IntroSection';
 import Card from '@components/common/Card';
 import StatTable from '@components/common/StatTable';
 
-export default function FeatureSection({ props }) {
+export default function FeatureSection({ props }: any) {
   return (
     <>
       <div className="content-area">

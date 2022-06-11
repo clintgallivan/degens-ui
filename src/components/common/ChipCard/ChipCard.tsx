@@ -1,7 +1,12 @@
 import Link from 'next/link';
 import styles from './ChipCard.module.scss';
 
-export default function ChipCard({ children, button }) {
+type ChipCardProps = {
+  children: any;
+  button: boolean;
+};
+
+export default function ChipCard({ children, button }: ChipCardProps) {
   if (button) {
     return (
       <Link href="/">

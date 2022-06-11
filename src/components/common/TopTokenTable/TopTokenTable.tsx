@@ -6,7 +6,7 @@ import { BsAward } from 'react-icons/bs';
 import RetroButton from '@components/common/RetroButton';
 import styles from './TopTokenTable.module.scss';
 
-const TopTokenTable = ({ props }) => {
+const TopTokenTable = ({ props }: any) => {
   const [selectedColumn, setSelectedColumn] = useState('by_degen_score');
   const [isLoading, setIsLoading] = useState(true);
   const topTokenData = props.topTokenSnapshot[0];
@@ -27,6 +27,7 @@ const TopTokenTable = ({ props }) => {
                 <Image
                   loader={imageLoader}
                   src={item.image}
+                  alt=""
                   height={24}
                   width={24}
                 />
@@ -34,46 +35,6 @@ const TopTokenTable = ({ props }) => {
             </td>
             <td>
               <div className={styles.item_name_container}>{item.name}</div>
-            </td>
-            <td>
-              <div className={styles.grid_point_container}>
-                {item.coingecko_score_rank}
-              </div>
-            </td>
-            <td>
-              <div className={styles.grid_point_container}>
-                {item.dev_score_rank}
-              </div>
-            </td>
-            <td>
-              <div className={styles.grid_point_container}>
-                {item.community_score_rank}
-              </div>
-            </td>
-            <td>
-              <div className={styles.grid_point_container}>
-                {item.liquidity_score_rank}
-              </div>
-            </td>
-            <td>
-              <div className={styles.grid_point_container}>
-                {item.coingecko_score_rank}
-              </div>
-            </td>
-            <td>
-              <div className={styles.grid_point_container}>
-                {item.dev_score_rank}
-              </div>
-            </td>
-            <td>
-              <div className={styles.grid_point_container}>
-                {item.community_score_rank}
-              </div>
-            </td>
-            <td>
-              <div className={styles.grid_point_container}>
-                {item.liquidity_score_rank}
-              </div>
             </td>
             <td>
               <div className={styles.grid_point_container}>
@@ -120,96 +81,36 @@ const TopTokenTable = ({ props }) => {
               <div className={styles.grid_point_container}>
                 <RetroButton
                   onClick={() => setSelectedColumn('by_degen_score')}
-                  children={<div className="fs-xsm fw-sb">Degen</div>}
-                />
+                >
+                  {<div className="fs-xsm fw-sb">Degen</div>}
+                </RetroButton>
               </div>
             </th>
             <th>
               <div className={styles.grid_point_container}>
                 <RetroButton
                   onClick={() => setSelectedColumn('by_developer_score')}
-                  children={<div className="fs-xsm fw-sb">Developer</div>}
-                />
+                >
+                  {<div className="fs-xsm fw-sb">Developer</div>}
+                </RetroButton>
               </div>
             </th>
             <th>
               <div className={styles.grid_point_container}>
                 <RetroButton
                   onClick={() => setSelectedColumn('by_community_score')}
-                  children={<div className="fs-xsm fw-sb">Community</div>}
-                />
+                >
+                  {<div className="fs-xsm fw-sb">Community</div>}
+                </RetroButton>
               </div>
             </th>
             <th>
               <div className={styles.grid_point_container}>
                 <RetroButton
                   onClick={() => setSelectedColumn('by_liquidity_score')}
-                  children={<div className="fs-xsm fw-sb">Liquidity</div>}
-                />
-              </div>
-            </th>
-            <th>
-              <div className={styles.grid_point_container}>
-                <RetroButton
-                  onClick={() => setSelectedColumn('by_degen_score')}
-                  children={<div className="fs-xsm fw-sb">Degen</div>}
-                />
-              </div>
-            </th>
-            <th>
-              <div className={styles.grid_point_container}>
-                <RetroButton
-                  onClick={() => setSelectedColumn('by_developer_score')}
-                  children={<div className="fs-xsm fw-sb">Developer</div>}
-                />
-              </div>
-            </th>
-            <th>
-              <div className={styles.grid_point_container}>
-                <RetroButton
-                  onClick={() => setSelectedColumn('by_community_score')}
-                  children={<div className="fs-xsm fw-sb">Community</div>}
-                />
-              </div>
-            </th>
-            <th>
-              <div className={styles.grid_point_container}>
-                <RetroButton
-                  onClick={() => setSelectedColumn('by_liquidity_score')}
-                  children={<div className="fs-xsm fw-sb">Liquidity</div>}
-                />
-              </div>
-            </th>
-            <th>
-              <div className={styles.grid_point_container}>
-                <RetroButton
-                  onClick={() => setSelectedColumn('by_degen_score')}
-                  children={<div className="fs-xsm fw-sb">Degen</div>}
-                />
-              </div>
-            </th>
-            <th>
-              <div className={styles.grid_point_container}>
-                <RetroButton
-                  onClick={() => setSelectedColumn('by_developer_score')}
-                  children={<div className="fs-xsm fw-sb">Developer</div>}
-                />
-              </div>
-            </th>
-            <th>
-              <div className={styles.grid_point_container}>
-                <RetroButton
-                  onClick={() => setSelectedColumn('by_community_score')}
-                  children={<div className="fs-xsm fw-sb">Community</div>}
-                />
-              </div>
-            </th>
-            <th>
-              <div className={styles.grid_point_container}>
-                <RetroButton
-                  onClick={() => setSelectedColumn('by_liquidity_score')}
-                  children={<div className="fs-xsm fw-sb">Liquidity</div>}
-                />
+                >
+                  {<div className="fs-xsm fw-sb">Liquidity</div>}
+                </RetroButton>
               </div>
             </th>
           </tr>

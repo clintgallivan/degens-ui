@@ -31,8 +31,8 @@ const initialState = {
   animation: true,
 };
 
-export default function TokenChart({ props }) {
-  const { width } = useWindowSize();
+export default function TokenChart({ props }: any) {
+  const { width = 0 } = useWindowSize();
   const [chartWidth, setChartWidth] = useState(0);
 
   const [noData, setNoData] = useState(false);
@@ -50,17 +50,19 @@ export default function TokenChart({ props }) {
     generalDropdownText
   );
 
-  const arr = props.tokenTimeseries[0].historical.slice().sort((a, b) => {
-    let keyA = new Date(a.timestamp),
-      keyB = new Date(b.timestamp);
-    // Compare the 2 dates
-    if (keyA < keyB) return -1;
-    if (keyA > keyB) return 1;
-    return 0;
-  });
+  const arr = props.tokenTimeseries[0].historical
+    .slice()
+    .sort((a: any, b: any) => {
+      let keyA = new Date(a.timestamp),
+        keyB = new Date(b.timestamp);
+      // Compare the 2 dates
+      if (keyA < keyB) return -1;
+      if (keyA > keyB) return 1;
+      return 0;
+    });
 
-  const CustomTooltip = ({ active, payload, label }) => {
-    function numberWithCommasDecimal(x) {
+  const CustomTooltip = ({ active, payload, label }: any) => {
+    function numberWithCommasDecimal(x: number) {
       return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',');
     }
     // console.log(payload);
@@ -91,27 +93,6 @@ export default function TokenChart({ props }) {
     return null;
   };
 
-  const noDataChecker = () => {
-    const keys = key.split('.');
-
-    if (keys[1]) {
-      if (!props.tokenTimeseries[0].historical[0][keys[0]][keys[1]]) {
-        setNoData(true);
-      } else {
-        setNoData(false);
-      }
-    } else {
-      if (!props.tokenTimeseries[0].historical[0][keys[0]]) {
-        setNoData(true);
-      } else {
-        setNoData(false);
-      }
-    }
-  };
-  useEffect(() => {
-    noDataChecker();
-  }, [key]);
-
   const NoDataComponent = () => {
     const keys = key.split('.');
 
@@ -125,6 +106,28 @@ export default function TokenChart({ props }) {
   };
 
   useEffect(() => {
+    const noDataChecker = () => {
+      const keys = key.split('.');
+
+      if (keys[1]) {
+        if (!props.tokenTimeseries[0].historical[0][keys[0]][keys[1]]) {
+          setNoData(true);
+        } else {
+          setNoData(false);
+        }
+      } else {
+        if (!props.tokenTimeseries[0].historical[0][keys[0]]) {
+          setNoData(true);
+        } else {
+          setNoData(false);
+        }
+      }
+    };
+
+    noDataChecker();
+  }, [key]);
+
+  useEffect(() => {
     setChartWidth(width);
   }, [width]);
 
@@ -136,12 +139,13 @@ export default function TokenChart({ props }) {
           <ButtonRow
             onClick={(item) => setGroup(item.text)}
             selectedChild={group}
-            children={[
+          >
+            {[
               { text: 'Community' },
               { text: 'Developer' },
               { text: 'General' },
             ]}
-          />
+          </ButtonRow>
 
           <Dropdown
             selectedChild={
@@ -153,37 +157,6 @@ export default function TokenChart({ props }) {
                 ? generalDropdownText
                 : null
             }
-            children={
-              group === 'Community'
-                ? [
-                    { text: 'Twitter Followers' },
-                    { text: 'Reddit Subscribers' },
-                    { text: 'Telegram Channel Members' },
-                    { text: '48hr average Reddit posts' },
-                    { text: '48hr average Reddit comments' },
-                    { text: '48hr active Reddit accounts' },
-                  ]
-                : group === 'Developer'
-                ? [
-                    { text: 'Github Forks' },
-                    { text: 'Github Stars' },
-                    { text: 'Github Subscribers' },
-                    { text: 'Github Total Issues' },
-                    { text: 'Github Closed Issues' },
-                    { text: 'Github Contributors' },
-                  ]
-                : group === 'General'
-                ? [
-                    { text: 'Price' },
-                    { text: 'Market Cap' },
-                    { text: 'Market Cap Rank' },
-                    { text: 'Degen Rank' },
-                    { text: 'Developer Rank' },
-                    { text: 'Community Rank' },
-                    { text: 'Liquidity Rank' },
-                  ]
-                : null
-            }
             onClick={(item) => {
               group === 'Community'
                 ? setCommunityDropdownText(item.text)
@@ -193,7 +166,37 @@ export default function TokenChart({ props }) {
                 ? setGeneralDropdownText(item.text)
                 : null;
             }}
-          />
+          >
+            {group === 'Community'
+              ? [
+                  { text: 'Twitter Followers' },
+                  { text: 'Reddit Subscribers' },
+                  { text: 'Telegram Channel Members' },
+                  { text: '48hr average Reddit posts' },
+                  { text: '48hr average Reddit comments' },
+                  { text: '48hr active Reddit accounts' },
+                ]
+              : group === 'Developer'
+              ? [
+                  { text: 'Github Forks' },
+                  { text: 'Github Stars' },
+                  { text: 'Github Subscribers' },
+                  { text: 'Github Total Issues' },
+                  { text: 'Github Closed Issues' },
+                  { text: 'Github Contributors' },
+                ]
+              : group === 'General'
+              ? [
+                  { text: 'Price' },
+                  { text: 'Market Cap' },
+                  { text: 'Market Cap Rank' },
+                  { text: 'Degen Rank' },
+                  { text: 'Developer Rank' },
+                  { text: 'Community Rank' },
+                  { text: 'Liquidity Rank' },
+                ]
+              : null}
+          </Dropdown>
         </div>
 
         {noData ? (

@@ -23,6 +23,7 @@ import styles from './Navbar.module.scss';
 export default function Navbar() {
   const { width = 1024 } = useWindowSize();
   const { navIsExpanded, setNavIsExpanded } = useLayoutContext();
+
   const [expandedCSS, setExpandedCSS] = useState('');
 
   useEffect(() => {

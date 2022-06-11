@@ -1,9 +1,13 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 import axios from 'axios';
 
+type TokenContextProviderProps = {
+  children: React.ReactNode;
+};
+
 const TokenContext = createContext({});
 
-export const TokenProvider = ({ children }) => {
+export const TokenProvider = ({ children }: TokenContextProviderProps) => {
   const [token, setToken] = useState();
 
   // useEffect(() => {

@@ -1,8 +1,12 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 
+type LayoutContextProviderProps = {
+  children: React.ReactNode;
+};
+
 const LayoutContext = createContext({});
 
-export const LayoutProvider = ({ children }) => {
+export const LayoutProvider = ({ children }: LayoutContextProviderProps) => {
   const [navIsExpanded, setNavIsExpanded] = useState(false);
 
   return (
@@ -12,7 +16,7 @@ export const LayoutProvider = ({ children }) => {
   );
 };
 
-export const useLayoutContext = () => {
+export const useLayoutContext = (): any => {
   return useContext(LayoutContext);
 };
 // export { LayoutContext, LayoutProvider };

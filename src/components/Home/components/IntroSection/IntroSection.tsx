@@ -63,7 +63,7 @@ export default function IntroSection() {
             <h1>Token Analytics</h1>
             <h1>for Degens</h1>
             <p className="fs-l fw-md">
-              The Shitcoin Analytics you've always wanted
+              The Shitcoin Analytics you&apos;ve always wanted
             </p>
           </div>
           <div className={styles.coin_box}>
@@ -72,10 +72,9 @@ export default function IntroSection() {
         </div>
         <div className={styles.email_container}>
           <EmailForm onChange={(e: string) => setEmail(e)} />
-          <EmailFormButton
-            onClick={() => handleEmailSubmit()}
-            children={'Join'}
-          />
+          <EmailFormButton onClick={() => handleEmailSubmit()}>
+            {'Join'}
+          </EmailFormButton>
         </div>
       </div>
     </>

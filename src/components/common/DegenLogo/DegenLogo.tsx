@@ -8,7 +8,7 @@ export default function DegenLogo() {
     <div className={styles.total_container}>
       <Link className={styles.a_tag} href="/">
         <div className={styles.container}>
-          <Image src={LogoIcon} />
+          <Image src={LogoIcon} alt="" />
         </div>
       </Link>
     </div>

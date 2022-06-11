@@ -3,7 +3,7 @@ import styles from './RetroButton.module.scss';
 type ButtonProps = {
   children: any;
   variant?: 'white' | 'orange';
-  onClick: any;
+  onClick?: any;
 };
 
 export default function RetroButton({

@@ -1,3 +1,4 @@
+export {};
 // import Card from '@components/common/Card';
 // import React, { PureComponent, useState } from 'react';
 // import moment from 'moment';

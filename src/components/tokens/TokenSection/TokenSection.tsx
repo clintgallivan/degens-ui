@@ -5,7 +5,7 @@ import TokenChart from '../components/TokenCharts';
 // import TokenChart from '../components/TokenCharts/trans';
 // import TokenChart from '../components/TokenCharts/trans copy';
 
-export default function TokenSection({ props }) {
+export default function TokenSection({ props }: any) {
   return (
     <>
       <div className="content-area">

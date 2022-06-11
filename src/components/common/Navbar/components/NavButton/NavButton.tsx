@@ -3,7 +3,13 @@ import Link from 'next/link';
 import RetroButton from '@components/common/RetroButton';
 import styles from './NavButton.module.scss';
 
-export default function NavButton({ text, icon, isExpanded }) {
+type NavButtonProps = {
+  text: string;
+  icon: any;
+  isExpanded: boolean;
+};
+
+export default function NavButton({ text, icon, isExpanded }: NavButtonProps) {
   const child = () => {
     return (
       <>
@@ -24,7 +30,7 @@ export default function NavButton({ text, icon, isExpanded }) {
   return (
     <Link href="/token-leaderboards">
       <a className={styles.a_tag}>
-        <RetroButton children={child()} variant="white" />
+        <RetroButton variant="white">{child()}</RetroButton>
       </a>
     </Link>
   );

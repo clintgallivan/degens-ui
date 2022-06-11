@@ -1,7 +1,11 @@
 import { useState } from 'react';
 import styles from './EmailForm.module.scss';
 
-export default function EmailForm({ onChange }) {
+type EmailFormProps = {
+  onChange: (arg: string) => void;
+};
+
+export default function EmailForm({ onChange }: EmailFormProps) {
   return (
     <div className={styles.container}>
       <input
