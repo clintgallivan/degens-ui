@@ -4,23 +4,23 @@
 @font-face {
   font-family: "Montserrat";
   src: url('../../public/fonts/montserrat/Montserrat-Regular.ttf');
-  font-weight: normal;
+  font-weight: 600;
   font-style: normal;
 }
   
-@font-face {
-  font-family: "Montserrat";
-  src: url('../../public/fonts/montserrat/Montserrat-Bold.ttf');
-  font-weight: bold;
-  font-style: normal;
-}
+// @font-face {
+//   font-family: "Montserrat";
+//   src: url('../../public/fonts/montserrat/Montserrat-Bold.ttf');
+//   font-weight: normal;
+//   font-style: normal;
+// }
   
-@font-face {
-  font-family: "Montserrat";
-  src: url('../../public/fonts/montserrat/Montserrat-Italic.ttf');
-  font-weight: normal;
-  font-style: italic;
-}
+// @font-face {
+//   font-family: "Montserrat";
+//   src: url('../../public/fonts/montserrat/Montserrat-Italic.ttf');
+//   font-weight: normal;
+//   font-style: italic;
+// }
 
 *,
 *::before,
@@ -28,10 +28,10 @@
   box-sizing: border-box;
 }
 
-div {
-  // font-family: 'Montserrat', sans-serif;
-  // font-weight: 600
-}
+// div {
+//   // font-family: 'Montserrat', sans-serif;
+//   // font-weight: 600
+// }
 body {
   // background-color: blue;
   
@@ -41,7 +41,7 @@ body {
   background-size: cover !important;
   margin-right: 0px;
   color: var(--black);
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Montserrat';
   font-weight: 600;
   // background-image: url('../../public/layered-peaks-haikei.svg');
   // background-image: url('../../public/stacked-steps-haikei (16).svg');
