@@ -1,3 +1,6 @@
+// @import url("https://fonts.googleapis.com/css2?family=Fascinate&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800;900&display=swap");
+
 @font-face {
   font-family: "Montserrat";
   src: url('../../public/fonts/montserrat/Montserrat-Regular.ttf');
@@ -26,9 +29,9 @@
 }
 
 div {
-  // font-family: 'Montserrat', sans-serif;
+  font-family: 'Montserrat', sans-serif;
   // font-weight: 600
-  font-family: 'Fascinate', sans-serif;
+  // font-family: 'Fascinate', sans-serif;
   font-weight: 600;
 }
 body {
