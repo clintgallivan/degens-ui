@@ -63,7 +63,7 @@ export default function TokenChart({ props }: any) {
 
   const CustomTooltip = ({ active, payload, label }: any) => {
     function numberWithCommasDecimal(x: number) {
-      return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',');
+      return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
     }
     // console.log(payload);
     if (active && payload && payload.length) {

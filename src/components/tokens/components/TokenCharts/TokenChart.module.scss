@@ -1,43 +1,22 @@
 .card_container {
-  // background-image: linear-gradient(to right, red , yellow);
-  // padding-left: 20px;
-  // overflow-x: hidden;
-  
   width: 100%;
-  // height: 200px
 }
 .flex_container {
-  // display: table;
   overflow: visible !important;
-  // flex: 1;
-  // width: 500px;
-  // height: 500px;
-  // flex: 1 1 auto;
-  // max-width: max-content;
-  // background-image: linear-gradient(to right, red , yellow);
-
-}
-
-.row_container {
-  // background-color: blue;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 20px;
-
 }
 .tooltip_container {
+  margin-left: -40px;
   box-shadow: 50px;
   filter: drop-shadow(2px 2px 2px var(--black-50));
   border-radius: 30px;
   // text-shadow: 20px;
 }
 
-.tooltip_value_row {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
+// .tooltip_value_row {
+//   display: flex;
+//   flex-direction: row;
+//   align-items: center;
+// }
 
 .tooltip_val {
   margin-right: 5px;
@@ -45,25 +24,13 @@
   text-decoration: underline;
   text-decoration-color: var(--orange-20);
   text-decoration-thickness: 3px;
-  text-underline-offset: 3px;
+  text-underline-offset: 4px;
 }
 
 
-.resp_chart {
-  // overflow: visible !important;
-  // position: absolute;
-  // right: 0px;
-  // flex: 1;
-  // width: "100%";
-  // display: flex;
-  // background-image: linear-gradient(to right, red , yellow);
-}
 .chart {
   flex: 1;
-  // width: "50%";
-  // overflow: visible !important;  
   display: flex;
-  // background-image: linear-gradient(to right, red , yellow);
 }
 
 .grid {
@@ -82,4 +49,46 @@ text-align: center;
 font-size: var(--font-size-md)
 
 
+}
+
+@media screen and (min-width: 320px) {
+  .row_container {
+    // background-color: blue;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  .tooltip_value_row {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+@media screen and (min-width: 768px) {
+  .tooltip_container {
+    box-shadow: 50px;
+    filter: drop-shadow(2px 2px 2px var(--black-50));
+    border-radius: 30px;
+    // text-shadow: 20px;
+  }
+  .tooltip_value_row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  
+}
+@media screen and (min-width: 880px) {
+  .row_container {
+    // background-color: blue;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  
 }

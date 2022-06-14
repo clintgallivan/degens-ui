@@ -1,29 +1,83 @@
-.button {
-  background-color: transparent;
-
-  border: 0px;
-  border-radius: 4px;
-  color: var(--white);
-  font-weight: var(--font-weight-sb);
-  font-size: var(--font-size-sm)
+@media screen and (min-width: 320px) {
+  .button {
+    background-color: transparent;
+    border: 0px;
+    border-radius: 4px;
+    color: var(--white);
+    font-weight: var(--font-weight-sb);
+    font-size: var(--font-size-xsm);
+    
+  }
+  
+  .button_selected {
+    background-color: transparent;
+    text-decoration: underline;
+    text-decoration-line: underline;
+    text-underline-offset: 4px;
+    text-decoration-color: var(--orange-20);
+    text-decoration-thickness: 4px;
+    border: 0px;
+    border-radius: 4px;
+    color: var(--white);
+    font-weight: var(--font-weight-xb);
+    font-size: var(--font-size-xsm);
+    margin-bottom: 10px;
+  }
+  .button:hover {
+    background-color: var(--purple-30);
+    border: 0px;
+    border-radius: 4px;
+    color: var(--white);
+    font-size: var(--font-size-xsm);
+    margin-bottom: 10px;
+  }
+  
+  
 }
 
-.button_selected {
-  background-color: transparent;
-  text-decoration-line: underline;
-  text-underline-offset: 8px;
-  text-decoration-color: var(--orange-20);
-  text-decoration-thickness: 4px;
-  border: 0px;
-  border-radius: 4px;
-  color: var(--white);
-  font-weight: var(--font-weight-xb);
-  font-size: var(--font-size-sm)
+@media screen and (min-width: 480px) {
+  .button {
+    background-color: transparent;
+    border: 0px;
+    border-radius: 4px;
+    color: var(--white);
+    font-weight: var(--font-weight-sb);
+    font-size: var(--font-size-sm)
+  }
+  
+  .button_selected {
+    background-color: transparent;
+    text-decoration-line: underline;
+    text-underline-offset: 8px;
+    text-decoration-color: var(--orange-20);
+    text-decoration-thickness: 4px;
+    border: 0px;
+    border-radius: 4px;
+    color: var(--white);
+    font-weight: var(--font-weight-xb);
+    font-size: var(--font-size-sm)
+  }
+  .button:hover {
+    background-color: var(--purple-30);
+    border: 0px;
+    border-radius: 4px;
+    color: var(--white);
+    font-size: var(--font-size-sm)
+  }
+  
+  
 }
-.button:hover {
-  background-color: var(--purple-30);
-  border: 0px;
-  border-radius: 4px;
-  color: var(--white);
-  font-size: var(--font-size-sm)
+@media screen and (min-width: 880px) {
+  .button {
+    margin-bottom: auto;
+  }
+  
+  .button_selected {
+    margin-bottom: auto;
+  }
+  .button:hover {
+    margin-bottom: auto;
+  }
+  
+  
 }

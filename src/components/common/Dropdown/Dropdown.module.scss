@@ -1,14 +1,14 @@
 .toggle {
   background-color: transparent;
   color: var(--white);
-  font-weight: var(--font-weight-xb);
-  font-size: var(--font-size-sm);
+  // font-weight: var(--font-weight-xb);
+  // font-size: var(--font-size-sm);
 }
 .toggle:hover {
   background-color: var(--purple-30);
   color: var(--white);
-  font-weight: var(--font-weight-xb);
-  font-size: var(--font-size-sm);
+  // font-weight: var(--font-weight-xb);
+  // font-size: var(--font-size-sm);
 }
 
 .menu {
@@ -26,4 +26,38 @@
   background-color: var(--purple-30);
   text-decoration: none;
   outline: none;
+}
+
+@media screen and (min-width: 320px) {
+  .toggle {
+    // background-color: transparent;
+    // color: var(--white);
+    font-weight: var(--font-weight-xb);
+    font-size: var(--font-size-xsm);
+  }
+  .toggle:hover {
+    // background-color: var(--purple-30);
+    // color: var(--white);
+    font-weight: var(--font-weight-xb);
+    font-size: var(--font-size-xsm);
+  }
+  
+  
+}
+
+@media screen and (min-width: 480px) {
+  .toggle {
+    background-color: transparent;
+    color: var(--white);
+    font-weight: var(--font-weight-xb);
+    font-size: var(--font-size-sm);
+  }
+  .toggle:hover {
+    background-color: var(--purple-30);
+    color: var(--white);
+    font-weight: var(--font-weight-xb);
+    font-size: var(--font-size-sm);
+  }
+  
+  
 }
