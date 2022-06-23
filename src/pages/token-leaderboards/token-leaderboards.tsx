@@ -1,28 +1,24 @@
 import type { NextPage } from 'next';
-import { useTokenContext } from '@context/tokenContext';
-import { useLayoutContext } from '@context/layoutContext';
+import { GetServerSideProps } from 'next';
 
+import clientPromise from '@utils/mongodb';
+
+import TotalPageDiv from '@components/common/Divs/TotalPageDiv';
+import NonNavDiv from '@components/common/Divs/NonNavDiv';
 import Navbar from '@components/common/Navbar';
 import Header from '@components/common/Header';
 import TopTokenSection from '@components/token-leaderboards/TopTokenSection';
 
-import { GetServerSideProps } from 'next';
-import clientPromise from '@utils/mongodb';
-
 const TokenLeaderboards: NextPage = (props) => {
-  const { navIsExpanded, setNavIsExpanded } = useLayoutContext();
   return (
     <>
-      <div className="row-flex-1">
+      <TotalPageDiv>
         <Navbar />
-        <div
-          className="col-flex-1"
-          onClick={() => (navIsExpanded ? setNavIsExpanded(false) : null)}
-        >
+        <NonNavDiv>
           <Header />
           <TopTokenSection props={props} />
-        </div>
-      </div>
+        </NonNavDiv>
+      </TotalPageDiv>
     </>
   );
 };

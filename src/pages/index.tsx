@@ -1,29 +1,23 @@
 import type { NextPage, GetServerSideProps } from 'next';
-import Head from 'next/head';
-import Image from 'next/image';
+
 import clientPromise from '@utils/mongodb';
-import { useTokenContext } from '@context/tokenContext';
-import { useLayoutContext } from '@context/layoutContext';
 
 import Navbar from '@components/common/Navbar';
 import Header from '@components/common/Header';
 import FeatureSection from '@components/Home/FeatureSection';
+import TotalPageDiv from '@components/common/Divs/TotalPageDiv';
+import NonNavDiv from '@components/common/Divs/NonNavDiv/NonNavDiv';
 
 const Home: NextPage = (props) => {
-  const { navIsExpanded, setNavIsExpanded } = useLayoutContext();
-
   return (
     <>
-      <div className="row-flex-1">
+      <TotalPageDiv>
         <Navbar />
-        <div
-          className="col-flex-1"
-          onClick={() => (navIsExpanded ? setNavIsExpanded(false) : null)}
-        >
-          <Header />
+        <NonNavDiv>
+          <Header props={props} />
           <FeatureSection props={props} />
-        </div>
-      </div>
+        </NonNavDiv>
+      </TotalPageDiv>
     </>
   );
 };

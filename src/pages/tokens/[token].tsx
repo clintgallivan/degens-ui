@@ -1,10 +1,11 @@
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import { useTokenContext } from '@context/tokenContext';
-import { useLayoutContext } from '@context/layoutContext';
+
 import { GetServerSideProps } from 'next';
 import clientPromise from '@utils/mongodb';
 
+import TotalPageDiv from '@components/common/Divs/TotalPageDiv';
+import NonNavDiv from '@components/common/Divs/NonNavDiv';
 import Navbar from '@components/common/Navbar';
 import Header from '@components/common/Header';
 import TokenSection from '@components/tokens/TokenSection';
@@ -12,21 +13,16 @@ import TokenSection from '@components/tokens/TokenSection';
 const Token: NextPage = (props) => {
   const router = useRouter();
   const { token } = router.query;
-  // console.log(props);
 
-  const { navIsExpanded, setNavIsExpanded } = useLayoutContext();
   return (
     <>
-      <div className="row-flex-1">
+      <TotalPageDiv>
         <Navbar />
-        <div
-          className="col-flex-1"
-          onClick={() => (navIsExpanded ? setNavIsExpanded(false) : null)}
-        >
+        <NonNavDiv>
           <Header />
           <TokenSection props={props} />
-        </div>
-      </div>
+        </NonNavDiv>
+      </TotalPageDiv>
     </>
   );
 };

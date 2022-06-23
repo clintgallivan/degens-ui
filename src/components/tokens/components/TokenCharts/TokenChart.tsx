@@ -65,7 +65,7 @@ export default function TokenChart({ props }: any) {
     function numberWithCommasDecimal(x: number) {
       return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
     }
-    // console.log(payload);
+
     if (active && payload && payload.length) {
       const day = moment(payload[0]['payload']['timestamp']).format('dddd');
       const date = moment(payload[0]['payload']['timestamp']).format('LL');
@@ -125,7 +125,7 @@ export default function TokenChart({ props }: any) {
     };
 
     noDataChecker();
-  }, [key]);
+  }, [key, props.tokenTimeseries]);
 
   useEffect(() => {
     setChartWidth(width);

@@ -1,7 +1,5 @@
 import styles from './RetroToken.module.scss';
-import LogoIcon from '../../../../public/LogoIcon.svg';
 import Image, { ImageLoaderProps } from 'next/image';
-import { FaXing } from 'react-icons/fa';
 
 export default function RetroToken({ props }: any) {
   const imageLoader = ({ src, width, quality }: ImageLoaderProps) => {
@@ -10,7 +8,6 @@ export default function RetroToken({ props }: any) {
 
   return (
     <div className={styles.container}>
-      {/* <div className={styles.parent}> */}
       <Image
         className={styles.image}
         loader={imageLoader}
