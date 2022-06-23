@@ -8,7 +8,7 @@ export default function TotalPageDiv({ children }: any) {
     <div
       className="row-flex-1"
       onClick={(e) => {
-        e.target.id.includes('header-search')
+        (e.target as HTMLInputElement).id.includes('header-search')
           ? setHeaderSearchIsExpanded(true)
           : setHeaderSearchIsExpanded(false);
       }}

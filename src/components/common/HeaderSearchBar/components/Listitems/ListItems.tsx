@@ -12,7 +12,7 @@ export default function ListItems(props: any, results: any) {
 
   const slicedResults = results.slice(0, 10);
 
-  return slicedResults.map((item) => {
+  return slicedResults.map((item: any) => {
     return (
       <Link
         key={item.coingecko_id}

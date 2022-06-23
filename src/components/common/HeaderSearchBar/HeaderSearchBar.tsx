@@ -30,12 +30,14 @@ export default function HeaderSearchBar({ props }: any) {
         });
         let arr = [];
         let arrFinal = [];
-        let arrNull = [];
-        let arrNotNull = [];
+        let arrNull: any = [];
+        let arrNotNull: any = [];
         arr = res.data;
 
-        arr = arr.sort((a, b) => a.market_cap_rank - b.market_cap_rank);
-        arr.forEach((item) => {
+        arr = arr.sort(
+          (a: any, b: any) => a.market_cap_rank - b.market_cap_rank
+        );
+        arr.forEach((item: any) => {
           if (!item.market_cap_rank) {
             arrNull.push(item);
           } else {

@@ -125,7 +125,7 @@ export default function TokenChart({ props }: any) {
     };
 
     noDataChecker();
-  }, [key]);
+  }, [key, props.tokenTimeseries]);
 
   useEffect(() => {
     setChartWidth(width);
