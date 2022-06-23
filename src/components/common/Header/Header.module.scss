@@ -1,13 +1,16 @@
 .logo {
-  // position: absolute;
-  // align-self: center;
-  // left: 50%;
-  // margin: 0;
-  // // right: 40%;
   position: absolute; 
   left: 0; 
   right: 0; 
   margin-left: auto; 
   margin-right: auto; 
   width: 100px; /* Need a specific value to work */
+}
+
+.search_bar {
+  // background-color: blue;
+  // margin-top: -20px;
+  display: flex;
+  justify-content: flex-end;
+  flex: 1;
 }
