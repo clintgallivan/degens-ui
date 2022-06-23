@@ -86,6 +86,8 @@ export default function HeaderSearchBar({ props }: any) {
             <div id="header-search-row" className={styles.search_row}>
               <input
                 autoComplete="off"
+                autoCorrect="off"
+                spellCheck={false}
                 className={
                   headerSearchIsExpanded ? styles.input_expanded : styles.input
                 }
@@ -94,7 +96,7 @@ export default function HeaderSearchBar({ props }: any) {
                 id="header-search"
                 placeholder={'Search'}
                 name="s"
-                value={searchValue}
+                value={headerSearchIsExpanded ? searchValue : ''}
                 onChange={(e) => setSearchValue(e.target.value)}
               />
 
