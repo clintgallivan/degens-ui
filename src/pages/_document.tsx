@@ -22,8 +22,15 @@ export default function MyDocument() {
         <meta property="og: image" content="https://degen-analytics.com" />
         <meta property="og: type" content="website" />
         <meta property="og: url" content="https://degen-analytics.com" />
-
-        <link rel="icon" type="image/x-icon" href="Degen-Tab-Logo-Square.png" />
+        <meta
+          name="google-site-verification"
+          content="VE2Ceq8AFbAIfpmbhnPzqA1YWusQ0dE-_ULrUirzgeY"
+        />
+        <link
+          rel="icon"
+          type="image/x-icon"
+          href="/Degen-Tab-Logo-Square.png"
+        />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
           href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap"
