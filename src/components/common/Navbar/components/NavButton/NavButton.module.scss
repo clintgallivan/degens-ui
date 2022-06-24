@@ -12,9 +12,17 @@
   font-weight: var(--font-weight-md)
 }
 
+
+
 .a_tag, .a_tag:link, .a_tag:hover{
   text-decoration: none;
+  display: flex;
   // background-color: blue;
-  // display: flex;
-  // justify-content: stretch;
+}
+
+.a_tag_sm, .a_tag_sm:link, .a_tag_sm:hover{
+  text-decoration: none;
+  display: flex;
+  width: 56px;
+  // background-color: blue;
 }

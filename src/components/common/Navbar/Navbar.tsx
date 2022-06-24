@@ -14,6 +14,7 @@ import { BiLogOut } from 'react-icons/bi';
 import { RiPulseLine } from 'react-icons/ri';
 import { IoClose } from 'react-icons/io5';
 import { GoThreeBars } from 'react-icons/go';
+import { AiOutlineHome } from 'react-icons/ai';
 
 import { useLayoutContext } from '@context/layoutContext';
 import useWindowSize from '@hooks/useWindowSize';
@@ -57,13 +58,15 @@ export default function Navbar() {
         <NavButton
           isExpanded={navIsExpanded}
           text="Home"
-          icon={<BsGlobe size={24} />}
+          icon={<AiOutlineHome size={24} />}
+          route="/"
         />
         <div className={styles.break} />
         <NavButton
           isExpanded={navIsExpanded}
           text="Shitcoins"
           icon={<BsAward size={24} />}
+          route="token-leaderboards"
         />
         <div className={styles.break} />
         <NavButton
