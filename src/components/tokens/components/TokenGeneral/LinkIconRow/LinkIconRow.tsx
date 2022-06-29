@@ -75,7 +75,8 @@ export default function LinkIconRow({ props }: any) {
   };
   const LinkHandler = (): any => {
     return linkArr.map((item) => {
-      return item.link !== '' ? (
+      console.log(item);
+      return item.link !== '' && item.link !== undefined ? (
         item.id == 'twitter' ? (
           <LinkItem
             key={item.id}

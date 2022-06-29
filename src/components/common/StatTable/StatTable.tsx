@@ -18,9 +18,6 @@ const StatTable = ({ props }: any) => {
   };
 
   const RowHandler = () => {
-    const unselectedColor = 'var(--white)';
-    const selectedColor = 'var(--orange-20)';
-
     return topTokenData[selectedColumn]
       .slice(0, 10)
       .map((item: any, index: number) => {
