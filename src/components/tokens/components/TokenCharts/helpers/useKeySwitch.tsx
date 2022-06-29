@@ -66,20 +66,20 @@ const useKeySwitch = (
           key = 'market_cap_rank';
           break;
         case 'Degen Rank':
-          // key = 'degen_rank';
-          key = 'coingecko_score';
+          key = 'degen_rank';
+          // key = 'coingecko_score';
           break;
         case 'Developer Rank':
-          // key = 'dev_rank';
-          key = 'dev_score';
+          key = 'dev_rank';
+          // key = 'dev_score';
           break;
         case 'Community Rank':
           key = 'community_rank';
-          key = 'community_score';
+          // key = 'community_score';
           break;
         case 'Liquidity Rank':
-          // key = 'liquidity_rank';
-          key = 'liquidity_score';
+          key = 'liquidity_rank';
+          // key = 'liquidity_score';
           break;
         default:
           key = 'developer_data.forks';
