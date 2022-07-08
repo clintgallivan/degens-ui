@@ -17,59 +17,11 @@ const TopTokenTable = ({ props }: any) => {
     return `${src}?w=${width}&q=${quality || 75}`;
   };
 
-  // const RowHandler = () => {
-  //   let count = 0;
-  //   return topTokenData[selectedColumn].map((item: any) => {
-  //     if (count < 100) {
-  //       count++;
-  //       return (
-  //         <tr key={item.name} className={styles.row_container}>
-  //           <td>
-  //             <div className={styles.icon_container}>
-  //               <Image
-  //                 loader={imageLoader}
-  //                 src={item.image}
-  //                 alt=""
-  //                 height={24}
-  //                 width={24}
-  //               />
-  //             </div>
-  //           </td>
-  //           <td>
-  //             <div className={styles.item_name_container}>{item.name}</div>
-  //           </td>
-  //           <td>
-  //             <div className={styles.grid_point_container}>
-  //               {item.coingecko_score_rank}
-  //             </div>
-  //           </td>
-  //           <td>
-  //             <div className={styles.grid_point_container}>
-  //               {item.dev_score_rank}
-  //             </div>
-  //           </td>
-  //           <td>
-  //             <div className={styles.grid_point_container}>
-  //               {item.community_score_rank}
-  //             </div>
-  //           </td>
-  //           <td>
-  //             <div className={styles.grid_point_container}>
-  //               {item.liquidity_score_rank}
-  //             </div>
-  //           </td>
-  //         </tr>
-  //       );
-  //     } else {
-  //       return <></>;
-  //     }
-  //   });
-  // };
   const RowHandler = () => {
     return topTokenData[selectedColumn]
       .slice(0, 100)
       .map((item: any, index: number) => {
-        console.log(item);
+        // console.log(item);
         return (
           <tr key={item.name} className={styles.row_container}>
             <td>
