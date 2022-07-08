@@ -41,7 +41,7 @@ export default function TopTokenSection({ props }: any) {
     <>
       <div className="content-area">
         <Card header={CardHeader()}>
-          <FilterAccordian isExpanded={isExpanded} />
+          <FilterAccordian isExpanded={isExpanded} props={props} />
           <TopTokenTable props={props} />
         </Card>
         {/* <RightOffCanvas placement="end" /> */}

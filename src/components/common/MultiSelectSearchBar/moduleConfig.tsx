@@ -1,4 +1,4 @@
-import Select, { StylesConfig } from 'react-select';
+import { StylesConfig } from 'react-select';
 
 export interface ModuleTypes {
   readonly value: string;
@@ -36,11 +36,13 @@ export const moduleStyles: StylesConfig<ModuleTypes, true> = {
       backgroundColor: 'var(--purple-10)',
       border: '10 solid red',
       scrollbarColor: 'black',
+      zIndex: 999,
     };
   },
   menuList: (styles) => {
     return {
       ...styles,
+      zIndex: 999,
       '::-webkit-scrollbar': {
         width: '8px',
       },

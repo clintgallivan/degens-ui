@@ -292,3 +292,54 @@ img {
 @media screen and (min-width: 1200px) {
 
 }
+
+.horizontal-slider {
+  width: 100%;
+  // max-width: 500px;
+  // height: 100vh;
+  // margin: auto;
+  margin-top: 8px;  
+}
+.example-thumb {
+  cursor: pointer;
+  background-color: var(--purple-10);
+  width: 30px;
+  height: 30px;
+  border-radius: 15px;
+  
+  text-decoration: none;
+  outline: none;
+  
+}
+
+
+.example-track-0 {
+  // position: relative;
+  background: var(--purple-30);
+  height: 10px;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  // border-bottom-right-radius: 5px;
+  // border-top-right-radius: 5px;
+  margin-top: 10px;
+  
+}
+.example-track-1 {
+  position: relative;
+  background: var(--purple-10);
+  height: 10px;
+  margin-top: 10px;
+  border-radius: 5px;
+  
+  
+}
+.example-track-2 {
+  // position: relative;
+  background: var(--purple-30);
+  height: 10px;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  margin-top: 10px;
+}

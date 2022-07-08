@@ -1,15 +1,10 @@
-import { useState } from 'react';
-import IntroSection from '@components/Home/components/IntroSection';
-import Card from '@components/common/Card';
-import TopTokenTable from '@components/common/TopTokenTable';
-import styles from './FilterAccordian.module.scss';
-import RetroButton from '@components/common/RetroButton';
-import { BsFilter, BsFilterRight } from 'react-icons/bs';
-import { IoFilter } from 'react-icons/io5';
-import { Offcanvas } from 'react-bootstrap';
 import MultiSelectSearchBar from '@components/common/MultiSelectSearchBar';
+import Slider from '@components/common/Slider';
 
-export default function FilterAccordian({ isExpanded }) {
+import styles from './FilterAccordian.module.scss';
+
+export default function FilterAccordian({ isExpanded, props }: any) {
+  console.log(props);
   return (
     <div className={isExpanded ? styles.container_expanded : styles.container}>
       <div className={styles.filter_col}>
@@ -20,7 +15,11 @@ export default function FilterAccordian({ isExpanded }) {
         <div className={styles.col_text}>Platforms</div>
         <MultiSelectSearchBar placeholder="platforms..." />
       </div>
-      <div className={styles.filter_col}></div>
+      <div className={styles.filter_col}>
+        <div className={styles.col_text}>Market Cap Rank</div>
+        <Slider />
+        {/* <MultiSelectSearchBar placeholder="platforms..." /> */}
+      </div>
     </div>
   );
 }
