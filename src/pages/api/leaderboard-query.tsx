@@ -7,6 +7,12 @@ type Data = {
   body?: object;
 };
 
+type RequestTypes = {
+  categories?: any;
+  platforms?: any;
+  market_cap_rank?: any;
+};
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
@@ -27,13 +33,14 @@ export default async function handler(
       };
       // console.log(req.query['marketCapRange[]']);
 
-      const findObj = {};
+      const findObj: RequestTypes = {};
       const mapper = () => {
         const categoryQuery = arrTransformer(req.query['categories[]']);
         const platformQuery = arrTransformer(req.query['platforms[]']);
         const marketCapRangeQuery = arrTransformer(
           req.query['marketCapRange[]']
         );
+        // console.log(marketCapRangeQuery[0]));
 
         if (categoryQuery != undefined) {
           findObj['categories'] = {
@@ -45,10 +52,15 @@ export default async function handler(
             $all: arrTransformer(req.query['platforms[]']),
           };
         }
-        findObj['market_cap_rank'] = {
-          $gt: parseInt(req.query['marketCapRange[]'][0]),
-          $lt: parseInt(req.query['marketCapRange[]'][1]),
-        };
+        if (
+          marketCapRangeQuery[1] != '9999999' ||
+          marketCapRangeQuery[0] != '0'
+        ) {
+          findObj['market_cap_rank'] = {
+            $gt: parseInt(req.query['marketCapRange[]'][0]),
+            $lt: parseInt(req.query['marketCapRange[]'][1]),
+          };
+        }
       };
       mapper();
       let data = await db.collection('token-metadata').find(findObj).toArray();

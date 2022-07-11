@@ -26,20 +26,10 @@ export default function Slider({ setMarketCapRangeQuery }: any) {
     { label: '3k', value: 3000 },
     { label: '3.5k', value: 3500 },
     { label: '4k', value: 4000 },
-    { label: '4.5k', value: 4500 },
-    { label: '5k', value: 5000 },
-    { label: '5.5k', value: 5500 },
-    { label: '6k', value: 6000 },
-    { label: '6.5k', value: 6500 },
-    { label: '7k', value: 7000 },
-    { label: '7.5k', value: 7500 },
-    { label: '8k', value: 8000 },
-    { label: '8.5k', value: 8500 },
-    { label: '9k', value: 9000 },
-    { label: '9.5k', value: 9500 },
-    { label: '10k', value: 10000 },
-    { label: 'max', value: 100000 },
+    { label: 'max', value: 9999999 },
   ];
+  const stateDataCount = stateData.length - 1;
+
   const ThumbRender = (props: any, state: any) => {
     return (
       <div {...props}>
@@ -49,7 +39,7 @@ export default function Slider({ setMarketCapRangeQuery }: any) {
     );
   };
 
-  const handleAfterChange = (state: number[]) => {
+  const handleAfterChange = (state: any) => {
     setMarketCapRangeQuery([
       stateData[state[0]].value,
       stateData[state[1]].value,
@@ -61,14 +51,13 @@ export default function Slider({ setMarketCapRangeQuery }: any) {
       className="horizontal-slider"
       thumbClassName={styles.thumb}
       trackClassName="example-track"
-      defaultValue={[0, 32]}
+      defaultValue={[0, stateDataCount]}
       ariaLabel={['Lower thumb', 'Upper thumb']}
-      // ariaValuetext={(state) => `Thumb value ${state.valueNow}`}
       ariaValuetext={(state) => `Thumb value ${state.valueNow}`}
-      onAfterChange={(state) => handleAfterChange(state)}
+      onAfterChange={(state: any) => handleAfterChange(state)}
       renderThumb={ThumbRender}
       min={0}
-      max={32}
+      max={stateDataCount}
       pearling
       minDistance={1}
     />

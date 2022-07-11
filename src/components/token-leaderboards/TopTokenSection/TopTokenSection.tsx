@@ -18,7 +18,9 @@ export default function TopTokenSection({ props }: any) {
   const [platformOptions, setPlatformOptions] = useState([]);
   const [categoryQueries, setCategoryQueries] = useState([]);
   const [platformQueries, setPlatformQueries] = useState([]);
-  const [marketCapRangeQuery, setMarketCapRangeQuery] = useState([0, 100000]);
+  const [marketCapRangeQuery, setMarketCapRangeQuery] = useState([0, 9999999]);
+  const [queryData, setQueryData] = useState(null);
+  const [queryIsLoading, setQueryIsLoading] = useState(false);
 
   const handleFilterLoad = async () => {
     try {
@@ -36,6 +38,7 @@ export default function TopTokenSection({ props }: any) {
     marketCapMin?: number,
     marketCapMax?: number
   ) => {
+    setQueryIsLoading(true);
     try {
       const res = await axios.get('/api/leaderboard-query', {
         params: {
@@ -44,8 +47,10 @@ export default function TopTokenSection({ props }: any) {
           marketCapRange: marketCapRangeQuery,
         },
       });
-      console.log(res);
+      setQueryData(res);
+      setQueryIsLoading(false);
     } catch (e) {
+      setQueryIsLoading(false);
       return;
     }
   };
@@ -75,7 +80,15 @@ export default function TopTokenSection({ props }: any) {
   }, []);
 
   useEffect(() => {
-    fetchDataTable();
+    if (
+      categoryQueries.length !== 0 ||
+      platformQueries.length !== 0 ||
+      marketCapRangeQuery[0] !== 0 ||
+      marketCapRangeQuery[1] !== 9999999
+    ) {
+      fetchDataTable();
+    } else {
+    }
   }, [categoryQueries, platformQueries, marketCapRangeQuery]);
 
   return (
@@ -91,7 +104,11 @@ export default function TopTokenSection({ props }: any) {
             setPlatformQueries={setPlatformQueries}
             setMarketCapRangeQuery={setMarketCapRangeQuery}
           />
-          <TopTokenTable props={props} />
+          <TopTokenTable
+            props={props}
+            queryData={queryData}
+            queryIsLoading={queryIsLoading}
+          />
         </Card>
       </div>
     </>
