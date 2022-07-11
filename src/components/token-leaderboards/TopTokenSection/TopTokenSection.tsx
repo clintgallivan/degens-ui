@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import IntroSection from '@components/Home/components/IntroSection';
 import Card from '@components/common/Card';
 import TopTokenTable from '@components/common/TopTokenTable';
@@ -10,12 +10,45 @@ import { MdFilterAlt } from 'react-icons/md';
 import { IoClose } from 'react-icons/io5';
 import { Offcanvas } from 'react-bootstrap';
 import FilterAccordian from '../FilterAccordian';
+import axios from 'axios';
 
 export default function TopTokenSection({ props }: any) {
   const [isExpanded, setIsExpanded] = useState(true);
+  const [categoryOptions, setCategoryOptions] = useState([]);
+  const [platformOptions, setPlatformOptions] = useState([]);
+  const [categoryQueries, setCategoryQueries] = useState([]);
+  const [platformQueries, setPlatformQueries] = useState([]);
+  const [marketCapRangeQuery, setMarketCapRangeQuery] = useState([0, 100000]);
 
-  // const handleClose = () => setShow(false);
-  // const handleShow = () => setShow(true);
+  const handleFilterLoad = async () => {
+    try {
+      const res = await axios.get('/api/token-filters', {});
+      const data = res.data[0];
+      setCategoryOptions(data.categories);
+      setPlatformOptions(data.platforms);
+      return;
+    } catch (e) {
+      return;
+    }
+  };
+
+  const fetchDataTable = async (
+    marketCapMin?: number,
+    marketCapMax?: number
+  ) => {
+    try {
+      const res = await axios.get('/api/leaderboard-query', {
+        params: {
+          categories: categoryQueries,
+          platforms: platformQueries,
+          marketCapRange: marketCapRangeQuery,
+        },
+      });
+      console.log(res);
+    } catch (e) {
+      return;
+    }
+  };
 
   const CardHeader = () => {
     return (
@@ -37,14 +70,29 @@ export default function TopTokenSection({ props }: any) {
     );
   };
 
+  useEffect(() => {
+    handleFilterLoad();
+  }, []);
+
+  useEffect(() => {
+    fetchDataTable();
+  }, [categoryQueries, platformQueries, marketCapRangeQuery]);
+
   return (
     <>
       <div className="content-area">
         <Card header={CardHeader()}>
-          <FilterAccordian isExpanded={isExpanded} props={props} />
+          <FilterAccordian
+            props={props}
+            isExpanded={isExpanded}
+            categoryOptions={categoryOptions}
+            platformOptions={platformOptions}
+            setCategoryQueries={setCategoryQueries}
+            setPlatformQueries={setPlatformQueries}
+            setMarketCapRangeQuery={setMarketCapRangeQuery}
+          />
           <TopTokenTable props={props} />
         </Card>
-        {/* <RightOffCanvas placement="end" /> */}
       </div>
     </>
   );

@@ -4,30 +4,22 @@ import styles from './MultiSelectSearchBar.module.scss';
 import { moduleStyles, ModuleTypes } from './moduleConfig';
 // import  from './moduleStyles';
 
-export default function MultiSelectSearchBar({ placeholder }) {
+export default function MultiSelectSearchBar({
+  placeholder,
+  options,
+  onChange,
+}) {
   // const animatedComponents = makeAnimated();
   return (
     <Select
       closeMenuOnSelect={false}
       styles={moduleStyles}
-      // components={animatedComponents}
-      // defaultValue={[options[4], colourOptions[5]]}
       isMulti
       options={options}
-      // isLoading
       placeholder={placeholder}
+      onChange={(e) => onChange(e)}
     />
   );
 }
 
-const options: readonly ModuleTypes[] = [
-  { value: 'ocean', label: 'Ocean' },
-  { value: 'purple', label: 'Purple' },
-  { value: 'red', label: 'Red' },
-  { value: 'orange', label: 'Orange' },
-  { value: 'yellow', label: 'Yellow' },
-  { value: 'green', label: 'Green' },
-  { value: 'forest', label: 'Forest' },
-  { value: 'slate', label: 'Slate' },
-  { value: 'silver', label: 'Silver' },
-];
+// const moduleOptions: readonly ModuleTypes[] = options;
