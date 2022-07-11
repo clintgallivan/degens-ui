@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
-import ReactSlider from 'react-slider';
+import dynamic from 'next/dynamic';
 import styles from './Slider.module.scss';
+
+const ReactSlider = dynamic(import('react-slider'), { ssr: false });
 
 export default function Slider({ setMarketCapRangeQuery }: any) {
   const stateData = [
