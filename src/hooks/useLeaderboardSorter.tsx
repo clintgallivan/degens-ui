@@ -23,9 +23,6 @@ export default function useLeaderboardSorter(data: any) {
     return a.coingecko_score_rank - b.coingecko_score_rank;
   });
 
-  // const by_degen_score = dataPreSorter.slice().sort((a, b) => {
-  //   return a.coingecko_score_rank - b.coingecko_score_rank;
-  // });
   const by_developer_score = dataPreSorter.slice().sort((a, b) => {
     return (
       (a.dev_score_rank === null) - (b.dev_score_rank === null) ||
