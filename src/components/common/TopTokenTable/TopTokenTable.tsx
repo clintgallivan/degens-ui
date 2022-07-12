@@ -15,7 +15,6 @@ type PlaceholderTextProps = {
 const TopTokenTable = ({ props, queryData, queryIsLoading }: any) => {
   const [selectedColumn, setSelectedColumn] = useState('by_degen_score');
   const [isLoading, setIsLoading] = useState(true);
-  // const topTokenData = props.topTokenSnapshot[0];
   const topTokenData =
     queryData == null ? props.topTokenSnapshot[0] : queryData.data;
 
