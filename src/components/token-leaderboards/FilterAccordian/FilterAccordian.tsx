@@ -12,7 +12,7 @@ export default function FilterAccordian({
   setMarketCapRangeQuery,
   props,
 }: any) {
-  const changeHandler = (e) => {
+  const changeHandler = (e: any) => {
     let output: any = [];
     e.forEach((item: any) => {
       output.push(item.value);
@@ -27,7 +27,7 @@ export default function FilterAccordian({
         <MultiSelectSearchBar
           placeholder="categories..."
           options={categoryOptions}
-          onChange={(e) => setCategoryQueries(changeHandler(e))}
+          onChange={(e: any) => setCategoryQueries(changeHandler(e))}
         />
       </div>
       <div className={styles.filter_col}>
@@ -35,7 +35,7 @@ export default function FilterAccordian({
         <MultiSelectSearchBar
           placeholder="platforms..."
           options={platformOptions}
-          onChange={(e) => setPlatformQueries(changeHandler(e))}
+          onChange={(e: any) => setPlatformQueries(changeHandler(e))}
         />
       </div>
       <div className={styles.filter_col}>
