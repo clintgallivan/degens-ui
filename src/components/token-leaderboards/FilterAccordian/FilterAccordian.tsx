@@ -41,7 +41,6 @@ export default function FilterAccordian({
       <div className={styles.filter_col}>
         <div className={styles.col_text}>Market Cap Rank</div>
         <Slider setMarketCapRangeQuery={setMarketCapRangeQuery} />
-        {/* <MultiSelectSearchBar placeholder="platforms..." /> */}
       </div>
     </div>
   );
