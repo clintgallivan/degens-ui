@@ -18,5 +18,3 @@ export default function MultiSelectSearchBar({
     />
   );
 }
-
-// const moduleOptions: readonly ModuleTypes[] = options;
