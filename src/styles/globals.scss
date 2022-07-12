@@ -292,3 +292,59 @@ img {
 @media screen and (min-width: 1200px) {
 
 }
+
+.horizontal-slider {
+  width: 100%;
+  // max-width: 500px;
+  // height: 100vh;
+  // margin: auto;
+  margin-top: 8px;  
+}
+.example-thumb {
+  cursor: pointer;
+  background-color: var(--purple-10);
+  width: 30px;
+  height: 30px;
+  border-radius: 15px;
+  border: 4px solid black;
+ 
+  // border-bottom-left-radius: -10px;
+  
+  text-decoration: none;
+  outline: none;
+  
+}
+
+
+.example-track-0 {
+  // position: relative;
+  background: var(--purple-30);
+  border: 4px solid black;
+  height: 14px;
+  border-top-left-radius: 7px;
+  border-bottom-left-radius: 7px;
+
+  margin-top: 8px;
+  
+}
+.example-track-1 {
+  position: relative;
+  background: var(--purple-10);
+  height: 14px;
+  margin-top: 8px;
+  border-radius: 7px;
+  border: 4px solid black;
+  
+  
+}
+.example-track-2 {
+  // position: relative;
+  background: var(--purple-30);
+  border: 4px solid black;
+  height: 14px;
+  border-top-right-radius: 7px;
+  border-bottom-right-radius: 7px;
+  border-top-left-radius: 7px;
+  border-bottom-left-radius: 7px;
+  margin-top: 8px;
+}

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import Image, { ImageLoaderProps } from 'next/image';
-import { Table } from 'react-bootstrap';
+import { Placeholder, Table } from 'react-bootstrap';
 import { BsAward } from 'react-icons/bs';
 
 import RetroButton from '@components/common/RetroButton';
@@ -8,68 +8,32 @@ import styles from './TopTokenTable.module.scss';
 import Link from 'next/link';
 import { ImArrowDown2 } from 'react-icons/im';
 
-const TopTokenTable = ({ props }: any) => {
+type PlaceholderTextProps = {
+  xs: number;
+};
+
+const TopTokenTable = ({ props, queryData, queryIsLoading }: any) => {
   const [selectedColumn, setSelectedColumn] = useState('by_degen_score');
   const [isLoading, setIsLoading] = useState(true);
-  const topTokenData = props.topTokenSnapshot[0];
+  const topTokenData =
+    queryData == null ? props.topTokenSnapshot[0] : queryData.data;
 
   const imageLoader = ({ src, width, quality }: ImageLoaderProps) => {
     return `${src}?w=${width}&q=${quality || 75}`;
   };
 
-  // const RowHandler = () => {
-  //   let count = 0;
-  //   return topTokenData[selectedColumn].map((item: any) => {
-  //     if (count < 100) {
-  //       count++;
-  //       return (
-  //         <tr key={item.name} className={styles.row_container}>
-  //           <td>
-  //             <div className={styles.icon_container}>
-  //               <Image
-  //                 loader={imageLoader}
-  //                 src={item.image}
-  //                 alt=""
-  //                 height={24}
-  //                 width={24}
-  //               />
-  //             </div>
-  //           </td>
-  //           <td>
-  //             <div className={styles.item_name_container}>{item.name}</div>
-  //           </td>
-  //           <td>
-  //             <div className={styles.grid_point_container}>
-  //               {item.coingecko_score_rank}
-  //             </div>
-  //           </td>
-  //           <td>
-  //             <div className={styles.grid_point_container}>
-  //               {item.dev_score_rank}
-  //             </div>
-  //           </td>
-  //           <td>
-  //             <div className={styles.grid_point_container}>
-  //               {item.community_score_rank}
-  //             </div>
-  //           </td>
-  //           <td>
-  //             <div className={styles.grid_point_container}>
-  //               {item.liquidity_score_rank}
-  //             </div>
-  //           </td>
-  //         </tr>
-  //       );
-  //     } else {
-  //       return <></>;
-  //     }
-  //   });
-  // };
+  const PlaceholderText = ({ xs }: PlaceholderTextProps) => {
+    return (
+      <Placeholder animation="glow">
+        <div className={styles.item_name_container}></div>
+        <Placeholder xs={xs} />
+      </Placeholder>
+    );
+  };
   const RowHandler = () => {
     return topTokenData[selectedColumn]
       .slice(0, 100)
       .map((item: any, index: number) => {
-        console.log(item);
         return (
           <tr key={item.name} className={styles.row_container}>
             <td>
@@ -77,68 +41,90 @@ const TopTokenTable = ({ props }: any) => {
             </td>
             <td>
               <div className={styles.icon_name_container}>
-                <div className={styles.icon_container}>
-                  <Image
-                    loader={imageLoader}
-                    src={item.image}
-                    alt=""
-                    height={24}
-                    width={24}
-                  />
+                {queryIsLoading ? (
+                  <PlaceholderText xs={12} />
+                ) : (
+                  <>
+                    <div className={styles.icon_container}>
+                      <Image
+                        loader={imageLoader}
+                        src={item.image}
+                        alt=""
+                        height={24}
+                        width={24}
+                      />
+                    </div>
+                    <div className={styles.item_name_container}>
+                      <Link
+                        className={styles.a_tag}
+                        href={`/tokens/${item.coingecko_id}`}
+                      >
+                        <a className={styles.a_tag}>{item.name}</a>
+                      </Link>
+                    </div>
+                  </>
+                )}
+              </div>
+            </td>
+            <td>
+              {queryIsLoading ? (
+                <PlaceholderText xs={4} />
+              ) : (
+                <div
+                  className={
+                    selectedColumn == 'by_degen_score'
+                      ? styles.grid_point_container && styles.selected_text
+                      : styles.grid_point_container && styles.unselected_text
+                  }
+                >
+                  {item.coingecko_score_rank || '--'}
                 </div>
-                <div className={styles.item_name_container}>
-                  <Link
-                    className={styles.a_tag}
-                    href={`/tokens/${item.coingecko_id}`}
-                  >
-                    <a className={styles.a_tag}>{item.name}</a>
-                  </Link>
+              )}
+            </td>
+            <td>
+              {queryIsLoading ? (
+                <PlaceholderText xs={4} />
+              ) : (
+                <div
+                  className={
+                    selectedColumn == 'by_developer_score'
+                      ? styles.grid_point_container && styles.selected_text
+                      : styles.grid_point_container && styles.unselected_text
+                  }
+                >
+                  {item.dev_score_rank || '--'}
                 </div>
-              </div>
+              )}
             </td>
             <td>
-              <div
-                className={
-                  selectedColumn == 'by_degen_score'
-                    ? styles.grid_point_container && styles.selected_text
-                    : styles.grid_point_container && styles.unselected_text
-                }
-              >
-                {item.coingecko_score_rank}
-              </div>
+              {queryIsLoading ? (
+                <PlaceholderText xs={4} />
+              ) : (
+                <div
+                  className={
+                    selectedColumn == 'by_community_score'
+                      ? styles.grid_point_container && styles.selected_text
+                      : styles.grid_point_container && styles.unselected_text
+                  }
+                >
+                  {item.community_score_rank || '--'}
+                </div>
+              )}
             </td>
             <td>
-              <div
-                className={
-                  selectedColumn == 'by_developer_score'
-                    ? styles.grid_point_container && styles.selected_text
-                    : styles.grid_point_container && styles.unselected_text
-                }
-              >
-                {item.dev_score_rank}
-              </div>
-            </td>
-            <td>
-              <div
-                className={
-                  selectedColumn == 'by_community_score'
-                    ? styles.grid_point_container && styles.selected_text
-                    : styles.grid_point_container && styles.unselected_text
-                }
-              >
-                {item.community_score_rank}
-              </div>
-            </td>
-            <td>
-              <div
-                className={
-                  selectedColumn == 'by_liquidity_score'
-                    ? styles.grid_point_container && styles.selected_text
-                    : styles.grid_point_container && styles.unselected_text
-                }
-              >
-                {item.liquidity_score_rank}
-              </div>
+              {queryIsLoading ? (
+                <PlaceholderText xs={4} />
+              ) : (
+                <div
+                  className={
+                    selectedColumn == 'by_liquidity_score'
+                      ? styles.grid_point_container && styles.selected_text
+                      : styles.grid_point_container && styles.unselected_text
+                  }
+                >
+                  {item.liquidity_score_rank || '--'}
+                </div>
+              )}
             </td>
           </tr>
         );
@@ -260,62 +246,6 @@ const TopTokenTable = ({ props }: any) => {
       </Table>
     </div>
   );
-  // return (
-  //   <div className={styles.container}>
-  //     <Table>
-  //       <thead className={styles.head}>
-  //         <tr className={styles.head_row}>
-  //           <th>
-  //             <div className={styles.head_container}>
-  //               <BsAward size={25} />
-  //             </div>
-  //           </th>
-  //           <th className="fs-l">
-  //             <div className={styles.head_container}>Name</div>
-  //           </th>
-
-  //           <th>
-  //             <div className={styles.grid_point_container}>
-  //               <RetroButton
-  //                 onClick={() => setSelectedColumn('by_degen_score')}
-  //               >
-  //                 {<div className="fs-xsm fw-sb">Degen</div>}
-  //               </RetroButton>
-  //             </div>
-  //           </th>
-  //           <th>
-  //             <div className={styles.grid_point_container}>
-  //               <RetroButton
-  //                 onClick={() => setSelectedColumn('by_developer_score')}
-  //               >
-  //                 {<div className="fs-xsm fw-sb">Developer</div>}
-  //               </RetroButton>
-  //             </div>
-  //           </th>
-  //           <th>
-  //             <div className={styles.grid_point_container}>
-  //               <RetroButton
-  //                 onClick={() => setSelectedColumn('by_community_score')}
-  //               >
-  //                 {<div className="fs-xsm fw-sb">Community</div>}
-  //               </RetroButton>
-  //             </div>
-  //           </th>
-  //           <th>
-  //             <div className={styles.grid_point_container}>
-  //               <RetroButton
-  //                 onClick={() => setSelectedColumn('by_liquidity_score')}
-  //               >
-  //                 {<div className="fs-xsm fw-sb">Liquidity</div>}
-  //               </RetroButton>
-  //             </div>
-  //           </th>
-  //         </tr>
-  //       </thead>
-  //       <tbody className={styles.head}>{RowHandler()}</tbody>
-  //     </Table>
-  //   </div>
-  // );
 };
 
 export default TopTokenTable;

@@ -21,7 +21,6 @@ const StatTable = ({ props }: any) => {
     return topTokenData[selectedColumn]
       .slice(0, 10)
       .map((item: any, index: number) => {
-        console.log(item);
         return (
           <tr key={item.name} className={styles.row_container}>
             <td>
