@@ -1,10 +1,13 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import clientPromise from '@utils/mongodb';
 import moment from 'moment-timezone';
+import useLeaderboardSorter from '@hooks/useLeaderboardSorter';
 
 type Data = {
-  message: string;
-  body?: object;
+  by_degen_score: object[];
+  by_developer_score: object[];
+  by_community_score: object[];
+  by_liquidity_score: object[];
 };
 
 type RequestTypes = {
@@ -24,14 +27,13 @@ export default async function handler(
     const localDate = new Date();
   } else {
     if (JSON.stringify(req.query) !== '{}') {
-      const arrTransformer = (item) => {
+      const arrTransformer = (item: string | string[]) => {
         if (typeof item == 'string') {
           return [item];
         } else {
           return item;
         }
       };
-      // console.log(req.query['marketCapRange[]']);
 
       const findObj: RequestTypes = {};
       const mapper = () => {
@@ -40,7 +42,6 @@ export default async function handler(
         const marketCapRangeQuery = arrTransformer(
           req.query['marketCapRange[]']
         );
-        // console.log(marketCapRangeQuery[0]));
 
         if (categoryQuery != undefined) {
           findObj['categories'] = {
@@ -65,10 +66,16 @@ export default async function handler(
       mapper();
       let data = await db.collection('token-metadata').find(findObj).toArray();
       data = JSON.parse(JSON.stringify(data));
+      // useLeaderboardSorter(data);
       if (data.length > 0) {
-        res.status(200).json(data);
+        res.status(200).json(useLeaderboardSorter(data));
       } else {
-        res.status(204).json(data);
+        res.status(200).json({
+          by_degen_score: [],
+          by_developer_score: [],
+          by_community_score: [],
+          by_liquidity_score: [],
+        });
       }
     } else {
       let data: any = [];

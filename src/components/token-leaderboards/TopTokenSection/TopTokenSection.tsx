@@ -47,6 +47,7 @@ export default function TopTokenSection({ props }: any) {
           marketCapRange: marketCapRangeQuery,
         },
       });
+      console.log(res);
       setQueryData(res);
       setQueryIsLoading(false);
     } catch (e) {
@@ -88,6 +89,7 @@ export default function TopTokenSection({ props }: any) {
     ) {
       fetchDataTable();
     } else {
+      setQueryData(null);
     }
   }, [categoryQueries, platformQueries, marketCapRangeQuery]);
 

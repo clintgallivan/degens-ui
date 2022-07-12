@@ -13,9 +13,13 @@ type PlaceholderTextProps = {
 };
 
 const TopTokenTable = ({ props, queryData, queryIsLoading }: any) => {
+  console.log(queryData);
+  // console.log(props.topTokenSnapshot[0]);
   const [selectedColumn, setSelectedColumn] = useState('by_degen_score');
   const [isLoading, setIsLoading] = useState(true);
-  const topTokenData = props.topTokenSnapshot[0];
+  // const topTokenData = props.topTokenSnapshot[0];
+  const topTokenData =
+    queryData == null ? props.topTokenSnapshot[0] : queryData.data;
 
   const imageLoader = ({ src, width, quality }: ImageLoaderProps) => {
     return `${src}?w=${width}&q=${quality || 75}`;
