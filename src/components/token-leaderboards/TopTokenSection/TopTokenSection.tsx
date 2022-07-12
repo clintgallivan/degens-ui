@@ -1,14 +1,10 @@
 import { useEffect, useState } from 'react';
-import IntroSection from '@components/Home/components/IntroSection';
 import Card from '@components/common/Card';
 import TopTokenTable from '@components/common/TopTokenTable';
 import styles from './TopTokenSection.module.scss';
 import RetroButton from '@components/common/RetroButton';
-import { BsFilter, BsFilterRight } from 'react-icons/bs';
-import { IoFilter } from 'react-icons/io5';
 import { MdFilterAlt } from 'react-icons/md';
 import { IoClose } from 'react-icons/io5';
-import { Offcanvas } from 'react-bootstrap';
 import FilterAccordian from '../FilterAccordian';
 import axios from 'axios';
 
