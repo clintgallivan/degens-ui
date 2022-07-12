@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 import styles from './Slider.module.scss';
 
