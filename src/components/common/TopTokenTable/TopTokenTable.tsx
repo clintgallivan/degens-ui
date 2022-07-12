@@ -13,8 +13,6 @@ type PlaceholderTextProps = {
 };
 
 const TopTokenTable = ({ props, queryData, queryIsLoading }: any) => {
-  console.log(queryData);
-  // console.log(props.topTokenSnapshot[0]);
   const [selectedColumn, setSelectedColumn] = useState('by_degen_score');
   const [isLoading, setIsLoading] = useState(true);
   // const topTokenData = props.topTokenSnapshot[0];
@@ -37,7 +35,6 @@ const TopTokenTable = ({ props, queryData, queryIsLoading }: any) => {
     return topTokenData[selectedColumn]
       .slice(0, 100)
       .map((item: any, index: number) => {
-        // console.log(item);
         return (
           <tr key={item.name} className={styles.row_container}>
             <td>
@@ -81,7 +78,7 @@ const TopTokenTable = ({ props, queryData, queryIsLoading }: any) => {
                       : styles.grid_point_container && styles.unselected_text
                   }
                 >
-                  {item.coingecko_score_rank}
+                  {item.coingecko_score_rank || '--'}
                 </div>
               )}
             </td>
@@ -96,7 +93,7 @@ const TopTokenTable = ({ props, queryData, queryIsLoading }: any) => {
                       : styles.grid_point_container && styles.unselected_text
                   }
                 >
-                  {item.dev_score_rank}
+                  {item.dev_score_rank || '--'}
                 </div>
               )}
             </td>
@@ -111,7 +108,7 @@ const TopTokenTable = ({ props, queryData, queryIsLoading }: any) => {
                       : styles.grid_point_container && styles.unselected_text
                   }
                 >
-                  {item.community_score_rank}
+                  {item.community_score_rank || '--'}
                 </div>
               )}
             </td>
@@ -126,7 +123,7 @@ const TopTokenTable = ({ props, queryData, queryIsLoading }: any) => {
                       : styles.grid_point_container && styles.unselected_text
                   }
                 >
-                  {item.liquidity_score_rank}
+                  {item.liquidity_score_rank || '--'}
                 </div>
               )}
             </td>

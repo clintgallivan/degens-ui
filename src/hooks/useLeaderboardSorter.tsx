@@ -1,5 +1,3 @@
-import { useState, useEffect } from 'react';
-
 export default function useLeaderboardSorter(data: any) {
   let reducedData: any[] = [];
   const dataReducer = () => {
@@ -21,25 +19,40 @@ export default function useLeaderboardSorter(data: any) {
     });
   };
   dataReducer();
-  console.log(reducedData);
-  const by_degen_score = reducedData.slice().sort((a, b) => {
+  const dataPreSorter = reducedData.slice().sort((a, b) => {
     return a.coingecko_score_rank - b.coingecko_score_rank;
   });
-  const by_developer_score = reducedData.slice().sort((a, b) => {
-    return a.dev_score_rank - b.dev_score_rank;
+
+  // const by_degen_score = dataPreSorter.slice().sort((a, b) => {
+  //   return a.coingecko_score_rank - b.coingecko_score_rank;
+  // });
+  const by_developer_score = dataPreSorter.slice().sort((a, b) => {
+    return (
+      (a.dev_score_rank === null) - (b.dev_score_rank === null) ||
+      +(a.dev_score_rank > b.dev_score_rank) ||
+      -(a.dev_score_rank < b.dev_score_rank)
+    );
   });
-  const by_community_score = reducedData.slice().sort((a, b) => {
-    return a.community_score_rank - b.community_score_rank;
+  const by_community_score = dataPreSorter.slice().sort((a, b) => {
+    return (
+      (a.community_score_rank === null) - (b.community_score_rank === null) ||
+      +(a.community_score_rank > b.community_score_rank) ||
+      -(a.community_score_rank < b.community_score_rank)
+    );
   });
-  const by_liquidity_score = reducedData.slice().sort((a, b) => {
-    return a.liquidity_score_rank - b.liquidity_score_rank;
+  const by_liquidity_score = dataPreSorter.slice().sort((a, b) => {
+    return (
+      (a.liquidity_score_rank === null) - (b.liquidity_score_rank === null) ||
+      +(a.liquidity_score_rank > b.liquidity_score_rank) ||
+      -(a.liquidity_score_rank < b.liquidity_score_rank)
+    );
   });
   const output = {
-    by_degen_score,
+    by_degen_score: dataPreSorter,
     by_developer_score,
     by_community_score,
     by_liquidity_score,
   };
-  console.log(output);
+
   return output;
 }

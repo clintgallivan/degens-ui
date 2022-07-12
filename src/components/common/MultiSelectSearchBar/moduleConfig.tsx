@@ -11,7 +11,7 @@ export const moduleStyles: StylesConfig<ModuleTypes, true> = {
     textAlign: 'left',
     color: 'white',
     backgroundColor: 'var(--purple-10)',
-    borderColor: 'var(--purple-30)',
+    borderColor: 'var(--black)',
     borderWidth: 5,
     borderBottomWidth: 8,
     borderRightWidth: 8,
@@ -21,7 +21,7 @@ export const moduleStyles: StylesConfig<ModuleTypes, true> = {
     boxShadow: 'none',
     ':hover': {
       ...styles[':hover'],
-      borderColor: 'var(--purple-30)',
+      borderColor: 'var(--black)',
       marginTop: 3,
       marginLeft: 2,
       borderWidth: 5,
