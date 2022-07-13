@@ -66,7 +66,7 @@ export default function Navbar() {
           isExpanded={navIsExpanded}
           text="Shitcoins"
           icon={<BsAward size={24} />}
-          route="token-leaderboards"
+          route="/token-leaderboards"
         />
         <div className={styles.break} />
         <NavButton

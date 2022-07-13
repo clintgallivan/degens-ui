@@ -7,12 +7,20 @@ import { MdFilterAlt } from 'react-icons/md';
 import { IoClose } from 'react-icons/io5';
 import FilterAccordian from '../FilterAccordian';
 import axios from 'axios';
+import { useRouter } from 'next/router';
 
 export default function TopTokenSection({ props }: any) {
+  const router = useRouter();
+  const { category } = router.query;
   const [isExpanded, setIsExpanded] = useState(true);
   const [categoryOptions, setCategoryOptions] = useState([]);
   const [platformOptions, setPlatformOptions] = useState([]);
-  const [categoryQueries, setCategoryQueries] = useState([]);
+  const [categoryQueries, setCategoryQueries] = useState(
+    category ? [category] : []
+  );
+
+  console.log(categoryQueries);
+  console.log(category);
   const [platformQueries, setPlatformQueries] = useState([]);
   const [marketCapRangeQuery, setMarketCapRangeQuery] = useState([0, 9999999]);
   const [queryData, setQueryData] = useState(null);
@@ -36,7 +44,7 @@ export default function TopTokenSection({ props }: any) {
   ) => {
     setQueryIsLoading(true);
     try {
-      const res = await axios.get('/api/leaderboard-query', {
+      const res: any = await axios.get('/api/leaderboard-query', {
         params: {
           categories: categoryQueries,
           platforms: platformQueries,
@@ -97,6 +105,7 @@ export default function TopTokenSection({ props }: any) {
             isExpanded={isExpanded}
             categoryOptions={categoryOptions}
             platformOptions={platformOptions}
+            categoryQueries={categoryQueries}
             setCategoryQueries={setCategoryQueries}
             setPlatformQueries={setPlatformQueries}
             setMarketCapRangeQuery={setMarketCapRangeQuery}

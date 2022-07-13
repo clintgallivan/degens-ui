@@ -32,7 +32,7 @@ export default function Slider({ setMarketCapRangeQuery }: any) {
   const ThumbRender = (props: any, state: any) => {
     return (
       <div {...props}>
-        <div className="example-thumb"></div>
+        <div className={styles.slider_thumb}></div>
         <div>{stateData[state.valueNow]['label']}</div>
       </div>
     );
@@ -47,9 +47,9 @@ export default function Slider({ setMarketCapRangeQuery }: any) {
 
   return (
     <ReactSlider
-      className="horizontal-slider"
-      thumbClassName={styles.thumb}
-      trackClassName="example-track"
+      className={styles.horizontal_slider}
+      thumbClassName={styles.thumb_box}
+      trackClassName="slider-track"
       defaultValue={[0, stateDataCount]}
       ariaLabel={['Lower thumb', 'Upper thumb']}
       ariaValuetext={(state) => `Thumb value ${state.valueNow}`}

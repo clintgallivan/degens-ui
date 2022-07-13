@@ -7,6 +7,7 @@ export default function FilterAccordian({
   isExpanded,
   categoryOptions,
   platformOptions,
+  categoryQueries,
   setCategoryQueries,
   setPlatformQueries,
   setMarketCapRangeQuery,
@@ -28,6 +29,7 @@ export default function FilterAccordian({
           placeholder="categories..."
           options={categoryOptions}
           onChange={(e: any) => setCategoryQueries(changeHandler(e))}
+          defaultValue={categoryQueries}
         />
       </div>
       <div className={styles.filter_col}>

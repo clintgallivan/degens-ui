@@ -1,4 +1,21 @@
-.thumb {
+.horizontal-slider {
+  width: 100%;
+  margin-top: 8px;  
+}
+
+.thumb_box {
   text-decoration: none;
   outline: none;
+}
+
+.slider_thumb {
+  cursor: pointer;
+  background-color: var(--purple-10);
+  width: 30px;
+  height: 30px;
+  border-radius: 15px;
+  border: 4px solid black;
+  text-decoration: none;
+  outline: none;
+  
 }

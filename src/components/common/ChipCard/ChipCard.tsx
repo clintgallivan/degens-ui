@@ -9,7 +9,12 @@ type ChipCardProps = {
 export default function ChipCard({ children, button }: ChipCardProps) {
   if (button) {
     return (
-      <Link href="/">
+      <Link
+        href={{
+          pathname: '/token-leaderboards',
+          query: { category: children.slice(1) },
+        }}
+      >
         <a className={styles.container_button}>{children}</a>
       </Link>
     );
