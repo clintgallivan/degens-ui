@@ -18,9 +18,6 @@ export default function TopTokenSection({ props }: any) {
   const [categoryQueries, setCategoryQueries] = useState(
     category ? [category] : []
   );
-
-  console.log(categoryQueries);
-  console.log(category);
   const [platformQueries, setPlatformQueries] = useState([]);
   const [marketCapRangeQuery, setMarketCapRangeQuery] = useState([0, 9999999]);
   const [queryData, setQueryData] = useState(null);
