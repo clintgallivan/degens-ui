@@ -12,7 +12,7 @@ import { useRouter } from 'next/router';
 export default function TopTokenSection({ props }: any) {
   const router = useRouter();
   const { category } = router.query;
-  const [isExpanded, setIsExpanded] = useState(true);
+  const [isExpanded, setIsExpanded] = useState(false);
   const [categoryOptions, setCategoryOptions] = useState([]);
   const [platformOptions, setPlatformOptions] = useState([]);
   const [categoryQueries, setCategoryQueries] = useState(
