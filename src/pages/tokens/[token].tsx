@@ -1,4 +1,5 @@
 import type { NextPage } from 'next';
+import Head from 'next/head';
 import { useRouter } from 'next/router';
 
 import { GetServerSideProps } from 'next';
@@ -10,12 +11,15 @@ import Navbar from '@components/common/Navbar';
 import Header from '@components/common/Header';
 import TokenSection from '@components/tokens/TokenSection';
 
-const Token: NextPage = (props) => {
+const Token: NextPage = (props: any) => {
   const router = useRouter();
   const { token } = router.query;
 
   return (
     <>
+      <Head>
+        <title>Degens | {props.tokenMetadata[0].name || 'Crypto'}</title>
+      </Head>
       <TotalPageDiv>
         <Navbar />
         <NonNavDiv>

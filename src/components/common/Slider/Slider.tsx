@@ -5,7 +5,7 @@ const ReactSlider = dynamic(import('react-slider'), { ssr: false });
 
 export default function Slider({ setMarketCapRangeQuery }: any) {
   const stateData = [
-    { label: '0', value: 0 },
+    { label: 'Min', value: 0 },
     { label: '10', value: 10 },
     { label: '25', value: 25 },
     { label: '50', value: 50 },

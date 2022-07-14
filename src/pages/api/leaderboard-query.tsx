@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import clientPromise from '@utils/mongodb';
 import moment from 'moment-timezone';
-import useLeaderboardSorter from '@hooks/useLeaderboardSorter';
+import UseLeaderboardSorter from '@hooks/useLeaderboardSorter';
 
 type Data = {
   by_degen_score: object[];
@@ -53,14 +53,16 @@ export default async function handler(
             $all: arrTransformer(req.query['platforms[]']),
           };
         }
-        if (
-          marketCapRangeQuery[1] != '9999999' ||
-          marketCapRangeQuery[0] != '0'
-        ) {
-          findObj['market_cap_rank'] = {
-            $gt: parseInt(req.query['marketCapRange[]'][0]),
-            $lt: parseInt(req.query['marketCapRange[]'][1]),
-          };
+        if (marketCapRangeQuery != undefined) {
+          if (
+            marketCapRangeQuery[1] != '9999999' ||
+            marketCapRangeQuery[0] != '0'
+          ) {
+            findObj['market_cap_rank'] = {
+              $gt: parseInt(req.query['marketCapRange[]'][0]),
+              $lt: parseInt(req.query['marketCapRange[]'][1]),
+            };
+          }
         }
       };
       mapper();
@@ -68,7 +70,7 @@ export default async function handler(
       data = JSON.parse(JSON.stringify(data));
       // useLeaderboardSorter(data);
       if (data.length > 0) {
-        res.status(200).json(useLeaderboardSorter(data));
+        res.status(200).json(UseLeaderboardSorter(data));
       } else {
         res.status(200).json({
           by_degen_score: [],

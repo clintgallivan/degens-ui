@@ -1,4 +1,5 @@
 import type { NextPage, GetServerSideProps } from 'next';
+import Head from 'next/head';
 
 import clientPromise from '@utils/mongodb';
 
@@ -11,6 +12,9 @@ import NonNavDiv from '@components/common/Divs/NonNavDiv/NonNavDiv';
 const Home: NextPage = (props) => {
   return (
     <>
+      <Head>
+        <title>Degen Analytics | Crypto</title>
+      </Head>
       <TotalPageDiv>
         <Navbar />
         <NonNavDiv>

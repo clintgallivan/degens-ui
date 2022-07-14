@@ -4,7 +4,6 @@ export default function MyDocument() {
   return (
     <Html>
       <Head>
-        <title>Degen Analytics | Crypto</title>
         <meta name="author" content="Degen Analytics" />
         <meta
           name="description"

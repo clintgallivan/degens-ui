@@ -1,4 +1,5 @@
 import type { NextPage } from 'next';
+import Head from 'next/head';
 import { GetServerSideProps } from 'next';
 
 import clientPromise from '@utils/mongodb';
@@ -12,6 +13,9 @@ import TopTokenSection from '@components/token-leaderboards/TopTokenSection';
 const TokenLeaderboards: NextPage = (props) => {
   return (
     <>
+      <Head>
+        <title>Token Leaderboards</title>
+      </Head>
       <TotalPageDiv>
         <Navbar />
         <NonNavDiv>

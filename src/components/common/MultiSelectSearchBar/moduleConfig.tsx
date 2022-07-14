@@ -29,7 +29,7 @@ export const moduleStyles: StylesConfig<ModuleTypes, true> = {
       borderRightWidth: 5,
     },
   }),
-  menu: (styles, { data }) => {
+  menu: (styles, { data }: any) => {
     return {
       ...styles,
       overflow: 'visible',

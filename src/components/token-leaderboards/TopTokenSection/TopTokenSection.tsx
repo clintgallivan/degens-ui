@@ -35,27 +35,6 @@ export default function TopTokenSection({ props }: any) {
     }
   };
 
-  const fetchDataTable = async (
-    marketCapMin?: number,
-    marketCapMax?: number
-  ) => {
-    setQueryIsLoading(true);
-    try {
-      const res: any = await axios.get('/api/leaderboard-query', {
-        params: {
-          categories: categoryQueries,
-          platforms: platformQueries,
-          marketCapRange: marketCapRangeQuery,
-        },
-      });
-      setQueryData(res);
-      setQueryIsLoading(false);
-    } catch (e) {
-      setQueryIsLoading(false);
-      return;
-    }
-  };
-
   const CardHeader = () => {
     return (
       <div className={styles.header_row}>
@@ -81,6 +60,27 @@ export default function TopTokenSection({ props }: any) {
   }, []);
 
   useEffect(() => {
+    const fetchDataTable = async (
+      marketCapMin?: number,
+      marketCapMax?: number
+    ) => {
+      setQueryIsLoading(true);
+      try {
+        const res: any = await axios.get('/api/leaderboard-query', {
+          params: {
+            categories: categoryQueries,
+            platforms: platformQueries,
+            marketCapRange: marketCapRangeQuery,
+          },
+        });
+        setQueryData(res);
+        setQueryIsLoading(false);
+      } catch (e) {
+        setQueryIsLoading(false);
+        return;
+      }
+    };
+
     if (
       categoryQueries.length !== 0 ||
       platformQueries.length !== 0 ||
