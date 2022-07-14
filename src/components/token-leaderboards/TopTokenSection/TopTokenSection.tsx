@@ -12,7 +12,6 @@ import { useRouter } from 'next/router';
 export default function TopTokenSection({ props }: any) {
   const router = useRouter();
   const { category } = router.query;
-  const [isExpanded, setIsExpanded] = useState(false);
   const [categoryOptions, setCategoryOptions] = useState([]);
   const [platformOptions, setPlatformOptions] = useState([]);
   const [categoryQueries, setCategoryQueries] = useState(
@@ -22,6 +21,14 @@ export default function TopTokenSection({ props }: any) {
   const [marketCapRangeQuery, setMarketCapRangeQuery] = useState([0, 9999999]);
   const [queryData, setQueryData] = useState(null);
   const [queryIsLoading, setQueryIsLoading] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(
+    categoryQueries.length == 0 &&
+      platformQueries.length == 0 &&
+      marketCapRangeQuery[0] == 0 &&
+      marketCapRangeQuery[1] == 9999999
+      ? false
+      : true
+  );
 
   const handleFilterLoad = async () => {
     try {
