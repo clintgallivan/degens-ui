@@ -1,0 +1,147 @@
+
+
+.container {
+  cursor: pointer;
+  overflow: visible;
+  outline: none;
+  background-color: black;
+  color: black;
+  align-items: center;
+  justify-content: center;
+  box-sizing:border-box;
+  border-radius: 50%;  
+  display: flex;
+  border: black solid 3px;
+  border-right-width: 4px;
+  border-bottom-width: 4px;
+  width: 50px;
+  align-self: center;
+  z-index: 999; 
+  margin-right: 5px;
+
+}
+
+.container:hover {
+  width: 47px;
+  margin-top: 3px;
+  transition: 0.2s;
+  border: black solid 3px;
+  border-radius: 50%;  
+  display: flex;
+  z-index: 999; 
+}
+
+.parent {
+ padding: 0px;
+ 
+
+}
+.image {
+  // background-color: blue;
+  flex-grow: 100%;
+  border-radius: 50%;
+  }
+
+
+// @media screen and (min-width: 320px) {
+//   .container {
+//     transition: 0.2s;
+//     width: 60px;
+//     margin-top: 28px;
+//     margin-bottom: 12px;
+    
+//    }
+  
+//    .container:hover {
+//     margin-top: 25px;
+//     margin-bottom: 12px;
+//     width: 57px;
+//     // margin-top: 3px;
+//     transition: 0.2s;
+//     border: black solid 5px;
+//     border-radius: 50%;  
+//     display: flex;
+//   }
+  
+// }
+
+// @media screen and (min-width: 480px) {
+//   .container {
+//     transition: 0.2s;
+//     width: 60px;
+//     margin-top: 28px;
+//     margin-bottom: 12px;
+    
+//    }
+  
+//    .container:hover {
+//     margin-top: 25px;
+//     margin-bottom: 12px;
+//     width: 57px;
+//     // margin-top: 3px;
+//     transition: 0.2s;
+//     border: black solid 5px;
+//     border-radius: 50%;  
+//     display: flex;
+//   }
+  
+// }
+
+// @media screen and (min-width: 768px) {
+//  .container {
+//   transition: 0.2s;
+//   width: 60px;
+//   margin-top: 28px;
+//   margin-bottom: 12px;
+  
+//  }
+
+//  .container:hover {
+//   margin-top: 25px;
+//   margin-bottom: 12px;
+//   width: 57px;
+//   // margin-top: 3px;
+//   transition: 0.2s;
+//   border: black solid 5px;
+//   border-radius: 50%;  
+//   display: flex;
+// }
+// }
+
+// @media screen and (min-width: 1024px) {
+//   // .container {
+//   //   width: 100px;
+//   //   margin-top: 0px;
+//   //   margin-bottom: 0px;
+//   //  }
+//   //  .container:hover {
+//   //   margin-top: 0px;
+//   //   margin-bottom: 0px;
+//   //   width: 97px;
+//   //   margin-top: 3px;
+//   //   transition: 0.2s;
+//   //   border: black solid 5px;
+//   //   border-radius: 50%;  
+//   //   display: flex;
+//   // }
+  
+// }
+
+// @media screen and (min-width: 1200px) {
+//   .container {
+//     width: 100px;
+//     margin-top: 0px;
+//     margin-bottom: 0px;
+//    }
+//    .container:hover {
+//     margin-top: 0px;
+//     margin-bottom: 0px;
+//     width: 97px;
+//     margin-top: 3px;
+//     transition: 0.2s;
+//     border: black solid 5px;
+//     border-radius: 50%;  
+//     display: flex;
+//   }
+  
+// }

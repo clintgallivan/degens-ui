@@ -22,7 +22,7 @@
   border-bottom-left-radius: 12px;
 }
 
-.container_white {
+.container_purple {
   flex: 1;
   cursor: pointer;
   outline: none;
@@ -48,7 +48,31 @@
   transition: 0.05s;
 }
 
-.container_orange:hover, .container_white:hover {
+.container_twitter_blue {
+  background-color: var(--twitter-blue);
+  cursor: pointer;
+  outline: none;
+  color: white;
+  align-items: center;
+  justify-content: center;
+  box-sizing:border-box;
+  min-height: 50px;
+  border-radius: 10px;
+  padding-right: 10px;
+  padding-left: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  display: flex;
+  font-size: 20px;
+  border: black solid 5px;
+  border-right-width: 8px;
+  border-bottom-width: 8px;
+  border-bottom-right-radius: 12px;
+  border-top-right-radius: 12px;
+  border-bottom-left-radius: 12px;
+}
+
+.container_orange:hover, .container_purple:hover, .container_twitter_blue:hover {
   margin-top: 2px;
   transition: 0.2s;
   border: black solid 5px;

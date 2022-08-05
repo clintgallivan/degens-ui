@@ -36,7 +36,7 @@ export default function NavButton({
   return (
     <Link href={route}>
       <a className={isExpanded ? styles.a_tag : styles.a_tag_sm}>
-        <RetroButton variant="white">{child()}</RetroButton>
+        <RetroButton variant="purple">{child()}</RetroButton>
       </a>
     </Link>
   );

@@ -8,9 +8,30 @@
 }
 
 .search_bar {
-  // background-color: blue;
+  // background-color: red;
   // margin-top: -20px;
   display: flex;
   justify-content: flex-end;
+  margin-right: 160px;
   flex: 1;
+}
+.search_bar_authed {
+  // background-color: red;
+  // margin-top: -20px;
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 70px;
+  flex: 1;
+}
+
+.profile {
+  // background-color: blue;
+  right: 20px;
+  // margin-right: 20px;
+  margin-bottom: 20px;
+  position: absolute;
+  display: flex;
+  justify-content: flex-end;
+  flex: 1;
+  z-index: 999;
 }
