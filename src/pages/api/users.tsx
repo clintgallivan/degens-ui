@@ -49,7 +49,6 @@ export default async function handler(
           return;
         })
         .catch(function (error) {
-          console.log(error);
           return error;
         });
 
@@ -63,9 +62,10 @@ export default async function handler(
         url: twitterOutput['url'],
       });
 
-      res
-        .status(201)
-        .json({ message: `${payload['name']} was added to the database` });
+      res.status(201).json({
+        message: `${payload['name']} was added to the database`,
+        body: { username: twitterOutput['username'] },
+      });
     }
   } else {
     let data = await db.collection('users').find({}).toArray();

@@ -35,7 +35,15 @@
 .text {
   font-size: 10px;
   color: var(--white);
-  font-weight: var(--font-weight-sb)
+  font-weight: var(--font-weight-sb);
+  transition: .5s;
+}
+
+.hide_text {
+  font-size: 0px;
+  color: var(--white);
+  font-weight: var(--font-weight-sb);
+  transition: .5s;
 }
 
 .twitter_icon {
@@ -45,4 +53,6 @@
   width: 15px;
 
 }
+
+
 

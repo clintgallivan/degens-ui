@@ -9,7 +9,7 @@ import HeaderProfile from '../HeaderProfile';
 import HeaderSignIn from '../HeaderSignIn';
 
 export default function Header({ props }: any) {
-  const { width } = useWindowSize();
+  const { width = 0 } = useWindowSize();
 
   return (
     <>
@@ -17,7 +17,13 @@ export default function Header({ props }: any) {
         <DegenLogo />
         <div
           className={
-            props.session ? styles.search_bar_authed : styles.search_bar
+            props.session
+              ? width >= 480
+                ? styles.search_bar_authed_wide
+                : styles.search_bar_authed_narrow
+              : width >= 768
+              ? styles.search_bar_wide
+              : styles.search_bar_narrow
           }
         >
           <HeaderSearchBar props={props} />

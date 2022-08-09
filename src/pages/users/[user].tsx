@@ -11,57 +11,67 @@ import Navbar from '@components/common/Navbar';
 import Header from '@components/common/Header';
 import TokenSection from '@components/tokens/TokenSection';
 
-const Token: NextPage = (props: any) => {
+// type QueryProps = {
+//   user: any
+// }
+
+const User: NextPage = (props: any) => {
   const router = useRouter();
-  const { token } = router.query;
+  const { user } = router.query;
 
   return (
     <>
       <Head>
-        <title>Degens | {props.tokenMetadata[0].name || 'Crypto'}</title>
+        <title>Degens | {user || 'Crypto'}</title>
       </Head>
       <TotalPageDiv>
         <Navbar />
         <NonNavDiv>
           <Header props={props} />
-          <TokenSection props={props} />
+          {/* <TokenSection props={props} /> */}
         </NonNavDiv>
       </TotalPageDiv>
     </>
   );
 };
 
-export default Token;
+export default User;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const id = context.query.token;
+  const uid = context.query.user;
+
   try {
     const session = await getSession(context);
     const client = await clientPromise;
     const db = client.db(process.env.MONGODB_DB);
 
-    const getTokenMetadata = async () => {
-      let output = await db
-        .collection('token-metadata')
-        .find({ coingecko_id: id })
-        .toArray();
-      return JSON.parse(JSON.stringify(output));
-    };
-    const getTokenTimeseries = async () => {
-      let output = await db
-        .collection('token-timeseries')
-        .find({ coingecko_id: id })
-        .toArray();
-      return JSON.parse(JSON.stringify(output));
-    };
+    // const getTokenMetadata = async () => {
+    //   let output = await db
+    //     .collection('token-metadata')
+    //     .find({ coingecko_id: id })
+    //     .toArray();
+    //   return JSON.parse(JSON.stringify(output));
+    // };
+    // const getTokenTimeseries = async () => {
+    //   let output = await db
+    //     .collection('token-timeseries')
+    //     .find({ coingecko_id: id })
+    //     .toArray();
+    //   return JSON.parse(JSON.stringify(output));
+    // };
 
-    let [tokenMetadata, tokenTimeseries] = await Promise.all([
-      getTokenMetadata(),
-      getTokenTimeseries(),
-    ]);
+    // let [tokenMetadata, tokenTimeseries] = await Promise.all([
+    //   getTokenMetadata(),
+    //   getTokenTimeseries(),
+    // ]);
 
     return {
-      props: { isConnected: true, session, tokenMetadata, tokenTimeseries },
+      props: {
+        isConnected: true,
+        session,
+        // tokenMetadata,
+        // tokenTimeseries
+      },
     };
   } catch (e) {
     console.error(e);

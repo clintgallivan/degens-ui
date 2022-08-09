@@ -17,7 +17,19 @@ export default NextAuth({
         image: token.picture,
         uid: token.sub,
       };
-      handleSecondTwitterCall(session.user);
+
+      const generateUsername = async () => {
+        let output = 'error';
+
+        const apiRes = await handleSecondTwitterCall(session.user);
+
+        output =
+          apiRes.status == 201
+            ? apiRes.data.body.username
+            : apiRes.data.body[0].username;
+        return output;
+      };
+      session.user['username'] = await generateUsername();
       return session;
     },
   },
@@ -27,7 +39,9 @@ const handleSecondTwitterCall = async (session) => {
   try {
     const res = await axios.post(
       // '/api/users',
-      'http://127.0.0.1:3000/api/users',
+      // 'http://127.0.0.1:3000/api/users',
+      `${process.env.BASE_URL}/api/users`,
+
       { uid: session.uid, name: session.name, image: session.image },
       {
         headers: {
@@ -35,10 +49,8 @@ const handleSecondTwitterCall = async (session) => {
         },
       }
     );
-    console.log({ res });
-    return;
+    return res;
   } catch (e) {
-    console.log({ err: e });
-    return;
+    return e.response;
   }
 };

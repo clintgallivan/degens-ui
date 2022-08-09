@@ -13,7 +13,6 @@ import * as gtag from '../utils/gtag';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
-  // console.log(pageProps);
   useEffect(() => {
     const handleRouteChange = (url: string) => {
       gtag.pageview(url);

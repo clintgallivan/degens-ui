@@ -1,6 +1,6 @@
-import type { NextPage } from 'next';
+import type { NextPage, GetServerSideProps } from 'next';
 import Head from 'next/head';
-import { GetServerSideProps } from 'next';
+import { getSession } from 'next-auth/react';
 
 import clientPromise from '@utils/mongodb';
 
@@ -19,7 +19,7 @@ const TokenLeaderboards: NextPage = (props) => {
       <TotalPageDiv>
         <Navbar />
         <NonNavDiv>
-          <Header />
+          <Header props={props} />
           <TopTokenSection props={props} />
         </NonNavDiv>
       </TotalPageDiv>
@@ -31,6 +31,7 @@ export default TokenLeaderboards;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   try {
+    const session = await getSession(context);
     const client = await clientPromise;
     const db = client.db(process.env.MONGODB_DB);
 
@@ -41,7 +42,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     topTokenSnapshot = JSON.parse(JSON.stringify(topTokenSnapshot));
 
     return {
-      props: { isConnected: true, topTokenSnapshot },
+      props: { isConnected: true, session, topTokenSnapshot },
     };
   } catch (e) {
     console.error(e);

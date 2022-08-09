@@ -7,27 +7,40 @@
   width: 100px; /* Need a specific value to work */
 }
 
-.search_bar {
-  // background-color: red;
-  // margin-top: -20px;
+.search_bar_wide {
+  transition: .5s;
   display: flex;
   justify-content: flex-end;
   margin-right: 160px;
   flex: 1;
 }
-.search_bar_authed {
-  // background-color: red;
-  // margin-top: -20px;
+
+.search_bar_narrow {
+  transition: .5s;
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 40px;
+  flex: 1;
+}
+
+.search_bar_authed_wide {
+  transition: .5s;
   display: flex;
   justify-content: flex-end;
   margin-right: 70px;
   flex: 1;
 }
 
+.search_bar_authed_narrow {
+  transition: .5s;
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 40px;
+  flex: 1;
+}
+
 .profile {
-  // background-color: blue;
   right: 20px;
-  // margin-right: 20px;
   margin-bottom: 20px;
   position: absolute;
   display: flex;
