@@ -14,7 +14,6 @@ type ToggleProps = {
 };
 
 export default function HeaderProfile({ props }: any) {
-  console.log(props);
   const imageLoader = ({ src, width, quality }: ImageLoaderProps) => {
     return src;
   };

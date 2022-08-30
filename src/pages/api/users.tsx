@@ -17,7 +17,10 @@ export default async function handler(
 
   if (req.method === 'POST') {
     const localDate = new Date();
-    const timestamp = moment.utc(localDate).format();
+    let yesterday = new Date(new Date().valueOf() - 1000 * 60 * 60 * 24);
+    let twoDaysAgo = new Date(new Date().valueOf() - 1000 * 60 * 60 * 24 * 2);
+    const timestamp = moment.utc(yesterday).format();
+    const timestamp2 = moment.utc(twoDaysAgo).format();
     const payload = req.body;
     const existingDocument = await db
       .collection('users')
@@ -58,8 +61,115 @@ export default async function handler(
         username: twitterOutput['username'],
         name: payload['name'],
         image: payload['image'],
+        image_hi_res: payload['image_hi_res'],
         description: twitterOutput['description'],
         url: twitterOutput['url'],
+        links: {
+          bio_link_1: twitterOutput['url'],
+          twitter_link: `twitter.com/${twitterOutput['username']}`,
+          discord_link: '',
+          youtube_link: '',
+          telegram_link: '',
+          instagram_link: '',
+          tik_tok_link: '',
+          reddit_link: '',
+        },
+        portfolio_metadata: {
+          season_1: {
+            creation_date: timestamp2,
+          },
+          // all_time: {
+          //   creation_date: timestamp,
+          // },
+        },
+        last_updated_snapshot: {
+          portfolios: {
+            season_1: {
+              timestamp: yesterday,
+              score: 100,
+              average_mcap_rank: 2,
+              tokens: [
+                {
+                  coingecko_id: 'ethereum',
+                  price: 1000,
+                  percent: 0.5,
+                  mcap_rank: 2,
+                },
+                {
+                  coingecko_id: 'bitcoin',
+                  price: 20000,
+                  percent: 0.5,
+                  mcap_rank: 1,
+                },
+              ],
+            },
+          },
+        },
+        historical: {
+          portfolios: {
+            season_1: [
+              {
+                timestamp: timestamp,
+                score: 100,
+                average_mcap_rank: 1.5,
+                tokens: [
+                  {
+                    coingecko_id: 'ethereum',
+                    price: 2000,
+                    percent: 0.66666666,
+                    mcap_rank: 2,
+                  },
+                  {
+                    coingecko_id: 'bitcoin',
+                    price: 20000,
+                    percent: 0.33333333,
+                    mcap_rank: 1,
+                  },
+                ],
+              },
+              {
+                timestamp: timestamp2,
+                score: 100,
+                average_mcap_rank: 1.5,
+                tokens: [
+                  {
+                    coingecko_id: 'ethereum',
+                    price: 1000,
+                    percent: 0.5,
+                    mcap_rank: 2,
+                  },
+                  {
+                    coingecko_id: 'bitcoin',
+                    price: 20000,
+                    percent: 0.5,
+                    mcap_rank: 1,
+                  },
+                ],
+              },
+            ],
+            // all_time: [
+            //   {
+            //     timestamp: timestamp,
+            //     score: 100,
+            //     average_mcap_rank: 5.5,
+            //     tokens: [
+            //       {
+            //         coingecko_id: 'ethereum',
+            //         price: 2000,
+            //         percent: 0.5,
+            //         mcap_rank: 2,
+            //       },
+            //       {
+            //         coingecko_id: 'solana',
+            //         price: 45,
+            //         percent: 0.5,
+            //         mcap_rank: 9,
+            //       },
+            //     ],
+            //   },
+            // ],
+          },
+        },
       });
 
       res.status(201).json({

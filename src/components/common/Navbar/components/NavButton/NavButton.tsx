@@ -14,7 +14,7 @@ export default function NavButton({
   text,
   icon,
   isExpanded,
-  route = '404',
+  route = '/404',
 }: NavButtonProps) {
   const child = () => {
     return (

@@ -10,6 +10,7 @@ import NonNavDiv from '@components/common/Divs/NonNavDiv';
 import Navbar from '@components/common/Navbar';
 import Header from '@components/common/Header';
 import TokenSection from '@components/tokens/TokenSection';
+import UserSection from '@components/users/userSection';
 
 // type QueryProps = {
 //   user: any
@@ -28,6 +29,7 @@ const User: NextPage = (props: any) => {
         <Navbar />
         <NonNavDiv>
           <Header props={props} />
+          <UserSection props={props} />
           {/* <TokenSection props={props} /> */}
         </NonNavDiv>
       </TotalPageDiv>
@@ -38,20 +40,18 @@ const User: NextPage = (props: any) => {
 export default User;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const uid = context.query.user;
+  const username = context.query.user;
 
   try {
     const session = await getSession(context);
     const client = await clientPromise;
     const db = client.db(process.env.MONGODB_DB);
 
-    // const getTokenMetadata = async () => {
-    //   let output = await db
-    //     .collection('token-metadata')
-    //     .find({ coingecko_id: id })
-    //     .toArray();
-    //   return JSON.parse(JSON.stringify(output));
-    // };
+    const getUser = async () => {
+      let output = await db.collection('users').find({ username }).toArray();
+      return JSON.parse(JSON.stringify(output));
+    };
+    // console.log(getUser());
     // const getTokenTimeseries = async () => {
     //   let output = await db
     //     .collection('token-timeseries')
@@ -64,11 +64,13 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     //   getTokenMetadata(),
     //   getTokenTimeseries(),
     // ]);
+    let [user] = await Promise.all([getUser()]);
 
     return {
       props: {
         isConnected: true,
         session,
+        user,
         // tokenMetadata,
         // tokenTimeseries
       },

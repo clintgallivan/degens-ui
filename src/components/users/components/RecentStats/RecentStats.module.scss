@@ -1,0 +1,40 @@
+.container {
+  min-width: 270px;
+  display: flex;
+  margin-top: 20px;
+}
+
+.title {
+  font-size: var(--font-size-l);
+  font-weight: var(--font-weight-xxb);
+}
+.sub_title {
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-b);
+  margin-top: 20px;
+}
+
+.percent_and_value_row {
+  font-size: var(--font-size-l);
+  font-weight: var(--font-weight-b);
+  display: flex;
+  flex-direction: row;
+  // background-color: green;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.percent_text_increase {
+  color: var(--green-10)
+}
+.percent_text_decrease {
+  color: var(--red-10);
+}
+
+@media screen and (min-width: 768px) {
+  .container {
+    width: 25%;
+    margin-left: 20px;
+    margin-top: 0px;
+  }
+}

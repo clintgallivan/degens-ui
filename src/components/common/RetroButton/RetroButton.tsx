@@ -2,7 +2,7 @@ import styles from './RetroButton.module.scss';
 
 type ButtonProps = {
   children: any;
-  variant?: 'purple' | 'orange' | 'twitterBlue';
+  variant?: 'purple' | 'dark_purple' | 'orange' | 'twitterBlue';
   onClick?: any;
 };
 
@@ -15,6 +15,10 @@ export default function RetroButton({
     <>
       {variant == 'purple' ? (
         <button onClick={onClick} className={styles.container_purple}>
+          {children}
+        </button>
+      ) : variant == 'dark_purple' ? (
+        <button onClick={onClick} className={styles.container_dark_purple}>
           {children}
         </button>
       ) : variant == 'orange' ? (
