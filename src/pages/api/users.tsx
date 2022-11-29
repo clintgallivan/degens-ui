@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import clientPromise from '@utils/mongodb';
-import moment from 'moment-timezone';
+// import moment from 'moment-timezone';
 import axios from 'axios';
 
 type Data = {
@@ -19,8 +19,9 @@ export default async function handler(
     const localDate = new Date();
     let yesterday = new Date(new Date().valueOf() - 1000 * 60 * 60 * 24);
     let twoDaysAgo = new Date(new Date().valueOf() - 1000 * 60 * 60 * 24 * 2);
-    const timestamp = moment.utc(yesterday).format();
-    const timestamp2 = moment.utc(twoDaysAgo).format();
+    // const timestamp = moment.utc(yesterday).format();
+
+    // const timestamp2 = moment.utc(twoDaysAgo).format();
     const payload = req.body;
     const existingDocument = await db
       .collection('users')
@@ -56,7 +57,7 @@ export default async function handler(
         });
 
       let doc = await db.collection('users').insertOne({
-        date_created: timestamp,
+        date_created: yesterday,
         uid: payload['uid'],
         username: twitterOutput['username'],
         name: payload['name'],
@@ -76,7 +77,7 @@ export default async function handler(
         },
         portfolio_metadata: {
           season_1: {
-            creation_date: timestamp2,
+            creation_date: twoDaysAgo,
           },
           // all_time: {
           //   creation_date: timestamp,
@@ -109,7 +110,7 @@ export default async function handler(
           portfolios: {
             season_1: [
               {
-                timestamp: timestamp,
+                timestamp: yesterday,
                 score: 100,
                 average_mcap_rank: 1.5,
                 tokens: [
@@ -128,7 +129,7 @@ export default async function handler(
                 ],
               },
               {
-                timestamp: timestamp2,
+                timestamp: twoDaysAgo,
                 score: 100,
                 average_mcap_rank: 1.5,
                 tokens: [
