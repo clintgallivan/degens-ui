@@ -2,22 +2,29 @@ import styles from './RetroUserIcon.module.scss';
 import Image, { ImageLoaderProps } from 'next/image';
 
 export default function RetroUserIcon({ props }: any) {
-  const imageLoader = ({ src, width, quality }: ImageLoaderProps) => {
-    // return `${src}?w=${width}&q=${quality || 75}`;
-    return src;
-  };
-  // console.log(props.user[0].image);
-  return (
-    <div className={styles.container}>
-      <Image
-        unoptimized
-        className={styles.image}
-        loader={imageLoader}
-        src={props.user[0].image_hi_res}
-        alt=""
-        width={100}
-        height={100}
-      />
-    </div>
-  );
+    const imageLoader = ({ src, width, quality }: ImageLoaderProps) => {
+        // return `${src}?w=${width}&q=${quality || 75}`;
+        return src;
+    };
+
+    return (
+        <div className={styles.container}>
+            {props.user[0] ? (
+                <Image
+                    unoptimized
+                    className={styles.image}
+                    loader={imageLoader}
+                    src={
+                        props.user[0]?.image_hi_res ||
+                        'https://pbs.twimg.com/profile_images/1536616627298480128/pd9pc9LD.png'
+                    }
+                    alt=""
+                    width={95}
+                    height={95}
+                />
+            ) : (
+                <div className={styles.no_image}></div>
+            )}
+        </div>
+    );
 }

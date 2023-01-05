@@ -21,35 +21,35 @@ type LinkItemPropTypes = {
 export default function LinkIconRow({ props }: any) {
   // const bioLink1 = {
   //   id: 'bioLink1',
-  //   link: props.user[0].links.bio_link_1,
+  //   link: props.user[0]?.links.bio_link_1,
   // };
   const twitterLink = {
     id: 'twitter',
-    link: props.user[0].links.twitter_link,
+    link: props.user[0]?.links.twitter_link,
   };
   // const discordLink = {
   //   id: 'discord',
-  //   link: props.user[0].links.discord_link,
+  //   link: props.user[0]?.links.discord_link,
   // };
   const youtubeLink = {
     id: 'youtube',
-    link: props.user[0].links.twitter_link,
+    link: props.user[0]?.links.twitter_link,
   };
   const telegramLink = {
     id: 'telegram',
-    link: props.user[0].links.telegram_link,
+    link: props.user[0]?.links.telegram_link,
   };
   const instagramLink = {
     id: 'instagram',
-    link: props.user[0].links.twitter_link,
+    link: props.user[0]?.links.twitter_link,
   };
   const tikTokLink = {
     id: 'tiktok',
-    link: props.user[0].links.twitter_link,
+    link: props.user[0]?.links.twitter_link,
   };
   const redditLink = {
     id: 'reddit',
-    link: props.user[0].links.twitter_link,
+    link: props.user[0]?.links.twitter_link,
   };
 
   const linkArr = [

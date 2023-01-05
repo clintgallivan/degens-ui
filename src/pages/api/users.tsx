@@ -67,7 +67,7 @@ export default async function handler(
         url: twitterOutput['url'],
         links: {
           bio_link_1: twitterOutput['url'],
-          twitter_link: `twitter.com/${twitterOutput['username']}`,
+          twitter_link: `https://twitter.com/${twitterOutput['username']}`,
           discord_link: '',
           youtube_link: '',
           telegram_link: '',

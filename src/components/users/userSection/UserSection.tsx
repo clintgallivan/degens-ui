@@ -9,9 +9,10 @@ import styles from './UserSection.module.scss';
 
 import moment from 'moment-timezone';
 
-export default function UserSection({ props }: any) {
+export default function UserSection({ props }: any) { 
   return (
     <>
+    {props.user.length > 0 ? (
       <div className={styles.content_area}>
         <div className={styles.top_row}>
           <UserGeneral props={props} />
@@ -23,6 +24,14 @@ export default function UserSection({ props }: any) {
         </div>
         <PortfolioDistribution props={props} />
       </div>
+    ) : (
+      <div className={styles.content_area}>
+      <div className={styles.top_row}>
+        <UserGeneral props={props} />
+        {/* <UserScoreAndStats props={props} /> */}
+      </div>
+    </div>
+    )}
     </>
   );
 }
