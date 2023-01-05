@@ -3,7 +3,8 @@
       "airbnb",
       "airbnb/hooks",
       "plugin:@typescript-eslint/recommended",
-      "prettier"
+      "prettier",
+      "next/core-web-vitals"
     ],
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
@@ -16,6 +17,7 @@
     },
     "plugins": ["@typescript-eslint", "react", "prettier"],
     "rules": {
+      "no-console": 1,
       "global-require": 0,
       "func-names": 0,
       "import/extensions": ["error", "never", { "svg": "always", "json": "always" }],
@@ -41,7 +43,7 @@
       "react/prop-types": 0,
       "react/require-default-props": 0,
       "react/style-prop-object": 0,
-      "semi": ["error", "never"],
+      "semi": "off",
       "no-plusplus": ["error", {"allowForLoopAfterthoughts": true}],
       "no-shadow": "off",
       "no-use-before-define": "off",

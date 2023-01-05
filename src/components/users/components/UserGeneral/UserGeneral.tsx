@@ -1,6 +1,7 @@
-import LinkIconRow from './LinkIconRow';
+import React from 'react';
 import RetroUserIcon from '@components/common/RetroUserIcon';
 import Badge from '@components/common/Badge';
+import LinkIconRow from './LinkIconRow';
 import styles from './UserGeneral.module.scss';
 
 export default function UserGeneral({ props }: any) {
@@ -15,12 +16,7 @@ export default function UserGeneral({ props }: any) {
                 </p>
                 <p className="fs-xsm fw-b">{props.user[0]?.description}</p>
                 <div className={styles.title_and_link_row}>
-                    <Badge
-                        score={
-                            props.user[0]?.last_updated_snapshot.portfolios
-                                .season_1.score
-                        }
-                    />
+                    <Badge score={props.user[0]?.last_updated_snapshot.portfolios.season_1.score} />
                     <LinkIconRow props={props} />
                 </div>
             </div>
