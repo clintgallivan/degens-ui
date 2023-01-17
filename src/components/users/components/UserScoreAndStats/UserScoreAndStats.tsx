@@ -5,14 +5,31 @@ import UseScoreLabelGenerator from '@hooks/useScoreLabelGenerator';
 import { log } from '@utils/console';
 import { toFixedNumber } from '@utils/text';
 import axios from 'axios';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 // import handleUpdateStats from 'src/pages/api/handleUpdateStats';
 import ProgressBar from './ProgressBar/ProgressBar';
 import styles from './UserScoreAndStats.module.scss';
 
 export default function UserScoreAndStats({ props }: any) {
+    const router = useRouter();
     const { score } = props.user[0].last_updated_snapshot.portfolios.season_1[0];
     const { portfolios } = props.user[0].historical;
+    const prevLastUpdatedAtStats = props.user[0].last_updated_snapshot.portfolios.season_1[0];
+    const lastUpdatedAt = props.user[0].last_updated_snapshot.portfolios.season_1[0].timestamp;
     const { currentLabel, nextThreshold } = UseScoreLabelGenerator(score);
+    const [updateButtonDisabled, setUpdateButtonDisabled] = useState(true);
+    const updateButtonDisabledHandler = () => {
+        const hour = 60 * 60 * 1000;
+        if (new Date() - new Date(lastUpdatedAt) > hour) {
+            setUpdateButtonDisabled(false);
+        } else {
+            setUpdateButtonDisabled(true);
+        }
+    };
+    const refreshData = () => {
+        router.replace(router.asPath);
+    };
     const handleUpdateStats = async () => {
         try {
             const historical = {
@@ -37,16 +54,29 @@ export default function UserScoreAndStats({ props }: any) {
                     },
                 },
             );
-            res.status === 200 ? log('stats updated') : log('failed to update');
+            res.status === 200 ? refreshData() : log('failed to update');
         } catch (e) {
             log(e);
         }
     };
+
+    useEffect(() => {
+        updateButtonDisabledHandler();
+    }, [refreshData]);
+    useEffect(() => {
+        updateButtonDisabledHandler();
+    }, []);
     return (
         <div className={styles.container}>
-            <div className={styles.update_button_aura}>
-                <RetroButton variant="dark_purple" onClick={() => handleUpdateStats()}>
-                    <div className={styles.update_button_text}>Update Stats</div>
+            <div className={updateButtonDisabled ? null : styles.update_button_aura}>
+                <RetroButton
+                    variant="dark_purple"
+                    onClick={() => handleUpdateStats()}
+                    disabled={updateButtonDisabled}
+                >
+                    <div className={styles.update_button_text}>
+                        {updateButtonDisabled ? 'Updated Recently' : 'Update Stats'}
+                    </div>
                 </RetroButton>
             </div>
             <div className={styles.title}>{currentLabel}</div>
