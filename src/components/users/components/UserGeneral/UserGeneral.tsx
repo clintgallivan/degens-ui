@@ -16,7 +16,9 @@ export default function UserGeneral({ props }: any) {
                 </p>
                 <p className="fs-xsm fw-b">{props.user[0]?.description}</p>
                 <div className={styles.title_and_link_row}>
-                    <Badge score={props.user[0]?.last_updated_snapshot.portfolios.season_1.score} />
+                    <Badge
+                        score={props.user[0]?.last_updated_snapshot.portfolios.season_1[0].score}
+                    />
                     <LinkIconRow props={props} />
                 </div>
             </div>
