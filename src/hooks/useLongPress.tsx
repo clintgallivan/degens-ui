@@ -4,7 +4,7 @@ export default function useLongPress(callback = () => {}, ms = 300) {
     const [startLongPress, setStartLongPress] = useState(false);
 
     useEffect(() => {
-        let timerId;
+        let timerId: any;
         if (startLongPress) {
             timerId = setTimeout(callback, ms);
         } else {

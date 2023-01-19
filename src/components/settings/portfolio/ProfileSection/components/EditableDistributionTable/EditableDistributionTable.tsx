@@ -74,17 +74,19 @@ function EditableDistributionTable({
                     </div>
                 </td>
                 <td>
-                    {queryIsLoading ? (
-                        <PlaceholderText xs={4} />
-                    ) : (
-                        <WeightOperator
-                            props={props}
-                            index={index}
-                            defaultPercent={item.percent}
-                            weightValue={weightValue}
-                            setWeightValue={setWeightValue}
-                        />
-                    )}
+                    <div className={styles.grid_point_container}>
+                        {queryIsLoading ? (
+                            <PlaceholderText xs={4} />
+                        ) : (
+                            <WeightOperator
+                                props={props}
+                                index={index}
+                                defaultPercent={item.percent}
+                                weightValue={weightValue}
+                                setWeightValue={setWeightValue}
+                            />
+                        )}
+                    </div>
                 </td>
             </tr>
         ));
