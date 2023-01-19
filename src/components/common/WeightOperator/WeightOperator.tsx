@@ -171,12 +171,12 @@ export default function WeightOperator({
                 value={toFixedNumber(value * 100)}
                 type="string"
                 name="name"
-                onChange={e =>
-                    setWeightValue([
-                        ...weightValue,
-                        (weightValue[index].percent = e.target.value / 100),
-                    ])
-                }
+                // onChange={e =>
+                //     setWeightValue([
+                //         ...weightValue,
+                //         (weightValue[index].percent = e.target.value / 100),
+                //     ])
+                // }
                 // onChange={(e) => onChange(e.target.value)}
             />
             <button className={styles.button_right} onClick={handleIncrease} {...longPressIncrease}>
