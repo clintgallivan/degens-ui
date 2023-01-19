@@ -1,0 +1,32 @@
+
+
+.container {
+  overflow: visible;
+  outline: none;
+  background-color: black;
+  color: black;
+  align-items: center;
+  justify-content: center;
+  box-sizing:border-box;
+  border-radius: 50%;  
+  display: flex;
+  width: 100px;
+  height: 100px;
+  align-self: center;
+}
+
+.parent {
+ padding: 0px;
+}
+.image {
+  height: 95px;
+  width: 95px;
+  border-radius: 50%;
+  }
+
+.no_image {
+  background-color: var(--purple-10);
+  height: 95px;
+  width: 95px;
+  border-radius: 50%;
+  }

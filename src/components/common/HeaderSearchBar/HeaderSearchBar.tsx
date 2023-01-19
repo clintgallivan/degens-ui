@@ -81,7 +81,7 @@ export default function HeaderSearchBar({ props }: any) {
           }
           size={20}
         />
-        {width >= 768 || headerSearchIsExpanded ? (
+        {width >= 1024 || headerSearchIsExpanded ? (
           <div id="header-search-col" className={styles.search_col}>
             <div id="header-search-row" className={styles.search_row}>
               <input

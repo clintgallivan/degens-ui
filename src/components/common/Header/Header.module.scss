@@ -7,10 +7,44 @@
   width: 100px; /* Need a specific value to work */
 }
 
-.search_bar {
-  // background-color: blue;
-  // margin-top: -20px;
+.search_bar_wide {
+  transition: .5s;
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 160px;
+  flex: 1;
+}
+
+.search_bar_narrow {
+  transition: .5s;
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 40px;
+  flex: 1;
+}
+
+.search_bar_authed_wide {
+  transition: .5s;
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 70px;
+  flex: 1;
+}
+
+.search_bar_authed_narrow {
+  transition: .5s;
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 40px;
+  flex: 1;
+}
+
+.profile {
+  right: 20px;
+  margin-bottom: 20px;
+  position: absolute;
   display: flex;
   justify-content: flex-end;
   flex: 1;
+  z-index: 999;
 }

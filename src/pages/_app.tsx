@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 import type { AppProps } from 'next/app';
 import { useRouter } from 'next/router';
 import Script from 'next/script';
+import { SessionProvider } from 'next-auth/react';
 import { TokenProvider } from '../context/tokenContext';
 import { LayoutProvider } from '../context/layoutContext';
 import * as gtag from '../utils/gtag';
@@ -43,12 +44,13 @@ function MyApp({ Component, pageProps }: AppProps) {
           `,
         }}
       />
-
-      <TokenProvider>
-        <LayoutProvider>
-          <Component {...pageProps} />
-        </LayoutProvider>
-      </TokenProvider>
+      <SessionProvider session={pageProps.session}>
+        <TokenProvider>
+          <LayoutProvider>
+            <Component {...pageProps} />
+          </LayoutProvider>
+        </TokenProvider>
+      </SessionProvider>
     </>
   );
 }

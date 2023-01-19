@@ -1,0 +1,30 @@
+.container {
+    margin-top: 20px;
+  }
+  
+  .inner_container {
+    display: flex;
+    // align-items: column;
+    flex-direction: column;
+    align-items: center;
+    
+  }
+  
+  .title {
+    font-size: var(--font-size-l);
+    font-weight: var(--font-weight-xxb);
+  }
+  .title_and_dropdown_container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+  }
+  
+  @media screen and (min-width: 1024px) {
+    .inner_container {
+      display: flex;
+      flex-direction: row;
+    
+    }
+  }

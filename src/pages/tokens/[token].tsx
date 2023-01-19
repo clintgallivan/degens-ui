@@ -1,8 +1,8 @@
-import type { NextPage } from 'next';
+import type { NextPage, GetServerSideProps } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
+import { getSession } from 'next-auth/react';
 
-import { GetServerSideProps } from 'next';
 import clientPromise from '@utils/mongodb';
 
 import TotalPageDiv from '@components/common/Divs/TotalPageDiv';
@@ -23,7 +23,7 @@ const Token: NextPage = (props: any) => {
       <TotalPageDiv>
         <Navbar />
         <NonNavDiv>
-          <Header />
+          <Header props={props} />
           <TokenSection props={props} />
         </NonNavDiv>
       </TotalPageDiv>
@@ -36,6 +36,7 @@ export default Token;
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const id = context.query.token;
   try {
+    const session = await getSession(context);
     const client = await clientPromise;
     const db = client.db(process.env.MONGODB_DB);
 
@@ -60,7 +61,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     ]);
 
     return {
-      props: { isConnected: true, tokenMetadata, tokenTimeseries },
+      props: { isConnected: true, session, tokenMetadata, tokenTimeseries },
     };
   } catch (e) {
     console.error(e);

@@ -1,27 +1,67 @@
 import styles from './RetroButton.module.scss';
 
 type ButtonProps = {
-  children: any;
-  variant?: 'white' | 'orange';
-  onClick?: any;
+    children: any;
+    variant?: 'purple' | 'dark_purple' | 'orange' | 'twitterBlue';
+    onClick?: any;
+    disabled?: boolean;
 };
 
 export default function RetroButton({
-  children,
-  variant = 'orange',
-  onClick,
+    children,
+    variant = 'orange',
+    onClick,
+    disabled = false,
 }: ButtonProps) {
-  return (
-    <>
-      {variant == 'white' ? (
-        <button onClick={onClick} className={styles.container_white}>
-          {children}
-        </button>
-      ) : (
-        <button onClick={onClick} className={styles.container_orange}>
-          {children}
-        </button>
-      )}
-    </>
-  );
+    return (
+        <div>
+            {variant == 'purple' ? (
+                <button
+                    onClick={() => (disabled ? null : onClick())}
+                    className={
+                        disabled ? styles.container_purple_disabled : styles.container_purple
+                    }
+                    disabled={disabled}
+                >
+                    {children}
+                </button>
+            ) : variant == 'dark_purple' ? (
+                <button
+                    onClick={() => (disabled ? null : onClick())}
+                    className={
+                        disabled
+                            ? styles.container_dark_purple_disabled
+                            : styles.container_dark_purple
+                    }
+                    disabled={disabled}
+                >
+                    {children}
+                </button>
+            ) : variant == 'orange' ? (
+                <button
+                    onClick={() => (disabled ? null : onClick())}
+                    className={
+                        disabled ? styles.container_orange_disabled : styles.container_orange
+                    }
+                    disabled={disabled}
+                >
+                    {children}
+                </button>
+            ) : variant == 'twitterBlue' ? (
+                <button
+                    onClick={() => (disabled ? null : onClick())}
+                    className={
+                        disabled
+                            ? styles.container_twitter_blue_disabled
+                            : styles.container_twitter_blue
+                    }
+                    disabled={disabled}
+                >
+                    {children}
+                </button>
+            ) : (
+                <></>
+            )}
+        </div>
+    );
 }

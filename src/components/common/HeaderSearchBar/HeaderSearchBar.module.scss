@@ -98,6 +98,7 @@ width: 40px;
   flex: 1;
   color: white;
   background-color: transparent;
+  width: 100px;
   padding-left: 30px;
   border: transparent solid 0px;
   border-radius: 15px;
@@ -130,6 +131,9 @@ width: 40px;
 }
 
 .x_container {
+  position: absolute;
+  right: 10px;
+  top: 13px;
   width: 25px;
   height: 25px;
   display: flex;
@@ -137,6 +141,8 @@ width: 40px;
   align-items: center;
   justify-content: center;
   padding: 0px;
+  z-index: 999;
+  
 }
 .x_container:hover {
   background-color: var(--white-25);
@@ -157,7 +163,10 @@ width: 40px;
 
 }
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 480px) {
+}
+
+@media screen and (min-width: 1024px) {
 
   .container {
     position: asbolute;
