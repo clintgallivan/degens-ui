@@ -50,7 +50,7 @@ export const getServerSideProps: GetServerSideProps = async context => {
     const username = context.query.user;
 
     try {
-        const session = await getSession(context);
+        const session: any = await getSession(context);
         const client = await clientPromise;
         const db = client.db(process.env.MONGODB_DB);
         // console.log({ session });
