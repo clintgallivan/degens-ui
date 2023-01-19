@@ -1,7 +1,6 @@
 import Card from '@components/common/Card';
-import RetroButton from '@components/common/RetroButton';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import DraggablePieChart from './components/DraggablePieChart';
 import EditableDistributionTable from './components/EditableDistributionTable';
 import styles from './PortfolioSection.module.scss';
@@ -17,7 +16,6 @@ export enum DropdownTextReverse {
 }
 
 export default function PortfolioSection({ props }: any) {
-    console.log(props);
     const router = useRouter();
     const [dropdownText, setDropdownText] = useState(DropdownText['season_1']);
     const selectedPortfolio = DropdownTextReverse[dropdownText];
@@ -26,7 +24,7 @@ export default function PortfolioSection({ props }: any) {
     const roundPortfolioTokens = () => {
         let output: any = [];
         const handler = () => {
-            portfolioTokens.forEach(tokenObj => {
+            portfolioTokens.forEach((tokenObj: any) => {
                 const roundedPercent = Math.round((tokenObj.percent + Number.EPSILON) * 100) / 100;
                 tokenObj.percent = roundedPercent;
                 output.push(tokenObj);
@@ -54,13 +52,15 @@ export default function PortfolioSection({ props }: any) {
                             </Dropdown>
                         </div>
                         <div className={styles.inner_container}>
-                            <EditableDistributionTable
-                                props={props}
-                                selectedPortfolio={selectedPortfolio}
-                                weightValue={weightValue}
-                                setWeightValue={setWeightValue}
-                                roundPortfolioTokens={roundPortfolioTokens}
-                            />
+                            <div className={styles.table_container}>
+                                <EditableDistributionTable
+                                    props={props}
+                                    selectedPortfolio={selectedPortfolio}
+                                    weightValue={weightValue}
+                                    setWeightValue={setWeightValue}
+                                    roundPortfolioTokens={roundPortfolioTokens}
+                                />
+                            </div>
                             <DraggablePieChart props={props} />
                         </div>
                     </Card>
