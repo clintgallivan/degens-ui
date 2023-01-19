@@ -35,6 +35,7 @@ export default function UserScoreAndStats({ props }: any) {
         router.replace(router.asPath);
     };
     const handleUpdateStats = async () => {
+        console.log('start api');
         try {
             const historical: any = {
                 portfolios: {},
@@ -44,7 +45,7 @@ export default function UserScoreAndStats({ props }: any) {
                 const pValue = portfolios[portfolio];
                 historical.portfolios[pKey] = [pValue[0]];
             });
-
+            console.log('second');
             const res = await axios.post(
                 '/api/handle-update-stats',
                 {
@@ -58,6 +59,7 @@ export default function UserScoreAndStats({ props }: any) {
                     },
                 },
             );
+            console.log(res);
             res.status === 200 ? refreshData() : log('failed to update');
         } catch (e) {
             log(e);
