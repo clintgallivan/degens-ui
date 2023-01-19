@@ -4,6 +4,7 @@ import TwitterProvider from 'next-auth/providers/twitter';
 import moment from 'moment-timezone';
 
 export default NextAuth({
+    // secret:process.env.NEXTAUTH_SECRET,
   providers: [
     TwitterProvider({
       clientId: process.env.TWITTER_CONSUMER_KEY,

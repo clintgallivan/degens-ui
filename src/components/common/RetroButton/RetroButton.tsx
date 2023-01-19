@@ -17,7 +17,7 @@ export default function RetroButton({
         <div>
             {variant == 'purple' ? (
                 <button
-                    onClick={() => (disabled ? null : onClick)}
+                    onClick={() => (disabled ? null : onClick())}
                     className={
                         disabled ? styles.container_purple_disabled : styles.container_purple
                     }
@@ -27,7 +27,7 @@ export default function RetroButton({
                 </button>
             ) : variant == 'dark_purple' ? (
                 <button
-                    onClick={() => (disabled ? null : onClick)}
+                    onClick={() => (disabled ? null : onClick())}
                     className={
                         disabled
                             ? styles.container_dark_purple_disabled
@@ -39,7 +39,7 @@ export default function RetroButton({
                 </button>
             ) : variant == 'orange' ? (
                 <button
-                    onClick={() => (disabled ? null : onClick)}
+                    onClick={() => (disabled ? null : onClick())}
                     className={
                         disabled ? styles.container_orange_disabled : styles.container_orange
                     }
@@ -49,7 +49,7 @@ export default function RetroButton({
                 </button>
             ) : variant == 'twitterBlue' ? (
                 <button
-                    onClick={() => (disabled ? null : onClick)}
+                    onClick={() => (disabled ? null : onClick())}
                     className={
                         disabled
                             ? styles.container_twitter_blue_disabled
