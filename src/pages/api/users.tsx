@@ -74,25 +74,33 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
                 },
                 last_updated_snapshot: {
                     portfolios: {
-                        season_1: {
-                            timestamp: yesterday,
-                            score: 100,
-                            average_mcap_rank: 2,
-                            tokens: [
-                                {
-                                    coingecko_id: 'ethereum',
-                                    price: 1000,
-                                    percent: 0.5,
-                                    mcap_rank: 2,
-                                },
-                                {
-                                    coingecko_id: 'bitcoin',
-                                    price: 20000,
-                                    percent: 0.5,
-                                    mcap_rank: 1,
-                                },
-                            ],
-                        },
+                        season_1: [
+                            {
+                                timestamp: yesterday,
+                                score: 100,
+                                average_mcap_rank: 2,
+                                tokens: [
+                                    {
+                                        coingecko_id: 'ethereum',
+                                        price: 1500,
+                                        percent: 0.4,
+                                        mcap_rank: 2,
+                                    },
+                                    {
+                                        coingecko_id: 'bitcoin',
+                                        price: 20000,
+                                        percent: 0.4,
+                                        mcap_rank: 1,
+                                    },
+                                    {
+                                        coingecko_id: 'uniswap',
+                                        price: 5,
+                                        percent: 0.2,
+                                        mcap_rank: 20,
+                                    },
+                                ],
+                            },
+                        ],
                     },
                 },
                 historical: {
@@ -105,37 +113,49 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
                                 tokens: [
                                     {
                                         coingecko_id: 'ethereum',
-                                        price: 2000,
-                                        percent: 0.66666666,
+                                        price: 1500,
+                                        percent: 0.4,
                                         mcap_rank: 2,
                                     },
                                     {
                                         coingecko_id: 'bitcoin',
                                         price: 20000,
-                                        percent: 0.33333333,
+                                        percent: 0.4,
                                         mcap_rank: 1,
+                                    },
+                                    {
+                                        coingecko_id: 'uniswap',
+                                        price: 5,
+                                        percent: 0.2,
+                                        mcap_rank: 20,
                                     },
                                 ],
                             },
-                            {
-                                timestamp: twoDaysAgo,
-                                score: 100,
-                                average_mcap_rank: 1.5,
-                                tokens: [
-                                    {
-                                        coingecko_id: 'ethereum',
-                                        price: 1000,
-                                        percent: 0.5,
-                                        mcap_rank: 2,
-                                    },
-                                    {
-                                        coingecko_id: 'bitcoin',
-                                        price: 20000,
-                                        percent: 0.5,
-                                        mcap_rank: 1,
-                                    },
-                                ],
-                            },
+                            // {
+                            //     timestamp: twoDaysAgo,
+                            //     score: 100,
+                            //     average_mcap_rank: 1.5,
+                            //     tokens: [
+                            //         {
+                            //             coingecko_id: 'ethereum',
+                            //             price: 1500,
+                            //             percent: 0.4,
+                            //             mcap_rank: 2,
+                            //         },
+                            //         {
+                            //             coingecko_id: 'bitcoin',
+                            //             price: 20000,
+                            //             percent: 0.4,
+                            //             mcap_rank: 1,
+                            //         },
+                            //         {
+                            //             coingecko_id: 'uniswap',
+                            //             price: 20000,
+                            //             percent: 0.2,
+                            //             mcap_rank: 20,
+                            //         },
+                            //     ],
+                            // },
                         ],
                         // all_time: [
                         //   {
