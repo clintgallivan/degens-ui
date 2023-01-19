@@ -94,7 +94,7 @@ export default function DraggablePieChart({ props }: any) {
         percent,
         image,
         index,
-    }) => {
+    }: any) => {
         const radius = outerRadius * 1.2;
         // const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
         const x = cx + radius * Math.cos(-midAngle * RADIAN);
