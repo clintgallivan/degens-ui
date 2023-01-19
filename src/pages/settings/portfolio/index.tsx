@@ -12,6 +12,7 @@ import Header from '@components/common/Header';
 // import TokenSection from '@components/tokens/TokenSection';
 // import UserSection from '@components/users/userSection';
 import PortfolioSection from '@components/settings/portfolio/ProfileSection';
+import { useEffect } from 'react';
 
 // type QueryProps = {
 //   user: any
@@ -20,6 +21,10 @@ import PortfolioSection from '@components/settings/portfolio/ProfileSection';
 const Portfolio: NextPage = (props: any) => {
     const router = useRouter();
     const { user } = router.query;
+
+    useEffect(() => {
+        props.session ? null : router.push('/');
+    }, []);
 
     return (
         <>
@@ -30,7 +35,7 @@ const Portfolio: NextPage = (props: any) => {
                 <Navbar />
                 <NonNavDiv>
                     <Header props={props} />
-                    <PortfolioSection props={props} />
+                    {props.session ? <PortfolioSection props={props} /> : null}
                     {/* <UserSection props={props} /> */}
                     {/* <TokenSection props={props} /> */}
                 </NonNavDiv>

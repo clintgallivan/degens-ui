@@ -17,6 +17,7 @@ export enum DropdownTextReverse {
 }
 
 export default function PortfolioSection({ props }: any) {
+    console.log(props);
     const router = useRouter();
     const [dropdownText, setDropdownText] = useState(DropdownText['season_1']);
     const selectedPortfolio = DropdownTextReverse[dropdownText];
@@ -35,10 +36,6 @@ export default function PortfolioSection({ props }: any) {
         return output;
     };
     const [weightValue, setWeightValue] = useState(roundPortfolioTokens());
-
-    useEffect(() => {
-        props.session ? null : router.push('/');
-    }, []);
     return (
         <>
             {props.session ? (

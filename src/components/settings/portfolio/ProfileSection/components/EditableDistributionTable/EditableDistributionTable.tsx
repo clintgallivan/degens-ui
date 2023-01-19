@@ -6,7 +6,6 @@ import { Placeholder, Table } from 'react-bootstrap';
 import { BsAward } from 'react-icons/bs';
 
 import RetroButton from '@components/common/RetroButton';
-// import styles from './TopTokenTable.module.scss';
 import Link from 'next/link';
 import { ImArrowDown2 } from 'react-icons/im';
 import styles from './EditableDistributionTable.module.scss';
@@ -29,24 +28,8 @@ function EditableDistributionTable({
 }: any) {
     const imageLoader = ({ src, width, quality }: ImageLoaderProps) =>
         `${src}?w=${width}&q=${quality || 75}`;
-    // const portfolioTokens =
-    //     props.user[0].last_updated_snapshot.portfolios[selectedPortfolio][0].tokens;
-    // const roundPortfolioTokens = () => {
-    //     let output: any = [];
-    //     const handler = () => {
-    //         portfolioTokens.forEach(tokenObj => {
-    //             const roundedPercent = Math.round((tokenObj.percent + Number.EPSILON) * 100) / 100;
-    //             tokenObj.percent = roundedPercent;
-    //             output.push(tokenObj);
-    //         });
-    //     };
-    //     handler();
-    //     return output;
-    // };
-
     const [selectedColumn, setSelectedColumn] = useState('percent');
     const [isLoading, setIsLoading] = useState(true);
-    // const [weightValue, setWeightValue] = useState(roundPortfolioTokens());
 
     function PlaceholderText({ xs }: PlaceholderTextProps) {
         return (
