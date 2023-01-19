@@ -60,7 +60,7 @@ function CustomTooltip({ active, payload, label }: any) {
     return null;
 }
 
-function NoDataComponent({ noData }) {
+function NoDataComponent({ noData }: { noData: boolean }) {
     // const keys = key.split('.');
 
     if (noData) {
@@ -91,7 +91,7 @@ export default function UserChart({ props }: any) {
     });
     const handleDataArr = () => {
         const output: any[] = [];
-        arr.forEach(i => {
+        arr.forEach((i: any) => {
             if (
                 i.timestamp <= props.user[0].last_updated_snapshot.portfolios.season_1[0].timestamp
             ) {

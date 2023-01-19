@@ -16,12 +16,16 @@ export default function UserScoreAndStats({ props }: any) {
     const { score } = props.user[0].last_updated_snapshot.portfolios.season_1[0];
     const { portfolios } = props.user[0].historical;
     const prevLastUpdatedAtStats = props.user[0].last_updated_snapshot.portfolios.season_1[0];
-    const lastUpdatedAt = props.user[0].last_updated_snapshot.portfolios.season_1[0].timestamp;
+    const lastUpdatedAt: any = new Date(
+        props.user[0].last_updated_snapshot.portfolios.season_1[0].timestamp,
+    );
     const { currentLabel, nextThreshold } = UseScoreLabelGenerator(score);
     const [updateButtonDisabled, setUpdateButtonDisabled] = useState(true);
+    const now: any = new Date();
+    const lastUpdatedAsDate: any = new Date(lastUpdatedAt);
     const updateButtonDisabledHandler = () => {
         const hour = 60 * 60 * 1000;
-        if (new Date() - new Date(lastUpdatedAt) > hour) {
+        if (now - lastUpdatedAsDate > hour) {
             setUpdateButtonDisabled(false);
         } else {
             setUpdateButtonDisabled(true);
@@ -32,7 +36,7 @@ export default function UserScoreAndStats({ props }: any) {
     };
     const handleUpdateStats = async () => {
         try {
-            const historical = {
+            const historical: any = {
                 portfolios: {},
             };
             Object.keys(portfolios).forEach(portfolio => {
@@ -68,7 +72,7 @@ export default function UserScoreAndStats({ props }: any) {
     }, []);
     return (
         <div className={styles.container}>
-            <div className={updateButtonDisabled ? null : styles.update_button_aura}>
+            <div className={updateButtonDisabled ? undefined : styles.update_button_aura}>
                 <RetroButton
                     variant="dark_purple"
                     onClick={() => handleUpdateStats()}
