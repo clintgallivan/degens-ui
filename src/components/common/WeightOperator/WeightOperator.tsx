@@ -155,7 +155,7 @@ export default function WeightOperator({
             }
         }
     };
-
+    // * replace the div with the input when its working
     return (
         <div className={styles.container}>
             <button
@@ -165,7 +165,8 @@ export default function WeightOperator({
             >
                 -
             </button>
-            <input
+            <div className={styles.input_div}>{toFixedNumber(value * 100)}</div>
+            {/* <input
                 className={styles.input}
                 // defaultValue={toFixedNumber(defaultPercent * 100, 2)}
                 value={toFixedNumber(value * 100)}
@@ -178,7 +179,7 @@ export default function WeightOperator({
                 //     ])
                 // }
                 // onChange={(e) => onChange(e.target.value)}
-            />
+            /> */}
             <button className={styles.button_right} onClick={handleIncrease} {...longPressIncrease}>
                 +
             </button>

@@ -12,6 +12,7 @@ import styles from './EditableDistributionTable.module.scss';
 import { toFixedNumber } from '@utils/text';
 import WeightOperator from '@components/common/WeightOperator';
 import { parentPort } from 'worker_threads';
+import PortfolioSettingsSearchBar from '@components/common/PortfolioSettingsSearchBar';
 
 type PlaceholderTextProps = {
     xs: number;
@@ -25,6 +26,7 @@ function EditableDistributionTable({
     weightValue,
     setWeightValue,
     roundPortfolioTokens,
+    addTokenRow,
 }: any) {
     const imageLoader = ({ src, width, quality }: ImageLoaderProps) =>
         `${src}?w=${width}&q=${quality || 75}`;
@@ -40,11 +42,11 @@ function EditableDistributionTable({
         );
     }
     const RowHandler = () =>
-        roundPortfolioTokens().map((item: any, index: number) => (
+        weightValue.map((item: any, index: number) => (
             <tr key={item.name} className={styles.row_container}>
-                <td>
+                {/* <td>
                     <div className={styles.icon_container}>#{index + 1}</div>
-                </td>
+                </td> */}
                 <td>
                     <div className={styles.icon_name_container}>
                         {queryIsLoading ? (
@@ -96,24 +98,24 @@ function EditableDistributionTable({
             <Table>
                 <thead className={styles.head}>
                     <tr className={styles.head_row}>
-                        <th>
+                        {/* <th>
                             <div className={styles.head_container}>
                                 <BsAward size={25} />
                             </div>
-                        </th>
+                        </th> */}
                         <th className="fs-l">
                             <div className={styles.head_container}>Name</div>
                         </th>
 
                         <th>
                             <div className={styles.grid_point_container}>
-                                <RetroButton onClick={() => setSelectedColumn('percent')}>
+                                <RetroButton onClick={() => setSelectedColumn('percent')} disabled>
                                     {selectedColumn === 'percent' ? (
                                         <>
                                             <div className={styles.selected_col_header_text}>
                                                 Weight
                                             </div>
-                                            <ImArrowDown2 className={styles.arrow_icon} />
+                                            {/* <ImArrowDown2 className={styles.arrow_icon} /> */}
                                         </>
                                     ) : (
                                         <div className={styles.unselected_col_header_text}>
@@ -125,7 +127,42 @@ function EditableDistributionTable({
                         </th>
                     </tr>
                 </thead>
-                <tbody className={styles.head}>{RowHandler()}</tbody>
+                <tbody className={styles.head}>
+                    {RowHandler()}
+                    <tr key={'portfolio-search'} className={styles.row_container}>
+                        <td className={styles.search_td}>
+                            <div className={styles.icon_name_container}>
+                                {queryIsLoading ? (
+                                    <PlaceholderText xs={12} />
+                                ) : (
+                                    <>
+                                        <div className={styles.icon_container}></div>
+                                        <div className={styles.item_search_container}>
+                                            <PortfolioSettingsSearchBar
+                                                props={props}
+                                                addTokenRow={(coingeckoId, name, imageURL) =>
+                                                    addTokenRow(coingeckoId, name, imageURL)
+                                                }
+                                            />
+                                        </div>
+                                    </>
+                                )}
+                            </div>
+                        </td>
+                        {/* <td>
+                            <div className={styles.grid_point_container}></div>
+                        </td> */}
+                    </tr>
+                </tbody>
+                {/* <tbody className={styles.head}>
+                    <tr key={'a'} className={styles.row_container}>
+                        <td>
+                            <div className={styles.icon_container}>
+                                <PortfolioSettingsSearchBar props={props} />
+                            </div>
+                        </td>
+                    </tr>
+                </tbody> */}
             </Table>
         </div>
     );

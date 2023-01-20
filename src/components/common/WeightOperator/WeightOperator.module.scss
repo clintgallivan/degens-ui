@@ -6,9 +6,16 @@
   height: 40px;
   width: 150px;
   display: flex;
-
+  justify-content: space-between;
 }
 
+.input_div {
+  height: 34px;
+  // text-align: center;
+  font-weight: var(--font-weight-reg);
+  color: var(--black);
+  align-self: center;
+}
 .input, .input:hover, .input:active, .input:focus {
   background: transparent;
   border: transparent solid 3px;

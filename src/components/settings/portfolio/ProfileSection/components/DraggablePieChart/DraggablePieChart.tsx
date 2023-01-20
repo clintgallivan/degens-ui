@@ -6,7 +6,7 @@ import React, { useEffect, useState } from 'react';
 import { Label, Pie, PieChart, ResponsiveContainer, Tooltip } from 'recharts';
 import styles from './DraggablePieChart.module.scss';
 
-export default function DraggablePieChart({ props }: any) {
+export default function DraggablePieChart({ props, weightValue }: any) {
     const imageLoader = ({ src, width, quality }: ImageLoaderProps) =>
         `${src}?w=${width}&q=${quality || 75}`;
     const { width = 0 } = useWindowSize();
@@ -41,7 +41,8 @@ export default function DraggablePieChart({ props }: any) {
 
     const data = [];
 
-    const portfolioTokens = props.user[0].last_updated_snapshot.portfolios.season_1[0].tokens;
+    // const portfolioTokens = props.user[0].last_updated_snapshot.portfolios.season_1[0].tokens;
+    const portfolioTokens = weightValue;
     for (const i in portfolioTokens) {
         const newDataObj: any = {};
         newDataObj.name = portfolioTokens[i].coingecko_id;

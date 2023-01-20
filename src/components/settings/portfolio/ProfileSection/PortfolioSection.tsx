@@ -34,6 +34,23 @@ export default function PortfolioSection({ props }: any) {
         return output;
     };
     const [weightValue, setWeightValue] = useState(roundPortfolioTokens());
+    const addTokenRow = (coingeckoId, name, imageUrl) => {
+        // console.log(portfolioTokens);
+        console.log(weightValue);
+        const newState = [...weightValue];
+        newState[weightValue.length] = {
+            coingecko_id: coingeckoId,
+            image: imageUrl,
+            mcap_rank: 0,
+            percent: 0,
+            price: 0,
+        };
+        setWeightValue(newState);
+        // portfolioTokens
+        // console.log(coingeckoId);
+        // console.log(name);
+        // console.log(imageUrl);
+    };
     return (
         <>
             {props.session ? (
@@ -47,7 +64,7 @@ export default function PortfolioSection({ props }: any) {
                             >
                                 {[
                                     { text: DropdownText['season_1'] },
-                                    { text: DropdownText['all_time'] },
+                                    // { text: DropdownText['all_time'] },
                                 ]}
                             </Dropdown>
                         </div>
@@ -59,9 +76,12 @@ export default function PortfolioSection({ props }: any) {
                                     weightValue={weightValue}
                                     setWeightValue={setWeightValue}
                                     roundPortfolioTokens={roundPortfolioTokens}
+                                    addTokenRow={(coingeckoId, name, imageURL) =>
+                                        addTokenRow(coingeckoId, name, imageURL)
+                                    }
                                 />
                             </div>
-                            <DraggablePieChart props={props} />
+                            <DraggablePieChart props={props} weightValue={weightValue} />
                         </div>
                     </Card>
                 </div>
