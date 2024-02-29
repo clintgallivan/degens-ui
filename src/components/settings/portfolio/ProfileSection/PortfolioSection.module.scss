@@ -28,6 +28,11 @@
     font-size: var(--font-size-l);
     font-weight: var(--font-weight-xxb);
   }
+
+  .remaining_weight {
+    font-size: var(--font-size-md);
+    font-weight: var(--font-weight-md);
+  }
   .title_and_dropdown_container {
     display: flex;
     flex-direction: row;

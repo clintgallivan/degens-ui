@@ -10,149 +10,35 @@ export default function WeightOperator({
     weightValue,
     setWeightValue,
 }: any) {
+    // console.log('weightValue');
+    // console.log(weightValue);
     const value = Math.round((weightValue[index].percent + Number.EPSILON) * 100) / 100;
     const maxPercent = 1;
     const minPercent = 0;
     const longPressIncrease = useLongPress(() => handleIncrease(), 150);
     const longPressDecrease = useLongPress(() => handleDecrease(), 150);
+    const [increaseDisabled, setIncreaseDisabled] = useState(false);
+    const [decreaseDisabled, setDecreaseDisabled] = useState(false);
 
-    // const handleIncrease = () => {
-    //     if (value < maxPercent) {
-    //         if (index + 1 < weightValue.length) {
-    //             let nextIndex = index + 1;
-    //             const newState = [...weightValue];
-    //             newState[index].percent = value + 0.01;
-    //             if (
-    //                 Math.round((weightValue[nextIndex].percent + Number.EPSILON) * 100) / 100 -
-    //                     0.01 <
-    //                 0
-    //             ) {
-    //                 // increase index, check again
-    //                 nextIndex += 1;
-    //                 newState[nextIndex].percent =
-    //                     Math.round((weightValue[nextIndex].percent + Number.EPSILON) * 100) / 100 -
-    //                     0.01;
-    //             } else {
-    //                 newState[nextIndex].percent =
-    //                     Math.round((weightValue[nextIndex].percent + Number.EPSILON) * 100) / 100 -
-    //                     0.01;
-    //             }
-    //             setWeightValue(newState);
-    //         } else {
-    //             const newState = [...weightValue];
-    //             newState[index].percent = value + 0.01;
-    //             newState[0].percent =
-    //                 Math.round((weightValue[0].percent + Number.EPSILON) * 100) / 100 - 0.01;
-    //             setWeightValue(newState);
-    //         }
-    //     }
-    // };
-    // const handleIncrease = () => {
-    //     if (value < maxPercent) {
-    //         if (index + 1 < weightValue.length) {
-    //             const newState = [...weightValue];
-    //             newState[index].percent = value + 0.01;
-    //             newState[index + 1].percent =
-    //                 Math.round((weightValue[index + 1].percent + Number.EPSILON) * 100) / 100 -
-    //                 0.01;
-    //             setWeightValue(newState);
-    //         } else {
-    //             const newState = [...weightValue];
-    //             newState[index].percent = value + 0.01;
-    //             newState[0].percent =
-    //                 Math.round((weightValue[0].percent + Number.EPSILON) * 100) / 100 - 0.01;
-    //             setWeightValue(newState);
-    //         }
-    //     }
-    // };
+    const currentTotalWeight = parseFloat(
+        weightValue.reduce((sum, item) => sum + item.percent, 0).toFixed(2),
+    );
     const handleIncrease = () => {
-        if (value < maxPercent) {
-            for (let i = 1; i < weightValue.length; i++) {
-                if (index + i < weightValue.length) {
-                    const newState = [...weightValue];
-                    newState[index].percent = value + 0.01;
-                    if (
-                        Math.round((weightValue[index + i].percent + Number.EPSILON) * 100) / 100 -
-                            0.01 <
-                        0
-                    ) {
-                        continue;
-                    }
-                    newState[index + i].percent =
-                        Math.round((weightValue[index + i].percent + Number.EPSILON) * 100) / 100 -
-                        0.01;
-                    setWeightValue(newState);
-                    return;
-                } else {
-                    const newState = [...weightValue];
-                    newState[index].percent = value + 0.01;
-                    if (
-                        Math.round(
-                            (weightValue[index + i - weightValue.length].percent + Number.EPSILON) *
-                                100,
-                        ) /
-                            100 -
-                            0.01 <
-                        0
-                    ) {
-                        continue;
-                    }
-                    newState[index + i - weightValue.length].percent =
-                        Math.round(
-                            (weightValue[index + i - weightValue.length].percent + Number.EPSILON) *
-                                100,
-                        ) /
-                            100 -
-                        0.01;
-                    setWeightValue(newState);
-                    return;
-                }
-            }
+        if (currentTotalWeight >= 1) {
+            return;
         }
+        const newState = [...weightValue];
+        newState[index].percent = parseFloat((value + 0.01).toFixed(2));
+        setWeightValue(newState);
     };
     const handleDecrease = () => {
+        if (currentTotalWeight <= 0) {
+            return;
+        }
         if (value > minPercent) {
-            for (let i = 1; i < weightValue.length; i++) {
-                if (index + i < weightValue.length) {
-                    const newState = [...weightValue];
-                    newState[index].percent = value - 0.01;
-                    if (
-                        Math.round((weightValue[index + i].percent + Number.EPSILON) * 100) / 100 +
-                            0.01 >
-                        1
-                    ) {
-                        continue;
-                    }
-                    newState[index + i].percent =
-                        Math.round((weightValue[index + i].percent + Number.EPSILON) * 100) / 100 +
-                        0.01;
-                    setWeightValue(newState);
-                    return;
-                } else {
-                    const newState = [...weightValue];
-                    newState[index].percent = value - 0.01;
-                    if (
-                        Math.round(
-                            (weightValue[index + i - weightValue.length].percent + Number.EPSILON) *
-                                100,
-                        ) /
-                            100 +
-                            0.01 >
-                        1
-                    ) {
-                        continue;
-                    }
-                    newState[index + i - weightValue.length].percent =
-                        Math.round(
-                            (weightValue[index + i - weightValue.length].percent + Number.EPSILON) *
-                                100,
-                        ) /
-                            100 +
-                        0.01;
-                    setWeightValue(newState);
-                    return;
-                }
-            }
+            const newState = [...weightValue];
+            newState[index].percent = parseFloat((value - 0.01).toFixed(2));
+            setWeightValue(newState);
         }
     };
     // * replace the div with the input when its working
@@ -165,6 +51,7 @@ export default function WeightOperator({
             >
                 -
             </button>
+
             <div className={styles.input_div}>{toFixedNumber(value * 100)}</div>
             {/* <input
                 className={styles.input}
@@ -178,7 +65,7 @@ export default function WeightOperator({
                 //         (weightValue[index].percent = e.target.value / 100),
                 //     ])
                 // }
-                // onChange={(e) => onChange(e.target.value)}
+                onChange={e => onChange(e.target.value)}
             /> */}
             <button className={styles.button_right} onClick={handleIncrease} {...longPressIncrease}>
                 +

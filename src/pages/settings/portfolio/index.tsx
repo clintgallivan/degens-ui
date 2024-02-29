@@ -38,7 +38,8 @@ const Portfolio: NextPage = (props: any) => {
     useEffect(() => {
         const now: any = new Date();
         const lastUpdatedAsDate: any = new Date(lastUpdatedAt);
-        const fiveMin = 60 * 5 * 1000;
+        //* we take this snapshot at  a maximum of once per day - it is a way for us to calculate the new portfolio balance and modify the risk score. Its as if the user has acknowledged the new portfolio balance, thus changing the risk score.
+        const oneDay = 60 * 60 * 24 * 1000;
         const handleUpdateStats = async () => {
             console.log('start api');
             try {
@@ -71,7 +72,7 @@ const Portfolio: NextPage = (props: any) => {
             }
         };
 
-        if (now - lastUpdatedAsDate > fiveMin) {
+        if (now - lastUpdatedAsDate > oneDay) {
             console.log('updating');
             handleUpdateStats();
         }

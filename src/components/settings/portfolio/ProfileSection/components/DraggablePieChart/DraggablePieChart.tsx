@@ -41,13 +41,10 @@ export default function DraggablePieChart({ props, weightValue }: any) {
 
     const data = [];
 
-    // const portfolioTokens = props.user[0].last_updated_snapshot.portfolios.season_1[0].tokens;
     const portfolioTokens = weightValue;
     for (const i in portfolioTokens) {
         const newDataObj: any = {};
         newDataObj.name = portfolioTokens[i].coingecko_id;
-        // newDataObj.value = toFixedNumber(portfolioTokens[i].percent * 100, 2);
-        // newDataObj.value = toFixedNumber({ number: portfolioTokens[i].percent * 100, digits: 2 });
         newDataObj.value = toFixedNumber(portfolioTokens[i].percent * 100);
         newDataObj.fill = 'var(--purple-8)';
         newDataObj.image = portfolioTokens[i].image;

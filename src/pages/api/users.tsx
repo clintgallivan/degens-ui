@@ -82,21 +82,21 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
                                 tokens: [
                                     {
                                         coingecko_id: 'ethereum',
-                                        price: 1500,
+                                        price: 3300,
                                         percent: 0.4,
                                         mcap_rank: 2,
                                         image: 'https://assets.coingecko.com/coins/images/279/large/ethereum.png?1595348880',
                                     },
                                     {
                                         coingecko_id: 'bitcoin',
-                                        price: 20000,
+                                        price: 60000,
                                         percent: 0.4,
                                         mcap_rank: 1,
                                         image: 'https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1547033579',
                                     },
                                     {
                                         coingecko_id: 'uniswap',
-                                        price: 5,
+                                        price: 10,
                                         percent: 0.2,
                                         mcap_rank: 20,
                                         image: 'https://assets.coingecko.com/coins/images/12504/large/uniswap-uni.png?1600306604',

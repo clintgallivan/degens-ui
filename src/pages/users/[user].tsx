@@ -21,7 +21,6 @@ const User: NextPage = function (props: any) {
     const router = useRouter();
     const { user } = router.query;
     const titleText = `Degens | ${user || 'Crypto'}`;
-
     return (
         <>
             <Head>
@@ -42,7 +41,8 @@ const User: NextPage = function (props: any) {
 export default User;
 
 export const getServerSideProps: GetServerSideProps = async context => {
-    const username = context.query.user;
+    // const username = context.query.user;
+    const uid = context.query.user;
 
     try {
         const session = await getSession(context);
@@ -50,7 +50,7 @@ export const getServerSideProps: GetServerSideProps = async context => {
         const db = client.db(process.env.MONGODB_DB);
 
         const getUser = async () => {
-            const output = await db.collection('users').find({ username }).toArray();
+            const output = await db.collection('users').find({ uid }).toArray();
             return JSON.parse(JSON.stringify(output));
         };
         // console.log(getUser());
