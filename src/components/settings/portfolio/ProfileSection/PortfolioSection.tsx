@@ -5,6 +5,8 @@ import DraggablePieChart from './components/DraggablePieChart';
 import EditableDistributionTable from './components/EditableDistributionTable';
 import styles from './PortfolioSection.module.scss';
 import Dropdown from '@components/common/Dropdown';
+import RetroButton from '@components/common/RetroButton';
+import axios from 'axios';
 
 export enum DropdownText {
     'season_1' = 'Season 1',
@@ -12,7 +14,7 @@ export enum DropdownText {
 }
 export enum DropdownTextReverse {
     'Season 1' = 'season_1',
-    'All Time' = 'all_ime',
+    'All Time' = 'all_time',
 }
 
 export default function PortfolioSection({ props }: any) {
@@ -35,7 +37,6 @@ export default function PortfolioSection({ props }: any) {
     };
     const [weightValue, setWeightValue] = useState(roundPortfolioTokens());
     const addTokenRow = (coingeckoId, name, imageUrl) => {
-        // console.log(portfolioTokens);
         console.log(weightValue);
         const newState = [...weightValue];
         newState[weightValue.length] = {
@@ -46,15 +47,43 @@ export default function PortfolioSection({ props }: any) {
             price: 0,
         };
         setWeightValue(newState);
-        // portfolioTokens
-        // console.log(coingeckoId);
-        // console.log(name);
-        // console.log(imageUrl);
     };
+    const handleUpdateStats = async () => {
+        console.log('start api');
+        try {
+            const historical: any = {
+                portfolios: {},
+            };
+            Object.keys(portfolios).forEach(portfolio => {
+                const pKey = portfolio;
+                const pValue = portfolios[portfolio];
+                historical.portfolios[pKey] = [pValue[0]];
+            });
+            console.log('second');
+            // const res = await axios.post(
+            //     '/api/handle-update-stats',
+            //     {
+            //         uid: props.user[0].uid,
+            //         portfolio_metadata: props.user[0].portfolio_metadata,
+            //         historical,
+            //     },
+            //     {
+            //         headers: {
+            //             'Content-Type': 'application/json',
+            //         },
+            //     },
+            // );
+            // console.log(res);
+            // res.status === 200 ? refreshData() : log('failed to update');
+        } catch (e) {
+            log(e);
+        }
+    };
+
     return (
         <>
             {props.session ? (
-                <div className="content-area">
+                <div className={'content-area'}>
                     <Card>
                         <div className={styles.title_and_dropdown_container}>
                             <h3 className={styles.title}>Manage Portfolio</h3>
@@ -64,7 +93,7 @@ export default function PortfolioSection({ props }: any) {
                             >
                                 {[
                                     { text: DropdownText['season_1'] },
-                                    // { text: DropdownText['all_time'] },
+                                    { text: DropdownText['all_time'] },
                                 ]}
                             </Dropdown>
                         </div>
@@ -82,6 +111,11 @@ export default function PortfolioSection({ props }: any) {
                                 />
                             </div>
                             <DraggablePieChart props={props} weightValue={weightValue} />
+                        </div>
+                        <div className={styles.save_button_row}>
+                            <RetroButton variant="dark_purple" onClick={() => handleUpdateStats()}>
+                                Save and Update Stats
+                            </RetroButton>
                         </div>
                     </Card>
                 </div>

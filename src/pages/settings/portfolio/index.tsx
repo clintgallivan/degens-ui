@@ -13,6 +13,8 @@ import Header from '@components/common/Header';
 // import UserSection from '@components/users/userSection';
 import PortfolioSection from '@components/settings/portfolio/ProfileSection';
 import { useEffect } from 'react';
+import axios from 'axios';
+import { log } from '@utils/console';
 
 // type QueryProps = {
 //   user: any
@@ -21,9 +23,60 @@ import { useEffect } from 'react';
 const Portfolio: NextPage = (props: any) => {
     const router = useRouter();
     const { user } = router.query;
+    const { portfolios } = props.user[0].historical;
+    const lastUpdatedAt: any = new Date(
+        props.user[0].last_updated_snapshot.portfolios.season_1[0].timestamp,
+    );
+    const refreshData = () => {
+        router.replace(router.asPath);
+    };
 
     useEffect(() => {
         props.session ? null : router.push('/');
+    }, []);
+
+    useEffect(() => {
+        const now: any = new Date();
+        const lastUpdatedAsDate: any = new Date(lastUpdatedAt);
+        const fiveMin = 60 * 5 * 1000;
+        const handleUpdateStats = async () => {
+            console.log('start api');
+            try {
+                const historical: any = {
+                    portfolios: {},
+                };
+                Object.keys(portfolios).forEach(portfolio => {
+                    const pKey = portfolio;
+                    const pValue = portfolios[portfolio];
+                    historical.portfolios[pKey] = [pValue[0]];
+                });
+                console.log('second');
+                const res = await axios.post(
+                    '/api/handle-update-stats',
+                    {
+                        uid: props.user[0].uid,
+                        portfolio_metadata: props.user[0].portfolio_metadata,
+                        historical,
+                    },
+                    {
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                    },
+                );
+                console.log(res);
+                res.status === 200 ? refreshData() : log('failed to update');
+            } catch (e) {
+                log(e);
+            }
+        };
+
+        if (now - lastUpdatedAsDate > fiveMin) {
+            console.log('updating');
+            handleUpdateStats();
+        }
+
+        console.log('not updating');
     }, []);
 
     return (

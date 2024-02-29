@@ -1,6 +1,6 @@
 import Card from '@components/common/Card';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Image, { ImageLoaderProps } from 'next/image';
 import { Placeholder, Table } from 'react-bootstrap';
 import { BsAward } from 'react-icons/bs';
@@ -16,10 +16,19 @@ type PlaceholderTextProps = {
     xs: number;
 };
 
-function DistributionTable({ props, queryData, queryIsLoading }: any) {
+function DistributionTable({
+    props,
+    portfolio,
+    selectedTimestamp,
+    queryData,
+    queryIsLoading,
+}: any) {
     const [selectedColumn, setSelectedColumn] = useState('percent');
     const [isLoading, setIsLoading] = useState(true);
-    const portfolioTokens = props.user[0].last_updated_snapshot.portfolios.season_1[0].tokens;
+    // const portfolioTokens = props.user[0].last_updated_snapshot.portfolios[portfolio][0].tokens;
+    const [portfolioTokens, setPortfolioTokens] = useState(
+        props.user[0].last_updated_snapshot.portfolios[portfolio][0].tokens,
+    );
     const imageLoader = ({ src, width, quality }: ImageLoaderProps) =>
         `${src}?w=${width}&q=${quality || 75}`;
 
@@ -31,6 +40,14 @@ function DistributionTable({ props, queryData, queryIsLoading }: any) {
             </Placeholder>
         );
     }
+
+    useEffect(() => {
+        props.user[0].historical.portfolios[portfolio].forEach((obj, idx) => {
+            if (obj.timestamp === selectedTimestamp) {
+                setPortfolioTokens(props.user[0].historical.portfolios[portfolio][idx].tokens);
+            }
+        });
+    }, [selectedTimestamp]);
     const RowHandler = () =>
         portfolioTokens.map((item: any, index: number) => (
             <tr key={item.name} className={styles.row_container}>

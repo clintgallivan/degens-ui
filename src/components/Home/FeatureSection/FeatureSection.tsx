@@ -6,31 +6,29 @@ import styles from './FeatureSection.module.scss';
 import Link from 'next/link';
 
 export default function FeatureSection({ props }: any) {
-  const LeaderboardsButton = () => {
-    return (
-      <div className={styles.leaderboards_button}>
-        <Link href={'token-leaderboards'}>
-          <RetroButton>
-            <div className={styles.leaderboards_button_text}>
-              View Leaderboards
+    const LeaderboardsButton = () => {
+        return (
+            <div className={styles.leaderboards_button}>
+                <Link href={'token-leaderboards'}>
+                    <RetroButton>
+                        <div className={styles.leaderboards_button_text}>View Leaderboards</div>
+                    </RetroButton>
+                </Link>
             </div>
-          </RetroButton>
-        </Link>
-      </div>
+        );
+    };
+
+    return (
+        <>
+            <div className="content-area">
+                <IntroSection />
+                <Card header="Top Token Charts">
+                    <StatTable props={props} />
+
+                    <LeaderboardsButton />
+                </Card>
+                {/* <StatsSection /> */}
+            </div>
+        </>
     );
-  };
-
-  return (
-    <>
-      <div className="content-area">
-        <IntroSection />
-        <Card header="Top Token Charts">
-          <StatTable props={props} />
-
-          <LeaderboardsButton />
-        </Card>
-        {/* <StatsSection /> */}
-      </div>
-    </>
-  );
 }

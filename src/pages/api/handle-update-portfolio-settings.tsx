@@ -123,7 +123,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
                     const currentPeriodAvgMcapRank = () => {
                         let totalAvg = 0;
                         userInfo.historical.portfolios[portfolio][0].tokens.forEach((i: any) => {
-                            const { mcap_rank } = i;
+                            const { mcapRank } = i;
                             const startingPercent = i.percent;
                             let endingPercent = startingPercent;
                             userUpdated.historical.portfolios[portfolio][0].tokens.forEach(
@@ -134,7 +134,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
                                 },
                             );
                             const avgPercent = (startingPercent + endingPercent) / 2;
-                            totalAvg += mcap_rank * avgPercent;
+                            totalAvg += mcapRank * avgPercent;
                         });
                         return totalAvg;
                     };
@@ -215,7 +215,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
                 const tokenList = createTokenListToUpdateUser(userInfo);
                 const currentPrices = getCurrentPrices(tokenList);
                 runCalcsAndUpdateUser(userInfo, await currentPrices);
-                await postToDb();
+                // await postToDb();
                 res.status(200).json({ message: 'success' });
             } catch (e) {
                 res.status(400).json({ message: 'failure' });

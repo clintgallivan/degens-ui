@@ -19,6 +19,10 @@
     display: flex;
     flex: 1
   }
+  .save_button_row {
+    display: flex;
+    justify-content: center;
+  }
   
   .title {
     font-size: var(--font-size-l);
