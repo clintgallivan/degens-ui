@@ -7,6 +7,8 @@ import styles from './PortfolioSection.module.scss';
 import Dropdown from '@components/common/Dropdown';
 import RetroButton from '@components/common/RetroButton';
 import axios from 'axios';
+import humanizeDuration from 'humanize-duration';
+import { log } from '@utils/console';
 
 export type Portfolio = 'season_1' | 'all_time';
 
@@ -14,6 +16,15 @@ export enum DropdownText {
     'season_1' = 'Season 1',
     'all_time' = 'All Time',
 }
+
+export type SubstringSearchItem = {
+    coingecko_id: string;
+    degen_rank: string;
+    image: URL;
+    iterator: string[];
+    market_cap_rank: number;
+    // price: number;
+};
 
 export default function PortfolioSection({ props }: any) {
     const router = useRouter();
@@ -76,14 +87,13 @@ export default function PortfolioSection({ props }: any) {
     );
     // const remainingWeight = Math.round(100 - currentTotalWeight * 100);
 
-    const addTokenRow = (coingeckoId, name, imageUrl) => {
+    const addTokenRow = (item: SubstringSearchItem) => {
         const newState = [...weightValue];
         newState[weightValue.length] = {
-            coingecko_id: coingeckoId,
-            image: imageUrl,
-            mcap_rank: 0,
+            coingecko_id: item.coingecko_id,
+            image: item.image,
+            mcap_rank: item?.market_cap_rank || 1000,
             percent: 0,
-            price: 0,
         };
         setWeightValue(newState);
     };
@@ -103,22 +113,18 @@ export default function PortfolioSection({ props }: any) {
     };
 
     const handleUpdateStats = async () => {
+        const tenMinutes = (60 * 60 * 1000) / 6;
         const lastUpdatedAt: any = new Date(
-            props.user[0].historical.portfolios[selectedPortfolio][1].timestamp,
+            props.user[0].historical.portfolios[selectedPortfolio]?.[1]?.timestamp || tenMinutes,
         );
         const lastUpdatedAsDate: any = new Date(lastUpdatedAt);
-        // const tenMinutes = (60 * 60 * 1000) / 6;
-        const tenMinutes = 60 * 60 * 1000 * 10;
-        // TODO fix this today feb/29
-        // console.log(now);
-        // console.log(lastUpdatedAsDate);
-        // console.log(now - lastUpdatedAsDate);
-        // console.log(tenMinutes);
+        const humanReadableDuration = humanizeDuration(tenMinutes - (now - lastUpdatedAsDate), {
+            units: ['d', 'h', 'm'],
+            round: true,
+        });
         if (now - lastUpdatedAsDate < tenMinutes) {
             alert(
-                `Sorry, you will have to wait ${
-                    now - lastUpdatedAsDate
-                } before updating again. Thanks for your understanding.`,
+                `Sorry, you will have to wait ${humanReadableDuration} before updating again. Thanks for your understanding.`,
             );
             return;
         }
@@ -128,36 +134,49 @@ export default function PortfolioSection({ props }: any) {
             return;
         }
         // TODO comment this back in when ready to work on api call
-        // try {
-        //     const historical: any = {
-        //         portfolios: {},
-        //     };
-        //     Object.keys(portfolios).forEach(portfolio => {
-        //         if (portfolio === selectedPortfolio) {
-        //             const pKey = portfolio;
-        //             const pValue = portfolios[portfolio];
-        //             historical.portfolios[pKey] = [pValue[0]];
-        //         }
-        //     });
-        //     console.log('start api call');
-        //     const res = await axios.post(
-        //         '/api/handle-update-stats',
-        //         {
-        //             uid: props.user[0].uid,
-        //             portfolio_metadata: props.user[0].portfolio_metadata,
-        //             historical,
-        //         },
-        //         {
-        //             headers: {
-        //                 'Content-Type': 'application/json',
-        //             },
-        //         },
-        //     );
-        //     console.log(res);
-        //     res.status === 200 ? refreshData() : log('failed to update');
-        // } catch (e) {
-        //     log(e);
-        // }
+        try {
+            let historical: any = {
+                portfolios: {},
+            };
+            Object.keys(portfolios).forEach(portfolio => {
+                if (portfolio === selectedPortfolio) {
+                    const pKey = portfolio;
+                    const pValue = portfolios[portfolio];
+                    historical.portfolios[pKey] = [pValue[0]];
+                }
+            });
+            const res1 = await axios.post(
+                '/api/handle-update-stats',
+                {
+                    uid: props.user[0].uid,
+                    portfolio_metadata: props.user[0].portfolio_metadata,
+                    historical,
+                },
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                },
+            );
+            const historical2 = JSON.parse(JSON.stringify(historical));
+            historical2.portfolios[selectedPortfolio][0].tokens = weightValue;
+            const res2 = await axios.post(
+                '/api/handle-update-stats',
+                {
+                    uid: props.user[0].uid,
+                    portfolio_metadata: props.user[0].portfolio_metadata,
+                    historical: historical2,
+                },
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                },
+            );
+            res2.status === 200 ? refreshData() : log('failed to update');
+        } catch (e) {
+            log(e);
+        }
     };
 
     useEffect(() => {
@@ -194,17 +213,17 @@ export default function PortfolioSection({ props }: any) {
                                     weightValue={weightValue}
                                     setWeightValue={setWeightValue}
                                     roundPortfolioTokens={roundPortfolioTokens}
-                                    addTokenRow={(coingeckoId, name, imageURL) => {
+                                    addTokenRow={(item: SubstringSearchItem) => {
                                         if (
                                             weightValue.some(
-                                                item => item.coingecko_id === coingeckoId,
+                                                i => i.coingecko_id === item.coingecko_id,
                                             )
                                         ) {
                                             alert(
                                                 'This coingeckoId already exists in your portfolio!',
                                             );
                                         } else {
-                                            addTokenRow(coingeckoId, name, imageURL);
+                                            addTokenRow(item);
                                         }
                                     }}
                                     removeTokenRow={coingeckoId => removeTokenRow(coingeckoId)}

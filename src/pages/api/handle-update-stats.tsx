@@ -3,6 +3,7 @@ import clientPromise from '@utils/mongodb';
 import moment from 'moment-timezone';
 import axios from 'axios';
 import { log } from '@utils/console';
+import { coingeckoApi } from '@utils/api';
 
 type Data = {
     message: string;
@@ -49,7 +50,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
                 ids: parsedTokenIds,
             };
             try {
-                const coingeckoResponse = await axios.get(`${coingeckoBaseUrl}/coins/markets`, {
+                const coingeckoResponse = await coingeckoApi.get(`/coins/markets`, {
                     params,
                 });
                 coingeckoResponse.data.forEach((i: any) => {
@@ -60,7 +61,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
                     };
                 });
             } catch (e) {
-                console.log(e);
+                // do nothing
             }
             return output;
         };
@@ -76,7 +77,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
                     let totalWeight = 0;
                     tokenObjs.forEach((tokenObj: any) => {
                         const priceAfter = currentPrices[tokenObj.coingecko_id].current_price;
-                        const priceBefore = tokenObj.price;
+                        const priceBefore = tokenObj?.price || priceAfter;
                         const { percent } = tokenObj;
                         const weightedChange = (priceAfter / priceBefore) * percent;
                         totalWeight += weightedChange;
@@ -84,7 +85,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
                     const newTokens: any = [];
                     tokenObjs.forEach((tokenObj: any) => {
                         const priceAfter = currentPrices[tokenObj.coingecko_id].current_price;
-                        const priceBefore = tokenObj.price;
+                        const priceBefore = tokenObj?.price || priceAfter;
                         const { percent } = tokenObj;
                         const weightedChange = (priceAfter / priceBefore) * percent;
                         const newToken = {

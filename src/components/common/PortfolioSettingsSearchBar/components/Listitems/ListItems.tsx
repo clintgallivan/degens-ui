@@ -18,7 +18,7 @@ export default function ListItems(props: any, results: any, addTokenRow: any) {
                 key={item.coingecko_id}
                 // href={`/tokens/${item.coingecko_id}`}
                 className={styles.container}
-                onClick={() => addTokenRow(item.coingecko_id, item.iterator[0], item.image)}
+                onClick={() => addTokenRow(item)}
             >
                 <div className={styles.row_item}>
                     <div className={styles.left_side_row}>

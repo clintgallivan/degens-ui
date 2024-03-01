@@ -204,9 +204,7 @@ function EditableDistributionTable({
                                         <div className={styles.item_search_container}>
                                             <PortfolioSettingsSearchBar
                                                 props={props}
-                                                addTokenRow={(coingeckoId, name, imageURL) =>
-                                                    addTokenRow(coingeckoId, name, imageURL)
-                                                }
+                                                addTokenRow={item => addTokenRow(item)}
                                             />
                                         </div>
                                     </>
