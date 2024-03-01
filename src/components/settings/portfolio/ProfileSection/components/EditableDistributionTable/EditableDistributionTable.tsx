@@ -31,8 +31,7 @@ function EditableDistributionTable({
     addTokenRow,
     removeTokenRow,
 }: any) {
-    const lastUpdatedTokens =
-        props.user[0].last_updated_snapshot.portfolios[selectedPortfolio][0].tokens;
+    const lastUpdatedTokens = props.user[0].historical.portfolios[selectedPortfolio][0].tokens;
     const imageLoader = ({ src, width, quality }: ImageLoaderProps) =>
         `${src}?w=${width}&q=${quality || 75}`;
     const [selectedColumn, setSelectedColumn] = useState('percent');

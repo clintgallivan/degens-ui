@@ -21,12 +21,42 @@ export default function PortfolioSection({ props }: any) {
     const [selectedPortfolio, setSelectedPortfolio] = useState<Portfolio>('season_1');
     const { portfolios } = props.user[0].historical;
     const portfolioTokens = props.user[0].historical.portfolios[selectedPortfolio][0].tokens;
+    const roundPortfolioTokensToStart = () => {
+        let output: any = [];
+        let total = 0;
+
+        // First, calculate the total sum of all percentages
+        portfolioTokens.forEach((tokenObj: any) => {
+            total += tokenObj.percent;
+        });
+
+        // Then, calculate the rounded percentages
+        portfolioTokens.forEach((tokenObj: any) => {
+            const roundedPercent =
+                Math.round((tokenObj.percent / total + Number.EPSILON) * 100) / 100;
+            tokenObj.percent = roundedPercent;
+            output.push(tokenObj);
+        });
+
+        // Calculate the difference from 1
+        let diff = 1 - output.reduce((sum: number, obj: any) => sum + obj.percent, 0);
+
+        // Find the value closest to its lower integer after rounding
+        let closest = output.reduce((prev: any, curr: any) => {
+            let prevDiff = prev.percent - Math.floor(prev.percent);
+            let currDiff = curr.percent - Math.floor(curr.percent);
+            return prevDiff < currDiff ? prev : curr;
+        });
+
+        // Adjust the closest value by the difference
+        closest.percent += diff;
+
+        return output;
+    };
     const roundPortfolioTokens = () => {
         let output: any = [];
         const handler = () => {
             portfolioTokens.forEach((tokenObj: any) => {
-                console.log('+++++');
-                console.log(tokenObj.percent);
                 const roundedPercent = Math.round((tokenObj.percent + Number.EPSILON) * 100) / 100;
                 tokenObj.percent = roundedPercent;
                 output.push(tokenObj);
@@ -35,12 +65,16 @@ export default function PortfolioSection({ props }: any) {
         handler();
         return output;
     };
-    const [weightValue, setWeightValue] = useState(roundPortfolioTokens());
+    const defaultValue = roundPortfolioTokensToStart();
+    const [weightValue, setWeightValue] = useState(defaultValue);
 
     const currentTotalWeight = parseFloat(
         weightValue.reduce((sum, item) => sum + item.percent, 0).toFixed(2),
     );
-    const remainingWeight = Math.round(100 - currentTotalWeight * 100);
+    const [remainingWeight, setRemainingWeight] = useState(
+        Math.round(100 - currentTotalWeight * 100),
+    );
+    // const remainingWeight = Math.round(100 - currentTotalWeight * 100);
 
     const addTokenRow = (coingeckoId, name, imageUrl) => {
         const newState = [...weightValue];
@@ -73,7 +107,8 @@ export default function PortfolioSection({ props }: any) {
             props.user[0].historical.portfolios[selectedPortfolio][1].timestamp,
         );
         const lastUpdatedAsDate: any = new Date(lastUpdatedAt);
-        const tenMinutes = (60 * 60 * 1000) / 6;
+        // const tenMinutes = (60 * 60 * 1000) / 6;
+        const tenMinutes = 60 * 60 * 1000 * 10;
         // TODO fix this today feb/29
         // console.log(now);
         // console.log(lastUpdatedAsDate);
@@ -126,8 +161,11 @@ export default function PortfolioSection({ props }: any) {
     };
 
     useEffect(() => {
-        setWeightValue(roundPortfolioTokens());
+        setWeightValue(roundPortfolioTokensToStart());
     }, [selectedPortfolio]);
+    useEffect(() => {
+        setRemainingWeight(Math.round(100 - currentTotalWeight * 100));
+    }, [weightValue]);
 
     return (
         <>

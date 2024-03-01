@@ -10,9 +10,8 @@ export default function WeightOperator({
     weightValue,
     setWeightValue,
 }: any) {
-    // console.log('weightValue');
-    // console.log(weightValue);
-    const value = Math.round((weightValue[index].percent + Number.EPSILON) * 100) / 100;
+    // const value = Math.round((weightValue[index].percent + Number.EPSILON) * 100) / 100;
+    const value = weightValue[index].percent;
     const maxPercent = 1;
     const minPercent = 0;
     const longPressIncrease = useLongPress(() => handleIncrease(), 150);
@@ -23,22 +22,32 @@ export default function WeightOperator({
     const currentTotalWeight = parseFloat(
         weightValue.reduce((sum, item) => sum + item.percent, 0).toFixed(2),
     );
+
     const handleIncrease = () => {
         if (currentTotalWeight >= 1) {
             return;
         }
-        const newState = [...weightValue];
-        newState[index].percent = parseFloat((value + 0.01).toFixed(2));
-        setWeightValue(newState);
+
+        setWeightValue(
+            weightValue.map((item, i) =>
+                i === index ? { ...item, percent: parseFloat((value + 0.01).toFixed(2)) } : item,
+            ),
+        );
     };
+
     const handleDecrease = () => {
         if (currentTotalWeight <= 0) {
             return;
         }
+
         if (value > minPercent) {
-            const newState = [...weightValue];
-            newState[index].percent = parseFloat((value - 0.01).toFixed(2));
-            setWeightValue(newState);
+            setWeightValue(
+                weightValue.map((item, i) =>
+                    i === index
+                        ? { ...item, percent: parseFloat((value - 0.01).toFixed(2)) }
+                        : item,
+                ),
+            );
         }
     };
     // * replace the div with the input when its working

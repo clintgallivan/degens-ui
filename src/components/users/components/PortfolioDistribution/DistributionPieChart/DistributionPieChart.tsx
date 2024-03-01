@@ -10,7 +10,6 @@ export default function DistributionPieChart({ props, portfolio, selectedTimesta
     const [chartWidth, setChartWidth] = useState(0);
 
     const data = [];
-    console.log(portfolio);
     const [portfolioTokens, setPortfolioTokens] = useState(
         props.user[0].last_updated_snapshot.portfolios[portfolio][0].tokens,
     );
@@ -68,7 +67,6 @@ export default function DistributionPieChart({ props, portfolio, selectedTimesta
         image,
         index,
     }: any) => {
-        console.log(image);
         const radius = outerRadius * 1.2;
         // const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
         const x = cx + radius * Math.cos(-midAngle * RADIAN);
