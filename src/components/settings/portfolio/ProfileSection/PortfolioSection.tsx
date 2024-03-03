@@ -80,7 +80,7 @@ export default function PortfolioSection({ props }: any) {
     const [weightValue, setWeightValue] = useState(defaultValue);
 
     const currentTotalWeight = parseFloat(
-        weightValue.reduce((sum, item) => sum + item.percent, 0).toFixed(2),
+        weightValue.reduce((sum: any, item: any) => sum + item.percent, 0).toFixed(2),
     );
     const [remainingWeight, setRemainingWeight] = useState(
         Math.round(100 - currentTotalWeight * 100),
@@ -98,7 +98,7 @@ export default function PortfolioSection({ props }: any) {
         setWeightValue(newState);
     };
 
-    const removeTokenRow = coingeckoId => {
+    const removeTokenRow = (coingeckoId: any) => {
         const newState = [...weightValue];
         newState.forEach((item, index) => {
             if (item.coingecko_id === coingeckoId) {
@@ -216,7 +216,7 @@ export default function PortfolioSection({ props }: any) {
                                     addTokenRow={(item: SubstringSearchItem) => {
                                         if (
                                             weightValue.some(
-                                                i => i.coingecko_id === item.coingecko_id,
+                                                (i: any) => i.coingecko_id === item.coingecko_id,
                                             )
                                         ) {
                                             alert(
@@ -226,7 +226,9 @@ export default function PortfolioSection({ props }: any) {
                                             addTokenRow(item);
                                         }
                                     }}
-                                    removeTokenRow={coingeckoId => removeTokenRow(coingeckoId)}
+                                    removeTokenRow={(coingeckoId: any) =>
+                                        removeTokenRow(coingeckoId)
+                                    }
                                 />
                             </div>
                             <DraggablePieChart props={props} weightValue={weightValue} />

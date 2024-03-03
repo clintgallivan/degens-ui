@@ -117,7 +117,7 @@ export default function PortfolioSettingsSearchBar({ props, addTokenRow }: any) 
                         </>
                     ) : null}
                     {portfolioSearchIsExpanded
-                        ? ListItems(props, results, item => addTokenRow(item))
+                        ? ListItems(props, results, (item: any) => addTokenRow(item))
                         : null}
                 </div>
             </form>

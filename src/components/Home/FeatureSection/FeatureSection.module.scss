@@ -9,3 +9,9 @@ margin-top: 20px;
   font-size: var(--font-size-sm);
 
 }
+
+.a_tag, .a_tag:link, .a_tag:hover{
+  text-decoration: none;
+  display: flex;
+  // background-color: blue;
+}

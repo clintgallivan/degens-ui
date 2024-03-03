@@ -42,7 +42,7 @@ function DistributionTable({
     }
 
     useEffect(() => {
-        props.user[0].historical.portfolios[portfolio].forEach((obj, idx) => {
+        props.user[0].historical.portfolios[portfolio].forEach((obj: any, idx: string | number) => {
             if (obj.timestamp === selectedTimestamp) {
                 setPortfolioTokens(props.user[0].historical.portfolios[portfolio][idx].tokens);
             }

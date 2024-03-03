@@ -204,7 +204,7 @@ function EditableDistributionTable({
                                         <div className={styles.item_search_container}>
                                             <PortfolioSettingsSearchBar
                                                 props={props}
-                                                addTokenRow={item => addTokenRow(item)}
+                                                addTokenRow={(item: any) => addTokenRow(item)}
                                             />
                                         </div>
                                     </>

@@ -15,6 +15,7 @@ import PortfolioSection from '@components/settings/portfolio/ProfileSection';
 import { useEffect } from 'react';
 import axios from 'axios';
 import { log } from '@utils/console';
+import EmptyPage from '@components/common/EmptyPage';
 
 // type QueryProps = {
 //   user: any
@@ -23,7 +24,16 @@ import { log } from '@utils/console';
 const Portfolio: NextPage = (props: any) => {
     const router = useRouter();
     const { user } = router.query;
-    const { portfolios } = props.user[0].historical;
+    const { portfolios } = props?.user?.[0]?.historical || '';
+    if (!portfolios) {
+        // navigate to home
+        try {
+            router.push('/');
+        } catch (e) {
+            // do nothingd
+        }
+        return <EmptyPage />;
+    }
     const lastUpdatedAt: any = new Date(
         props.user[0].last_updated_snapshot.portfolios.season_1[0].timestamp,
     );
@@ -41,7 +51,6 @@ const Portfolio: NextPage = (props: any) => {
         //* we take this snapshot at  a maximum of once per day - it is a way for us to calculate the new portfolio balance and modify the risk score. Its as if the user has acknowledged the new portfolio balance, thus changing the risk score.
         const oneDay = 60 * 60 * 24 * 1000;
         const handleUpdateStats = async () => {
-            console.log('start api');
             try {
                 const historical: any = {
                     portfolios: {},
@@ -51,7 +60,6 @@ const Portfolio: NextPage = (props: any) => {
                     const pValue = portfolios[portfolio];
                     historical.portfolios[pKey] = [pValue[0]];
                 });
-                console.log('second');
                 const res = await axios.post(
                     '/api/handle-update-stats',
                     {
@@ -65,7 +73,6 @@ const Portfolio: NextPage = (props: any) => {
                         },
                     },
                 );
-                console.log(res);
                 res.status === 200 ? refreshData() : log('failed to update');
             } catch (e) {
                 log(e);
@@ -73,11 +80,8 @@ const Portfolio: NextPage = (props: any) => {
         };
 
         if (now - lastUpdatedAsDate > oneDay) {
-            console.log('updating');
             handleUpdateStats();
         }
-
-        console.log('not updating');
     }, []);
 
     return (

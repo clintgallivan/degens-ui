@@ -3,7 +3,6 @@ import Image, { ImageLoaderProps } from 'next/image';
 
 export default function RetroUserIcon({ props }: any) {
     const imageLoader = ({ src, width, quality }: ImageLoaderProps) => {
-        console.log('yo');
         // return `${src}?w=${width}&q=${quality || 75}`;
         return src;
     };

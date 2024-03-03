@@ -20,7 +20,7 @@ export default function WeightOperator({
     const [decreaseDisabled, setDecreaseDisabled] = useState(false);
 
     const currentTotalWeight = parseFloat(
-        weightValue.reduce((sum, item) => sum + item.percent, 0).toFixed(2),
+        weightValue.reduce((sum: any, item: { percent: any }) => sum + item.percent, 0).toFixed(2),
     );
 
     const handleIncrease = () => {
@@ -29,7 +29,7 @@ export default function WeightOperator({
         }
 
         setWeightValue(
-            weightValue.map((item, i) =>
+            weightValue.map((item: any, i: any) =>
                 i === index ? { ...item, percent: parseFloat((value + 0.01).toFixed(2)) } : item,
             ),
         );
@@ -42,7 +42,7 @@ export default function WeightOperator({
 
         if (value > minPercent) {
             setWeightValue(
-                weightValue.map((item, i) =>
+                weightValue.map((item: any, i: any) =>
                     i === index
                         ? { ...item, percent: parseFloat((value - 0.01).toFixed(2)) }
                         : item,

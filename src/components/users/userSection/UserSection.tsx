@@ -5,9 +5,10 @@ import RecentStats from '../components/RecentStats';
 import PortfolioDistribution from '../components/PortfolioDistribution';
 import styles from './UserSection.module.scss';
 import { useState } from 'react';
+import { Portfolio } from '@components/settings/portfolio/ProfileSection/PortfolioSection';
 
 export default function UserSection({ props }: any) {
-    const [portfolio, setPortfolio] = useState('season_1');
+    const [portfolio, setPortfolio] = useState<Portfolio>('season_1');
     const [selectedTimestamp, setselectedTimestamp] = useState(
         props.user[0].last_updated_snapshot.portfolios[portfolio][0].timestamp,
     );

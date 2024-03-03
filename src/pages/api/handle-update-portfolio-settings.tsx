@@ -60,7 +60,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
                     };
                 });
             } catch (e) {
-                console.log(e);
+                log(e);
             }
             return output;
         };
@@ -153,7 +153,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
         };
 
         const postToDb = async () => {
-            console.log(JSON.stringify(newUserData));
             const portfolioToPush: any = {};
             let bulkRequests = [];
             Object.keys(newUserData[0].historical.portfolios).forEach(portfolio => {

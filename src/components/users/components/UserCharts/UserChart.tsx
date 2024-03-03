@@ -18,6 +18,7 @@ import Dropdown from '@components/common/Dropdown';
 // import useKeySwitch from './helpers/useKeySwitch';
 import styles from './UserChart.module.scss';
 import { toFixedNumber } from '@utils/text';
+import { Portfolio } from '@components/settings/portfolio/ProfileSection/PortfolioSection';
 
 const initialState = {
     data: [],
@@ -31,6 +32,7 @@ const initialState = {
     bottom2: 'dataMin-20',
     animation: true,
 };
+type Category = 'score' | 'average_mcap_rank';
 
 enum ScoreDropdownText {
     'score' = 'Portfolio Score',
@@ -56,13 +58,19 @@ export default function UserChart({
     setPortfolio,
     selectedTimestamp,
     setselectedTimestamp,
-}: any) {
+}: {
+    props: any;
+    portfolio: Portfolio;
+    setPortfolio: any;
+    selectedTimestamp: any;
+    setselectedTimestamp: any;
+}) {
     const { width = 0 } = useWindowSize();
     const [chartWidth, setChartWidth] = useState(0);
 
     const [noData, setNoData] = useState(false);
     const [state, setState] = useState(initialState);
-    const [category, setCategory] = useState('score');
+    const [category, setCategory] = useState<Category>('score');
     // const [selectedTimestamp, setselectedTimestamp] = useState(null);
 
     const arr = props.user[0].historical.portfolios[portfolio].slice().sort((a: any, b: any) => {
