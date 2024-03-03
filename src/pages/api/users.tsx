@@ -46,7 +46,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
                 .catch(error => error);
 
             const doc = await db.collection('users').insertOne({
-                date_created: yesterday,
+                date_created: localDate,
                 uid: payload.uid,
                 username: twitterOutput.username,
                 name: payload.name,
@@ -66,40 +66,94 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
                 },
                 portfolio_metadata: {
                     season_1: {
-                        creation_date: twoDaysAgo,
+                        creation_date: localDate,
                     },
-                    // all_time: {
-                    //   creation_date: timestamp,
-                    // },
+                    all_time: {
+                        creation_date: localDate,
+                    },
                 },
                 last_updated_snapshot: {
                     portfolios: {
                         season_1: [
                             {
-                                timestamp: yesterday,
+                                timestamp: localDate,
                                 score: 100,
-                                average_mcap_rank: 2,
+                                average_mcap_rank: 9,
                                 tokens: [
                                     {
-                                        coingecko_id: 'ethereum',
-                                        price: 1500,
-                                        percent: 0.4,
-                                        mcap_rank: 2,
-                                    },
-                                    {
-                                        coingecko_id: 'bitcoin',
-                                        price: 20000,
-                                        percent: 0.4,
-                                        mcap_rank: 1,
-                                    },
-                                    {
-                                        coingecko_id: 'uniswap',
-                                        price: 5,
-                                        percent: 0.2,
-                                        mcap_rank: 20,
+                                        coingecko_id: 'usd-coin',
+                                        price: 1,
+                                        percent: 1,
+                                        mcap_rank: 9,
+                                        image: 'https://assets.coingecko.com/coins/images/6319/large/USD_Coin_icon.png?1547042389',
                                     },
                                 ],
                             },
+                            // {
+                            //     timestamp: localDate,
+                            //     score: 100,
+                            //     average_mcap_rank: 5.2,
+                            //     tokens: [
+                            //         {
+                            //             coingecko_id: 'ethereum',
+                            //             price: 3300,
+                            //             percent: 0.4,
+                            //             mcap_rank: 2,
+                            //             image: 'https://assets.coingecko.com/coins/images/279/large/ethereum.png?1595348880',
+                            //         },
+                            //         {
+                            //             coingecko_id: 'bitcoin',
+                            //             price: 60000,
+                            //             percent: 0.4,
+                            //             mcap_rank: 1,
+                            //             image: 'https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1547033579',
+                            //         },
+                            //         {
+                            //             coingecko_id: 'uniswap',
+                            //             price: 10,
+                            //             percent: 0.2,
+                            //             mcap_rank: 20,
+                            //             image: 'https://assets.coingecko.com/coins/images/12504/large/uniswap-uni.png?1600306604',
+                            //         },
+                            //     ],
+                            // },
+                        ],
+                        all_time: [
+                            {
+                                timestamp: localDate,
+                                score: 100,
+                                average_mcap_rank: 9,
+                                tokens: [
+                                    {
+                                        coingecko_id: 'usd-coin',
+                                        price: 1,
+                                        percent: 1,
+                                        mcap_rank: 9,
+                                        image: 'https://assets.coingecko.com/coins/images/6319/large/USD_Coin_icon.png?1547042389',
+                                    },
+                                ],
+                            },
+                            // {
+                            //     timestamp: localDate,
+                            //     score: 100,
+                            //     average_mcap_rank: 10,
+                            //     tokens: [
+                            //         {
+                            //             coingecko_id: 'dogecoin',
+                            //             price: 0.08,
+                            //             percent: 0.5,
+                            //             mcap_rank: 9,
+                            //             image: 'https://assets.coingecko.com/coins/images/5/large/dogecoin.png?1547792256',
+                            //         },
+                            //         {
+                            //             coingecko_id: 'solana',
+                            //             price: 25,
+                            //             percent: 0.5,
+                            //             mcap_rank: 11,
+                            //             image: 'https://assets.coingecko.com/coins/images/4128/large/solana.png?1640133422',
+                            //         },
+                            //     ],
+                            // },
                         ],
                     },
                 },
@@ -107,77 +161,85 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
                     portfolios: {
                         season_1: [
                             {
-                                timestamp: yesterday,
+                                timestamp: localDate,
                                 score: 100,
-                                average_mcap_rank: 1.5,
+                                average_mcap_rank: 9,
                                 tokens: [
                                     {
-                                        coingecko_id: 'ethereum',
-                                        price: 1500,
-                                        percent: 0.4,
-                                        mcap_rank: 2,
-                                    },
-                                    {
-                                        coingecko_id: 'bitcoin',
-                                        price: 20000,
-                                        percent: 0.4,
-                                        mcap_rank: 1,
-                                    },
-                                    {
-                                        coingecko_id: 'uniswap',
-                                        price: 5,
-                                        percent: 0.2,
-                                        mcap_rank: 20,
+                                        coingecko_id: 'usd-coin',
+                                        price: 1,
+                                        percent: 1,
+                                        mcap_rank: 9,
+                                        image: 'https://assets.coingecko.com/coins/images/6319/large/USD_Coin_icon.png?1547042389',
                                     },
                                 ],
                             },
                             // {
-                            //     timestamp: twoDaysAgo,
+                            //     timestamp: localDate,
                             //     score: 100,
-                            //     average_mcap_rank: 1.5,
+                            //     average_mcap_rank: 5.2,
                             //     tokens: [
                             //         {
                             //             coingecko_id: 'ethereum',
                             //             price: 1500,
                             //             percent: 0.4,
                             //             mcap_rank: 2,
+                            //             image: 'https://assets.coingecko.com/coins/images/279/large/ethereum.png?1595348880',
                             //         },
                             //         {
                             //             coingecko_id: 'bitcoin',
                             //             price: 20000,
                             //             percent: 0.4,
                             //             mcap_rank: 1,
+                            //             image: 'https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1547033579',
                             //         },
                             //         {
                             //             coingecko_id: 'uniswap',
-                            //             price: 20000,
+                            //             price: 5,
                             //             percent: 0.2,
                             //             mcap_rank: 20,
+                            //             image: 'https://assets.coingecko.com/coins/images/12504/large/uniswap-uni.png?1600306604',
                             //         },
                             //     ],
                             // },
                         ],
-                        // all_time: [
-                        //   {
-                        //     timestamp: timestamp,
-                        //     score: 100,
-                        //     average_mcap_rank: 5.5,
-                        //     tokens: [
-                        //       {
-                        //         coingecko_id: 'ethereum',
-                        //         price: 2000,
-                        //         percent: 0.5,
-                        //         mcap_rank: 2,
-                        //       },
-                        //       {
-                        //         coingecko_id: 'solana',
-                        //         price: 45,
-                        //         percent: 0.5,
-                        //         mcap_rank: 9,
-                        //       },
-                        //     ],
-                        //   },
-                        // ],
+                        all_time: [
+                            {
+                                timestamp: localDate,
+                                score: 100,
+                                average_mcap_rank: 9,
+                                tokens: [
+                                    {
+                                        coingecko_id: 'usd-coin',
+                                        price: 1,
+                                        percent: 1,
+                                        mcap_rank: 9,
+                                        image: 'https://assets.coingecko.com/coins/images/6319/large/USD_Coin_icon.png?1547042389',
+                                    },
+                                ],
+                            },
+                            // {
+                            //     timestamp: localDate,
+                            //     score: 100,
+                            //     average_mcap_rank: 10,
+                            //     tokens: [
+                            //         {
+                            //             coingecko_id: 'dogecoin',
+                            //             price: 0.08,
+                            //             percent: 0.5,
+                            //             mcap_rank: 9,
+                            //             image: 'https://assets.coingecko.com/coins/images/5/large/dogecoin.png?1547792256',
+                            //         },
+                            //         {
+                            //             coingecko_id: 'solana',
+                            //             price: 25,
+                            //             percent: 0.5,
+                            //             mcap_rank: 11,
+                            //             image: 'https://assets.coingecko.com/coins/images/4128/large/solana.png?1640133422',
+                            //         },
+                            //     ],
+                            // },
+                        ],
                     },
                 },
             });

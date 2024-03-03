@@ -3,7 +3,6 @@ import clientPromise from '@utils/mongodb';
 import moment from 'moment-timezone';
 import axios from 'axios';
 import { log } from '@utils/console';
-import { coingeckoApi } from '@utils/api';
 
 type Data = {
     message: string;
@@ -50,7 +49,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
                 ids: parsedTokenIds,
             };
             try {
-                const coingeckoResponse = await coingeckoApi.get(`/coins/markets`, {
+                const coingeckoResponse = await axios.get(`${coingeckoBaseUrl}/coins/markets`, {
                     params,
                 });
                 coingeckoResponse.data.forEach((i: any) => {
@@ -61,7 +60,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
                     };
                 });
             } catch (e) {
-                // do nothing
+                log(e);
             }
             return output;
         };
@@ -77,7 +76,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
                     let totalWeight = 0;
                     tokenObjs.forEach((tokenObj: any) => {
                         const priceAfter = currentPrices[tokenObj.coingecko_id].current_price;
-                        const priceBefore = tokenObj?.price || priceAfter;
+                        const priceBefore = tokenObj.price;
                         const { percent } = tokenObj;
                         const weightedChange = (priceAfter / priceBefore) * percent;
                         totalWeight += weightedChange;
@@ -85,7 +84,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
                     const newTokens: any = [];
                     tokenObjs.forEach((tokenObj: any) => {
                         const priceAfter = currentPrices[tokenObj.coingecko_id].current_price;
-                        const priceBefore = tokenObj?.price || priceAfter;
+                        const priceBefore = tokenObj.price;
                         const { percent } = tokenObj;
                         const weightedChange = (priceAfter / priceBefore) * percent;
                         const newToken = {
@@ -124,7 +123,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
                     const currentPeriodAvgMcapRank = () => {
                         let totalAvg = 0;
                         userInfo.historical.portfolios[portfolio][0].tokens.forEach((i: any) => {
-                            const { mcap_rank } = i;
+                            const { mcapRank } = i;
                             const startingPercent = i.percent;
                             let endingPercent = startingPercent;
                             userUpdated.historical.portfolios[portfolio][0].tokens.forEach(
@@ -135,7 +134,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
                                 },
                             );
                             const avgPercent = (startingPercent + endingPercent) / 2;
-                            totalAvg += mcap_rank * avgPercent;
+                            totalAvg += mcapRank * avgPercent;
                         });
                         return totalAvg;
                     };
@@ -154,7 +153,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
         };
 
         const postToDb = async () => {
-            // console.log(JSON.stringify(newUserData));
             const portfolioToPush: any = {};
             let bulkRequests = [];
             Object.keys(newUserData[0].historical.portfolios).forEach(portfolio => {
@@ -216,7 +214,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
                 const tokenList = createTokenListToUpdateUser(userInfo);
                 const currentPrices = getCurrentPrices(tokenList);
                 runCalcsAndUpdateUser(userInfo, await currentPrices);
-                await postToDb();
+                // await postToDb();
                 res.status(200).json({ message: 'success' });
             } catch (e) {
                 res.status(400).json({ message: 'failure' });

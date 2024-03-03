@@ -13,6 +13,9 @@ import Header from '@components/common/Header';
 // import UserSection from '@components/users/userSection';
 import PortfolioSection from '@components/settings/portfolio/ProfileSection';
 import { useEffect } from 'react';
+import axios from 'axios';
+import { log } from '@utils/console';
+import EmptyPage from '@components/common/EmptyPage';
 
 // type QueryProps = {
 //   user: any
@@ -21,9 +24,64 @@ import { useEffect } from 'react';
 const Portfolio: NextPage = (props: any) => {
     const router = useRouter();
     const { user } = router.query;
+    const { portfolios } = props?.user?.[0]?.historical || '';
+    if (!portfolios) {
+        // navigate to home
+        try {
+            router.push('/');
+        } catch (e) {
+            // do nothingd
+        }
+        return <EmptyPage />;
+    }
+    const lastUpdatedAt: any = new Date(
+        props.user[0].last_updated_snapshot.portfolios.season_1[0].timestamp,
+    );
+    const refreshData = () => {
+        router.replace(router.asPath);
+    };
 
     useEffect(() => {
         props.session ? null : router.push('/');
+    }, []);
+
+    useEffect(() => {
+        const now: any = new Date();
+        const lastUpdatedAsDate: any = new Date(lastUpdatedAt);
+        //* we take this snapshot at  a maximum of once per day - it is a way for us to calculate the new portfolio balance and modify the risk score. Its as if the user has acknowledged the new portfolio balance, thus changing the risk score.
+        const oneDay = 60 * 60 * 24 * 1000;
+        const handleUpdateStats = async () => {
+            try {
+                const historical: any = {
+                    portfolios: {},
+                };
+                Object.keys(portfolios).forEach(portfolio => {
+                    const pKey = portfolio;
+                    const pValue = portfolios[portfolio];
+                    historical.portfolios[pKey] = [pValue[0]];
+                });
+                const res = await axios.post(
+                    '/api/handle-update-stats',
+                    {
+                        uid: props.user[0].uid,
+                        portfolio_metadata: props.user[0].portfolio_metadata,
+                        historical,
+                    },
+                    {
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                    },
+                );
+                res.status === 200 ? refreshData() : log('failed to update');
+            } catch (e) {
+                log(e);
+            }
+        };
+
+        if (now - lastUpdatedAsDate > oneDay) {
+            handleUpdateStats();
+        }
     }, []);
 
     return (

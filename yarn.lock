@@ -400,6 +400,11 @@
   resolved "https://registry.yarnpkg.com/@types/gtag.js/-/gtag.js-0.0.10.tgz#ac90d9b79c00daac447725a4b78ec1c398796760"
   integrity sha512-98Hy7woUb3jMAMXkZQwfIOYNyfxmI0+U4m0PpCGdnd/FHk0tDpQFCqgXdNkdEoXsKkcGya/2Gew1cAJjKJspVw==
 
+"@types/humanize-duration@^3.27.4":
+  version "3.27.4"
+  resolved "https://registry.yarnpkg.com/@types/humanize-duration/-/humanize-duration-3.27.4.tgz#51d6d278213374735440bc3749de920935e9127e"
+  integrity sha512-yaf7kan2Sq0goxpbcwTQ+8E9RP6HutFBPv74T/IA/ojcHKhuKVlk2YFYyHhWZeLvZPzzLE3aatuQB4h0iqyyUA==
+
 "@types/json-schema@^7.0.9":
   version "7.0.11"
   resolved "https://registry.yarnpkg.com/@types/json-schema/-/json-schema-7.0.11.tgz#d421b6c527a3037f7c84433fd2c4229e016863d3"
@@ -1952,6 +1957,11 @@ https-proxy-agent@5.0.0:
   dependencies:
     agent-base "6"
     debug "4"
+
+humanize-duration@^3.31.0:
+  version "3.31.0"
+  resolved "https://registry.yarnpkg.com/humanize-duration/-/humanize-duration-3.31.0.tgz#a0384d22555024cd17e6e9f8561540d37756bf4c"
+  integrity sha512-fRrehgBG26NNZysRlTq1S+HPtDpp3u+Jzdc/d5A4cEzOD86YLAkDaJyJg8krSdCi7CJ+s7ht3fwRj8Dl+Btd0w==
 
 ieee754@^1.1.13:
   version "1.2.1"

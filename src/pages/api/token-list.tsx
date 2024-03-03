@@ -20,7 +20,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
             { collation: { locale: 'en', strength: 1 } };
         let data = await db
             .collection('substr-search')
-            .find({ iterator: { $regex: substr, $options: '$i' } })
+            .find({ iterator: { $regex: substr, $options: 'i' } })
             .toArray();
 
         data = JSON.parse(JSON.stringify(data));

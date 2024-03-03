@@ -50,7 +50,7 @@ export default function HeaderProfile({ props }: any) {
                     <Dropdown.Item
                         className={styles.item}
                         eventKey="1"
-                        href={`/users/${props.session.user.username}`}
+                        href={`/users/${props.session.user.uid}`}
                     >
                         <BsPerson size={14} className={styles.icon} />
                         My Profile
