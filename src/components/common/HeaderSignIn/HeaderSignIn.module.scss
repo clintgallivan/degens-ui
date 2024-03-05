@@ -3,7 +3,7 @@
 .container {
  cursor: pointer;
  display: flex;
- background-color: var(--twitter-blue);
+ background-color: var(--x-black);
  padding: 5px;
  padding-left: 10px;
  padding-right: 10px;
@@ -47,10 +47,11 @@
 }
 
 .twitter_icon {
+  margin-left: 5px;
   margin-right: 5px;
   color: var(--white);
   height: 15px;
-  width: 15px;
+  width: 12px;
 
 }
 

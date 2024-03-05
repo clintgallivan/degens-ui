@@ -1,19 +1,12 @@
 import { useEffect, useState } from 'react';
 import { Button } from 'react-bootstrap';
-import {
-  BsGlobe,
-  BsAward,
-  BsPerson,
-  BsTwitter,
-  BsTelegram,
-} from 'react-icons/bs';
-import { FaDiscord } from 'react-icons/fa';
+import { BsGlobe, BsAward, BsPerson, BsTwitter, BsTelegram } from 'react-icons/bs';
+import { FaBars, FaDiscord } from 'react-icons/fa';
 import { GrCubes } from 'react-icons/gr';
 import { FiSettings } from 'react-icons/fi';
 import { BiLogOut } from 'react-icons/bi';
 import { RiPulseLine } from 'react-icons/ri';
 import { IoClose } from 'react-icons/io5';
-import { GoThreeBars } from 'react-icons/go';
 import { AiOutlineHome } from 'react-icons/ai';
 
 import { useLayoutContext } from '@context/layoutContext';
@@ -22,102 +15,96 @@ import NavButton from './components/NavButton';
 import styles from './Navbar.module.scss';
 
 export default function Navbar() {
-  const { width = 1024 } = useWindowSize();
-  const { navIsExpanded, setNavIsExpanded } = useLayoutContext();
+    const { width = 1024 } = useWindowSize();
+    const { navIsExpanded, setNavIsExpanded } = useLayoutContext();
 
-  const [expandedCSS, setExpandedCSS] = useState('');
+    const [expandedCSS, setExpandedCSS] = useState('');
 
-  useEffect(() => {
-    navIsExpanded
-      ? setExpandedCSS('navBar_expanded')
-      : setExpandedCSS('navBar');
-  }, [navIsExpanded]);
+    useEffect(() => {
+        navIsExpanded ? setExpandedCSS('navBar_expanded') : setExpandedCSS('navBar');
+    }, [navIsExpanded]);
 
-  return (
-    <>
-      <div className={expandedCSS}>
-        <br />
+    return (
+        <>
+            <div className={expandedCSS}>
+                <br />
 
-        <Button
-          className={styles.x_container}
-          variant="transparent"
-          onClick={() =>
-            navIsExpanded ? setNavIsExpanded(false) : setNavIsExpanded(true)
-          }
-        >
-          {navIsExpanded ? (
-            <IoClose size={40} fill="white" />
-          ) : (
-            <GoThreeBars size={40} fill="white" />
-          )}
-        </Button>
-        <br />
+                <Button
+                    className={styles.x_container}
+                    variant="transparent"
+                    onClick={() =>
+                        navIsExpanded ? setNavIsExpanded(false) : setNavIsExpanded(true)
+                    }
+                >
+                    {navIsExpanded ? (
+                        <IoClose size={40} fill="white" />
+                    ) : (
+                        <FaBars size={40} fill="white" />
+                    )}
+                </Button>
+                <br />
 
-        <div className={styles.break} />
-        <div className={styles.break} />
-        <NavButton
-          isExpanded={navIsExpanded}
-          text="Home"
-          icon={<AiOutlineHome size={24} />}
-          route="/"
-        />
-        <div className={styles.break} />
-        <NavButton
-          isExpanded={navIsExpanded}
-          text="Shitcoins"
-          icon={<BsAward size={24} />}
-          route="/token-leaderboards"
-        />
-        <div className={styles.break} />
-        <NavButton
-          isExpanded={navIsExpanded}
-          text="Leaderboards"
-          icon={<GrCubes size={24} />}
-        />
-        <div className={styles.break} />
-        <NavButton
-          isExpanded={navIsExpanded}
-          text="Profile"
-          icon={<BsPerson size={24} />}
-        />
-        <div className={styles.break} />
-        <div className={styles.break} />
-        <div className={styles.break} />
+                <div className={styles.break} />
+                <div className={styles.break} />
+                <NavButton
+                    isExpanded={navIsExpanded}
+                    text="Home"
+                    icon={<AiOutlineHome size={24} />}
+                    route="/"
+                />
+                <div className={styles.break} />
+                <NavButton
+                    isExpanded={navIsExpanded}
+                    text="Shitcoins"
+                    icon={<BsAward size={24} />}
+                    route="/token-leaderboards"
+                />
+                <div className={styles.break} />
+                <NavButton
+                    isExpanded={navIsExpanded}
+                    text="Leaderboards"
+                    icon={<GrCubes size={24} />}
+                />
+                <div className={styles.break} />
+                <NavButton
+                    isExpanded={navIsExpanded}
+                    text="Profile"
+                    icon={<BsPerson size={24} />}
+                />
+                <div className={styles.break} />
+                <div className={styles.break} />
+                <div className={styles.break} />
 
-        <NavButton
-          isExpanded={navIsExpanded}
-          text="Settings"
-          icon={<FiSettings size={24} />}
-        />
-        <div className={styles.break} />
+                <NavButton
+                    isExpanded={navIsExpanded}
+                    text="Settings"
+                    icon={<FiSettings size={24} />}
+                />
+                <div className={styles.break} />
 
-        <NavButton
-          isExpanded={navIsExpanded}
-          text="Logout"
-          icon={<BiLogOut size={24} />}
-        />
-        <div className={styles.break} />
-        <div className={styles.break} />
-        <div className={styles.break} />
+                <NavButton isExpanded={navIsExpanded} text="Logout" icon={<BiLogOut size={24} />} />
+                <div className={styles.break} />
+                <div className={styles.break} />
+                <div className={styles.break} />
 
-        <NavButton
-          isExpanded={navIsExpanded}
-          text="About"
-          icon={<RiPulseLine size={24} />}
-        />
-        <br />
-        <SocialIcons />
-      </div>
-    </>
-  );
+                <NavButton
+                    isExpanded={navIsExpanded}
+                    text="About"
+                    icon={<RiPulseLine size={24} />}
+                />
+                <br />
+                <SocialIcons />
+            </div>
+        </>
+    );
 }
 
 const SocialIcons = () => {
-  return (
-    <div className={styles.socials}>
-      <BsTwitter size={36} />
-      <FaDiscord size={36} />
-      <BsTelegram size={36} />
-    </div>
-  );
+    return (
+        <div className={styles.socials}>
+            <BsTwitter size={36} />
+            <FaDiscord size={36} />
+            <BsTelegram size={36} />
+        </div>
+    );
 };

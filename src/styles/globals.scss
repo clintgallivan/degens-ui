@@ -99,7 +99,17 @@ h6 {
 text-decoration: none;
 }
 
+p {
+  margin-bottom: 0;
+}
+
 //*font weight
+.fw-t {
+font-weight: var(--font-weight-thin);
+}
+.fw-reg {
+font-weight: var(--font-weight-reg);
+}
 .fw-md {
   font-weight: var(--font-weight-md);
 }
