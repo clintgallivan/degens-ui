@@ -7,6 +7,8 @@ import SpinningCoin from '@components/common/SpinningCoin';
 import EmailForm from '@components/Home/components/EmailForm';
 import EmailFormButton from '@components/Home/components/EmailFormButton';
 import styles from './IntroSection.module.scss';
+import { BsTwitterX } from 'react-icons/bs';
+import { signIn } from 'next-auth/react';
 
 export default function IntroSection() {
     const [email, setEmail] = useState('');
@@ -59,19 +61,26 @@ export default function IntroSection() {
             <div className={styles.total_container}>
                 <div className={styles.container}>
                     <div>
-                        <h1>Token Analytics</h1>
-                        <h1>for Degens</h1>
-                        <p className="fs-l fw-md">
-                            The Shitcoin Analytics you&apos;ve always wanted
-                        </p>
+                        <div style={{ height: 24 }} />
+
+                        <h1 className={styles.h1}>Flex your crypto calls</h1>
+                        <div style={{ height: 24 }} />
+                        <p className="fs-md fw-t">Rise to the top in the degen community</p>
+                        <div style={{ height: 40 }} />
                     </div>
                     <div className={styles.coin_box}>
                         <SpinningCoin />
                     </div>
                 </div>
                 <div className={styles.email_container}>
-                    <EmailForm onChange={(e: string) => setEmail(e)} />
-                    <EmailFormButton onClick={() => handleEmailSubmit()}>Join</EmailFormButton>
+                    <EmailFormButton variant="orange" onClick={() => signIn('twitter')}>
+                        <div className={styles.sign_in_text_container}>
+                            <div className={styles.sign_in_button_text}>Sign in with</div>
+                            <BsTwitterX size={20} className={styles.icon} />
+                        </div>
+                    </EmailFormButton>
+                    {/* <EmailForm onChange={(e: string) => setEmail(e)} />
+                    <EmailFormButton onClick={() => handleEmailSubmit()}>Join</EmailFormButton> */}
                 </div>
             </div>
         </>
