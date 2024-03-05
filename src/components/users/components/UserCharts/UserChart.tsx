@@ -82,13 +82,26 @@ export default function UserChart({
         return 0;
     });
     const handleDataArr = () => {
+        // Sort the array by timestamp
+
         const output: any[] = [];
-        arr.forEach((i: any) => {
+        arr.forEach((i: any, index: number) => {
             if (
                 i.timestamp <=
                 props.user[0].last_updated_snapshot.portfolios[portfolio][0].timestamp
             ) {
-                output.push(i);
+                // Add a new property 'unixTimestamp' to each item
+                const unixTimestamp = new Date(i.timestamp).getTime();
+                const newItem = { ...i, unixTimestamp };
+
+                // Only add the item to the output if it's the first item or if it's more than 20 seconds away from the previous item
+                if (
+                    index === 0 ||
+                    unixTimestamp - output[output.length - 1].unixTimestamp > 10000 ||
+                    index === arr.length - 1
+                ) {
+                    output.push(newItem);
+                }
             }
         });
         return output;
@@ -105,7 +118,7 @@ export default function UserChart({
         }
         if (active && payload && payload.length) {
             const day = moment(payload[0].payload.timestamp).format('dddd');
-            const date = moment(payload[0].payload.timestamp).format('LL');
+            const date = moment(payload[0].payload.timestamp).format('MMMM Do YYYY hh:mm A');
             const val = payload[0].value;
             const dataKey = payload[0].name;
             const phrase = dataKey
@@ -147,7 +160,7 @@ export default function UserChart({
                                 { text: 'All Time Portfolio', value: 'all_time' },
                             ]}
                         </Dropdown>
-                        <div>{selectedTimestamp}</div>
+                        <div>{moment(selectedTimestamp).format('MMMM Do YYYY')}</div>
 
                         <Dropdown
                             selectedChild={ScoreDropdownText[category]}
@@ -165,16 +178,19 @@ export default function UserChart({
                     ) : (
                         <ResponsiveContainer key={chartWidth} width="100%" height={400}>
                             <LineChart height={400} data={handleDataArr()}>
-                                <CartesianGrid vertical={false} stroke="white" />
+                                <CartesianGrid vertical={false} strokeDasharray="3 3" />
 
                                 <XAxis
-                                    dataKey="timestamp"
+                                    dataKey="unixTimestamp"
                                     domain={[state.left, state.right]}
                                     name="Time"
-                                    tickFormatter={unixTime => moment(unixTime).format('l')}
-                                    type="category"
+                                    tickFormatter={unixTime =>
+                                        moment(unixTime).format('MMMM Do YYYY')
+                                    }
+                                    type="number"
                                     stroke="white"
                                     padding={{ left: 40 }}
+                                    minTickGap={100}
                                 />
                                 <YAxis
                                     allowDataOverflow
@@ -183,6 +199,8 @@ export default function UserChart({
                                     yAxisId="1"
                                     stroke="white"
                                     width={75}
+                                    minTickGap={20}
+                                    tickFormatter={value => Math.round(value).toString()}
                                 />
                                 <Tooltip
                                     content={<CustomTooltip />}
@@ -197,11 +215,12 @@ export default function UserChart({
                                 <Line
                                     dot={<div />}
                                     yAxisId="1"
-                                    type="natural"
+                                    type="basis"
                                     dataKey={category}
                                     stroke="gold"
                                     strokeWidth={3}
-                                    animationDuration={0}
+                                    animationDuration={1000}
+                                    activeDot={{ r: 6 }}
                                 />
                             </LineChart>
                         </ResponsiveContainer>

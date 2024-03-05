@@ -133,7 +133,6 @@ export default function PortfolioSection({ props }: any) {
             alert('Please make sure you have allocated all your remaining weight.');
             return;
         }
-        // TODO comment this back in when ready to work on api call
         try {
             let historical: any = {
                 portfolios: {},
@@ -145,7 +144,7 @@ export default function PortfolioSection({ props }: any) {
                     historical.portfolios[pKey] = [pValue[0]];
                 }
             });
-            const res1 = await axios.post(
+            await axios.post(
                 '/api/handle-update-stats',
                 {
                     uid: props.user[0].uid,
@@ -158,6 +157,8 @@ export default function PortfolioSection({ props }: any) {
                     },
                 },
             );
+            await new Promise(r => setTimeout(r, 750));
+
             const historical2 = JSON.parse(JSON.stringify(historical));
             historical2.portfolios[selectedPortfolio][0].tokens = weightValue;
             const res2 = await axios.post(
