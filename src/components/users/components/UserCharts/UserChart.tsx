@@ -215,7 +215,7 @@ export default function UserChart({
                                 <Line
                                     dot={<div />}
                                     yAxisId="1"
-                                    type="basis"
+                                    type="linear"
                                     dataKey={category}
                                     stroke="gold"
                                     strokeWidth={3}

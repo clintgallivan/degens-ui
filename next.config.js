@@ -10,6 +10,9 @@ const nextConfig = {
       },
     ];
   },
+  images: {
+    domains: ['pbs.twimg.com', 'assets.coingecko.com'],
+  },
 };
 
 module.exports = nextConfig;

@@ -1,0 +1,44 @@
+.container {
+  align-content: center;
+  align-items: center;
+  color: var(--white);
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  transition: 0.5s;
+}
+
+.text_column {
+  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  transition: 0.5s;
+}
+
+
+
+@media screen and (min-width: 768px) {
+  .container {
+    align-self: flex-start;
+    justify-content: flex-start;
+    align-content: flex-start;
+    align-items: flex-start;
+    color: var(--white);
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+    transition: 0.5s;
+  }
+  
+  .text_column {
+    // background-color: green;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: start;
+    transition: 0.5s;
+  }
+
+}
