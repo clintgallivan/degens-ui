@@ -1,0 +1,137 @@
+.container {
+  display: flex;
+  width: 100%;
+  overflow-x: scroll;
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+    scrollbar-width: none;  /* Firefox */
+  box-sizing: content-box;
+  margin-top: 5px;
+  
+}
+
+.container::-webkit-scrollbar {
+  width: 0.7em;
+  height: 5px;
+  background: transparent;
+}
+.container::-webkit-scrollbar-thumb {
+  background: var(--white);
+  height: 3px;
+  border-radius: 5px;
+}
+
+.container::-webkit-scrollbar-track-piece
+{
+   display:none;
+}
+
+.grid_point_container {
+  // background-color: red;
+
+  display: flex;
+  align-items: center;
+  font-size: var(--font-size-xsm);
+  font-weight: var(--font-weight-sb);
+}
+
+.grid_point_container_badge {
+  // background-color: red;
+  display: flex;
+  align-items: stretch;
+}
+
+// Placeholders
+.text_placeholder {
+  margin-left: 10px;
+  min-height: var(--font-size-xsm);
+  width: 100px;
+  border-radius: 2px;
+}
+.number_placeholder {
+  min-height: var(--font-size-xsm);
+  width: 50px;
+  border-radius: 2px;
+}
+.badge_placeholder {
+  min-height: 48px;
+  min-width: 100px;
+  border-radius: 15px;
+}
+.icon_placeholder {
+  min-height: 34px;
+  min-width: 34px;
+  border-radius: 17px;
+}
+
+.badge_container {
+  display: flex;
+}
+
+.item_name_container:active {
+  color: blue;
+}
+
+.row_container {
+  background-color: blue;
+  // display: flex;/
+  // align-items: stretch;
+}
+.icon_container {
+  display: flex;  
+  height: 34px;  
+  align-items: center;
+  justify-content: center;
+  width:34px;
+  border-radius: 17px; /* This makes the element circular */
+  border: 1px solid white;
+  // background-color: blue;
+}
+.head_container {
+  align-items: center;
+  display: flex;
+  // height: 50px;
+  margin-bottom: 10px;
+  font-size: var(--font-size-xsm);
+  font-weight: var(--font-weight-sb);
+  // background-color: red;
+}
+.head {
+  color: var(--white);
+}
+.body {
+  color: var(--white);
+}
+
+.a_tag, .a_tag:link {
+  margin-left: 10px;
+  text-decoration: none;
+  text-align: left;
+  outline: none;
+  color: var(--white);
+  font-size: var(--font-size-xsm);
+  
+}
+
+.a_tag_image:hover {
+  color: var(--white)
+}
+.a_tag_image, .a_tag_image:link {
+  display: flex;
+  outline: none;
+  color: var(--white);
+  
+}
+.a_tag:hover {
+  margin-left: 10px;
+  // text-decoration: underline;
+  color: var(--white)
+}
+
+.arrow_icon {
+  margin-left: 5px;
+  color: var(--black);
+}
+
+.gold_text {
+  color: gold
+}
