@@ -27,25 +27,23 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
             const params = new URLSearchParams();
             params.append('ids', payload.uid);
             params.append('user.fields', 'description,url,username');
-            const config = {
-                method: 'get',
-                baseURL: 'https://api.twitter.com/2/users',
-                params,
-                headers: {
-                    Authorization: `Bearer ${process.env.TWITTER_BEARER_TOKEN}`,
-                },
-            };
-            const twitterOutput = { username: '', description: '', url: '' };
-            const twitterReq = await axios(config)
-                .then(response => {
-                    const res = response.data;
-                    twitterOutput.username = res.data[0].username;
-                    twitterOutput.description = res.data[0].description;
-                    twitterOutput.url = res.data[0].url;
-                })
-                .catch(error => error);
 
-            const doc = await db.collection('users').insertOne({
+            const twitterOutput = { username: '', description: '', url: '' };
+            try {
+                // * disabled for now because twitter api is not paid for
+                // const twitterRes = await axios.get(
+                //     `${process.env.NEXT_PUBLIC_TWITTER_BASE_URL}/users`,
+                //     { params },
+                // );
+                // twitterOutput.username = twitterRes.data.data[0].username;
+                // twitterOutput.description = twitterRes.data.data[0].description;
+                // twitterOutput.url = twitterRes.data.data[0].url;
+                // console.log(twitterRes.data);
+            } catch (error) {
+                // do nothing
+            }
+
+            await db.collection('users').insertOne({
                 date_created: localDate,
                 uid: payload.uid,
                 username: twitterOutput.username,
@@ -56,7 +54,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
                 url: twitterOutput.url,
                 links: {
                     bio_link_1: twitterOutput.url,
-                    twitter_link: `https://twitter.com/${twitterOutput.username}`,
+                    twitter_link: '',
                     discord_link: '',
                     youtube_link: '',
                     telegram_link: '',
@@ -84,7 +82,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
                                         coingecko_id: 'usd-coin',
                                         price: 1,
                                         percent: 1,
-                                        mcap_rank: 9,
+                                        mcap_rank: 8,
                                         image: 'https://assets.coingecko.com/coins/images/6319/large/USD_Coin_icon.png?1547042389',
                                     },
                                 ],
@@ -128,7 +126,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
                                         coingecko_id: 'usd-coin',
                                         price: 1,
                                         percent: 1,
-                                        mcap_rank: 9,
+                                        mcap_rank: 8,
                                         image: 'https://assets.coingecko.com/coins/images/6319/large/USD_Coin_icon.png?1547042389',
                                     },
                                 ],
@@ -169,7 +167,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
                                         coingecko_id: 'usd-coin',
                                         price: 1,
                                         percent: 1,
-                                        mcap_rank: 9,
+                                        mcap_rank: 8,
                                         image: 'https://assets.coingecko.com/coins/images/6319/large/USD_Coin_icon.png?1547042389',
                                     },
                                 ],
@@ -213,7 +211,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
                                         coingecko_id: 'usd-coin',
                                         price: 1,
                                         percent: 1,
-                                        mcap_rank: 9,
+                                        mcap_rank: 8,
                                         image: 'https://assets.coingecko.com/coins/images/6319/large/USD_Coin_icon.png?1547042389',
                                     },
                                 ],
