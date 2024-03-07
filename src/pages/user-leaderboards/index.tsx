@@ -9,6 +9,7 @@ import NonNavDiv from '@components/common/Divs/NonNavDiv';
 import Navbar from '@components/common/Navbar';
 import Header from '@components/common/Header';
 import UserLeaderboardsSection from '@components/user-leaderboards/UserLeaderboardsSection';
+import { error } from '@utils/console';
 
 const UserLeaderboards: NextPage = props => {
     return (
@@ -43,7 +44,7 @@ export const getServerSideProps: GetServerSideProps = async context => {
             props: { isConnected: true, session, topTokenSnapshot },
         };
     } catch (e) {
-        console.error(e);
+        error(e);
         return {
             props: { isConnected: false },
         };

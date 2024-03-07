@@ -1,11 +1,14 @@
 .socials {
-  justify-content: space-between;
-  flex: 1;
-  padding-left: 40px;
-  padding-right: 40px;
-  width: 100%;
+  // background-color: red;
   display: flex;
+  justify-content: space-evenly;
+  align-items: flex-end;
+  flex: 1;
+  // padding-left: 40px;
+  // padding-right: 40px;
+  width: 100%;
   flex-direction: row;
+  margin-bottom: 10px;;
 }
 .break {
   min-height: 10px;
@@ -27,4 +30,10 @@
 }
 .x_container:hover {
   background-color: var(--white-25);
+}
+
+.a_tag, .a_tag:link, .a_tag:hover{
+  text-decoration: none;
+  display: flex;
+  outline: none;
 }

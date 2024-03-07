@@ -145,7 +145,6 @@ export default function DraggablePieChart({ props, weightValue }: any) {
                     stroke="var(--green-10)"
                     strokeWidth={3}
                     // label={item => {
-                    //     console.log(item.image);
                     //     return (
                     //         <div>yo</div>
                     // <div className={styles.icon_container}>

@@ -1,10 +1,13 @@
 import { useEffect, useState } from 'react';
 import { Button } from 'react-bootstrap';
 import { BsGlobe, BsAward, BsPerson, BsTwitter, BsTelegram } from 'react-icons/bs';
-import { FaBars, FaDiscord } from 'react-icons/fa';
+import { FaBars, FaDiscord, FaUsers } from 'react-icons/fa';
 import { GrCubes } from 'react-icons/gr';
+import { HiOutlineTrophy } from 'react-icons/hi2';
+
+import { PiCoinsDuotone } from 'react-icons/pi';
 import { FiSettings } from 'react-icons/fi';
-import { BiLogOut } from 'react-icons/bi';
+import { BiLogOut, BiLogIn } from 'react-icons/bi';
 import { RiPulseLine } from 'react-icons/ri';
 import { IoClose } from 'react-icons/io5';
 import { AiOutlineHome } from 'react-icons/ai';
@@ -13,8 +16,17 @@ import { useLayoutContext } from '@context/layoutContext';
 import useWindowSize from '@hooks/useWindowSize';
 import NavButton from './components/NavButton';
 import styles from './Navbar.module.scss';
+import { signIn, signOut, useSession } from 'next-auth/react';
+import { Session } from 'src/types/session';
+import { motion } from 'framer-motion';
+
+type LinkItemPropTypes = {
+    href: string;
+    logo: any;
+};
 
 export default function Navbar() {
+    const { data: session }: { data: Session | any } = useSession();
     const { width = 1024 } = useWindowSize();
     const { navIsExpanded, setNavIsExpanded } = useLayoutContext();
 
@@ -24,11 +36,50 @@ export default function Navbar() {
         navIsExpanded ? setExpandedCSS('navBar_expanded') : setExpandedCSS('navBar');
     }, [navIsExpanded]);
 
+    function LinkItem({ href, logo }: LinkItemPropTypes) {
+        return (
+            <motion.div
+                whileHover={{
+                    scale: 1.4,
+                }}
+            >
+                <a className={styles.a_tag} href={href} target="_blank" rel="noreferrer">
+                    {logo}
+                </a>
+            </motion.div>
+        );
+    }
+
+    const SocialIcons = () => {
+        return (
+            <div className={styles.socials}>
+                {navIsExpanded && (
+                    <>
+                        <LinkItem
+                            key={'twitter'}
+                            href={'https://twitter.com/DegensApp'}
+                            logo={<BsTwitter size={36} color="var(--twitter-blue)" />}
+                        />
+                        <LinkItem
+                            key={'discord'}
+                            href={'/404'}
+                            logo={<FaDiscord size={36} color="var(--purple-30)" />}
+                        />
+                        <LinkItem
+                            key={'telegram'}
+                            href={'/404'}
+                            logo={<BsTelegram size={36} color="var(--telegram-blue)" />}
+                        />
+                    </>
+                )}
+            </div>
+        );
+    };
+
     return (
         <>
             <div className={expandedCSS}>
                 <br />
-
                 <Button
                     className={styles.x_container}
                     variant="transparent"
@@ -43,7 +94,6 @@ export default function Navbar() {
                     )}
                 </Button>
                 <br />
-
                 <div className={styles.break} />
                 <div className={styles.break} />
                 <NavButton
@@ -56,55 +106,58 @@ export default function Navbar() {
                 <NavButton
                     isExpanded={navIsExpanded}
                     text="Shitcoins"
-                    icon={<BsAward size={24} />}
+                    icon={<PiCoinsDuotone size={24} />}
                     route="/token-leaderboards"
                 />
                 <div className={styles.break} />
                 <NavButton
                     isExpanded={navIsExpanded}
                     text="Leaderboards"
-                    icon={<GrCubes size={24} />}
+                    icon={<HiOutlineTrophy size={24} />}
+                    route="/user-leaderboards"
                 />
                 <div className={styles.break} />
+                {session && (
+                    <NavButton
+                        isExpanded={navIsExpanded}
+                        text="Profile"
+                        icon={<BsPerson size={24} />}
+                        route={`/users/${session?.user?.uid || ''}`}
+                    />
+                )}
+                <div className={styles.break} />
+                <div className={styles.break} />
+                <div className={styles.break} />
+                <div className={styles.break} />
+                {session && (
+                    <>
+                        <NavButton
+                            isExpanded={navIsExpanded}
+                            text="Settings"
+                            icon={<FiSettings size={24} />}
+                            route="/settings/account"
+                        />
+
+                        <div className={styles.break} />
+                    </>
+                )}
                 <NavButton
                     isExpanded={navIsExpanded}
-                    text="Profile"
-                    icon={<BsPerson size={24} />}
+                    text="Logout"
+                    icon={session ? <BiLogOut size={24} /> : <BiLogIn size={24} />}
+                    onClick={session ? () => signOut() : () => signIn('twitter')}
                 />
-                <div className={styles.break} />
-                <div className={styles.break} />
-                <div className={styles.break} />
-
-                <NavButton
-                    isExpanded={navIsExpanded}
-                    text="Settings"
-                    icon={<FiSettings size={24} />}
-                />
-                <div className={styles.break} />
-
-                <NavButton isExpanded={navIsExpanded} text="Logout" icon={<BiLogOut size={24} />} />
-                <div className={styles.break} />
-                <div className={styles.break} />
-                <div className={styles.break} />
-
-                <NavButton
+                {/* <div className={styles.break} /> */}
+                {/* <div className={styles.break} /> */}
+                {/* <div className={styles.break} /> */}
+                {/* <NavButton
                     isExpanded={navIsExpanded}
                     text="About"
                     icon={<RiPulseLine size={24} />}
-                />
-                <br />
+                /> */}
+                {/* <br /> */}
                 <SocialIcons />
             </div>
         </>
     );
 }
-
-const SocialIcons = () => {
-    return (
-        <div className={styles.socials}>
-            <BsTwitter size={36} />
-            <FaDiscord size={36} />
-            <BsTelegram size={36} />
-        </div>
-    );
-};

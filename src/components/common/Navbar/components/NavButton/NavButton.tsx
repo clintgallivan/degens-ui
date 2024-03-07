@@ -4,40 +4,38 @@ import RetroButton from '@components/common/RetroButton';
 import styles from './NavButton.module.scss';
 
 type NavButtonProps = {
-  text: string;
-  icon: any;
-  isExpanded: boolean;
-  route?: string;
+    text: string;
+    icon: any;
+    isExpanded: boolean;
+    route?: string;
+    onClick?: any;
 };
 
-export default function NavButton({
-  text,
-  icon,
-  isExpanded,
-  route = '/404',
-}: NavButtonProps) {
-  const child = () => {
-    return (
-      <>
-        <div className={styles.button_subcontainer}>
-          {isExpanded ? (
+export default function NavButton({ text, icon, isExpanded, route = '', onClick }: NavButtonProps) {
+    const child = () => {
+        return (
             <>
-              {icon}
-              <div className={styles.button_text}>{text}</div>
+                <div className={styles.button_subcontainer}>
+                    {isExpanded ? (
+                        <>
+                            {icon}
+                            <div className={styles.button_text}>{text}</div>
+                        </>
+                    ) : (
+                        <>{icon}</>
+                    )}
+                </div>
             </>
-          ) : (
-            <>{icon}</>
-          )}
-        </div>
-      </>
-    );
-  };
+        );
+    };
 
-  return (
-    <Link href={route}>
-      <a className={isExpanded ? styles.a_tag : styles.a_tag_sm}>
-        <RetroButton variant="purple">{child()}</RetroButton>
-      </a>
-    </Link>
-  );
+    return (
+        <Link href={route}>
+            <a className={isExpanded ? styles.a_tag : styles.a_tag_sm}>
+                <RetroButton onClick={onClick} variant="purple">
+                    {child()}
+                </RetroButton>
+            </a>
+        </Link>
+    );
 }

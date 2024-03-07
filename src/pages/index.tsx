@@ -9,6 +9,7 @@ import Header from '@components/common/Header';
 import FeatureSection from '@components/Home/FeatureSection';
 import TotalPageDiv from '@components/common/Divs/TotalPageDiv';
 import NonNavDiv from '@components/common/Divs/NonNavDiv/NonNavDiv';
+import { error } from '@utils/console';
 
 type HomePageProps = {
     session?: {
@@ -61,7 +62,7 @@ export const getServerSideProps: GetServerSideProps = async context => {
             },
         };
     } catch (e) {
-        console.error(e);
+        error(e);
         return {
             props: { isConnected: false },
         };

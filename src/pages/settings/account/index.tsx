@@ -12,6 +12,7 @@ import Header from '@components/common/Header';
 import AccountSection from '@components/settings/account/AccountSection';
 import { Session } from 'next-auth';
 import { User } from 'src/types/user';
+import { error } from '@utils/console';
 
 export type AccountPageProps = {
     isConnected: boolean;
@@ -80,7 +81,7 @@ export const getServerSideProps: GetServerSideProps = async context => {
             },
         };
     } catch (e) {
-        console.error(e);
+        error(e);
         return {
             props: { isConnected: false },
         };

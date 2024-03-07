@@ -14,7 +14,7 @@ import Header from '@components/common/Header';
 import PortfolioSection from '@components/settings/portfolio/ProfileSection';
 import { useEffect } from 'react';
 import axios from 'axios';
-import { log } from '@utils/console';
+import { error, log } from '@utils/console';
 import EmptyPage from '@components/common/EmptyPage';
 
 // type QueryProps = {
@@ -141,7 +141,7 @@ export const getServerSideProps: GetServerSideProps = async context => {
             },
         };
     } catch (e) {
-        console.error(e);
+        error(e);
         return {
             props: { isConnected: false },
         };

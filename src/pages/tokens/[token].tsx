@@ -10,6 +10,7 @@ import NonNavDiv from '@components/common/Divs/NonNavDiv';
 import Navbar from '@components/common/Navbar';
 import Header from '@components/common/Header';
 import TokenSection from '@components/tokens/TokenSection';
+import { error } from '@utils/console';
 
 const Token: NextPage = (props: any) => {
     const router = useRouter();
@@ -61,7 +62,7 @@ export const getServerSideProps: GetServerSideProps = async context => {
             props: { isConnected: true, session, tokenMetadata, tokenTimeseries },
         };
     } catch (e) {
-        console.error(e);
+        error(e);
         return {
             props: { isConnected: false },
         };
