@@ -15,3 +15,11 @@ margin-top: 20px;
   display: flex;
   // background-color: blue;
 }
+
+.table_header_text {
+  color: var(--white);
+  font-weight: var(--font-weight-sb);
+  font-size: var(--font-size-sm);
+  text-align: center;
+  margin-bottom: 10px;
+}

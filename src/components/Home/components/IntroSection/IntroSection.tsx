@@ -7,10 +7,12 @@ import SpinningCoin from '@components/common/SpinningCoin';
 import EmailForm from '@components/Home/components/EmailForm';
 import EmailFormButton from '@components/Home/components/EmailFormButton';
 import styles from './IntroSection.module.scss';
-import { BsTwitterX } from 'react-icons/bs';
+import { BsArrowRight, BsTwitterX } from 'react-icons/bs';
 import { signIn } from 'next-auth/react';
+import { useRouter } from 'next/router';
 
-export default function IntroSection() {
+export default function IntroSection({ props }: any) {
+    const router = useRouter();
     const [email, setEmail] = useState('');
     const [emailAlert, setEmailAlert] = useState(false);
     const [emailSuccessAlert, setEmailSuccessAlert] = useState(false);
@@ -73,14 +75,24 @@ export default function IntroSection() {
                     </div>
                 </div>
                 <div className={styles.email_container}>
-                    <EmailFormButton variant="orange" onClick={() => signIn('twitter')}>
-                        <div className={styles.sign_in_text_container}>
-                            <div className={styles.sign_in_button_text}>Sign in with</div>
-                            <BsTwitterX size={20} className={styles.icon} />
-                        </div>
-                    </EmailFormButton>
-                    {/* <EmailForm onChange={(e: string) => setEmail(e)} />
-                    <EmailFormButton onClick={() => handleEmailSubmit()}>Join</EmailFormButton> */}
+                    {props?.session?.user ? (
+                        <EmailFormButton
+                            variant="orange"
+                            onClick={() => router.push(`/users/${props.session.user.uid}`)}
+                        >
+                            <div className={styles.sign_in_text_container}>
+                                <div className={styles.sign_in_button_text}>View my profile</div>
+                                <BsArrowRight size={20} className={styles.icon} />
+                            </div>
+                        </EmailFormButton>
+                    ) : (
+                        <EmailFormButton variant="orange" onClick={() => signIn('twitter')}>
+                            <div className={styles.sign_in_text_container}>
+                                <div className={styles.sign_in_button_text}>Sign in with</div>
+                                <BsTwitterX size={20} className={styles.icon} />
+                            </div>
+                        </EmailFormButton>
+                    )}
                 </div>
             </div>
         </>

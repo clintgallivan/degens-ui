@@ -64,28 +64,8 @@
   margin-bottom: 10px;
 }
 
-
-.bio_input_container {
-  background-color: var(--white);
-  border: var(--green-10) 3px solid;
-  border-radius: 8px;
-  height: 120px;
-  width: 100%;
-  display: flex;
-
-}
-
-.input, .input:hover, .input:active, .input:focus {
-  // background: blue;
-  border: transparent solid 3px;
-  outline: none !important;
-  width: 100%;
-  border-radius: 6px;
-  height: 114px;
-  padding-left: 20px;
-  resize: none;
-  // color: white;
-
+.submit_button_container {
+  align-self: center;
 }
 
 @media screen and (min-width: 768px) {

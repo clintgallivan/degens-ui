@@ -8,6 +8,7 @@ import {
     BsLink45Deg,
     BsYoutube,
     BsInstagram,
+    BsLink,
 } from 'react-icons/bs';
 import { motion } from 'framer-motion';
 import { FaTiktok } from 'react-icons/fa';
@@ -19,10 +20,10 @@ type LinkItemPropTypes = {
 };
 
 export default function LinkIconRow({ props }: any) {
-    // const bioLink1 = {
-    //   id: 'bioLink1',
-    //   link: props.user[0]?.links.bio_link_1,
-    // };
+    const bioLink1 = {
+        id: 'bioLink1',
+        link: props.user[0]?.links.bio_link_1,
+    };
     const twitterLink = {
         id: 'twitter',
         link: props.user[0]?.links.twitter_link,
@@ -33,31 +34,31 @@ export default function LinkIconRow({ props }: any) {
     // };
     const youtubeLink = {
         id: 'youtube',
-        link: props.user[0]?.links.twitter_link,
+        link: props.user[0]?.links.youtube_link,
     };
-    const telegramLink = {
-        id: 'telegram',
-        link: props.user[0]?.links.telegram_link,
-    };
+    // const telegramLink = {
+    //     id: 'telegram',
+    //     link: props.user[0]?.links.telegram_link,
+    // };
     const instagramLink = {
         id: 'instagram',
-        link: props.user[0]?.links.twitter_link,
+        link: props.user[0]?.links.instagram_link,
     };
     const tikTokLink = {
         id: 'tiktok',
-        link: props.user[0]?.links.twitter_link,
+        link: props.user[0]?.links.tik_tok_link,
     };
     const redditLink = {
         id: 'reddit',
-        link: props.user[0]?.links.twitter_link,
+        link: props.user[0]?.links.reddit_link,
     };
 
     const linkArr = [
-        // bioLink1,
+        bioLink1,
         twitterLink,
         // discordLink,
         youtubeLink,
-        telegramLink,
+        // telegramLink,
         instagramLink,
         tikTokLink,
         redditLink,
@@ -120,6 +121,12 @@ export default function LinkIconRow({ props }: any) {
                         key={item.id}
                         href={item.link}
                         logo={<BsReddit size={24} color="var(--reddit-red)" />}
+                    />
+                ) : item.id == 'bioLink1' ? (
+                    <LinkItem
+                        key={item.id}
+                        href={item.link}
+                        logo={<BsLink45Deg size={28} color="var(--black)" />}
                     />
                 ) : null
             ) : null,

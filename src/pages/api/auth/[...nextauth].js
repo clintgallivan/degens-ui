@@ -14,10 +14,6 @@ export default NextAuth({
   ],
   callbacks: {
     async session({ session, token, user }) {
-      console.log('starting nextauth')
-      console.log(session)
-      console.log(token)
-      console.log(user)
 
       const image_hi_res = token.picture.replace('_normal', '');
       const localDate = new Date();

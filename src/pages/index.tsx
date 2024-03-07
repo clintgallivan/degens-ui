@@ -46,14 +46,18 @@ export const getServerSideProps: GetServerSideProps = async context => {
         const client = await clientPromise;
         const db = client.db(process.env.MONGODB_DB);
 
-        let topTokenSnapshot = await db.collection('token-top-snapshot').find({}).toArray();
-        topTokenSnapshot = JSON.parse(JSON.stringify(topTokenSnapshot));
+        const res = await db.collection('user-leaderboards-top-100').find({}).toArray();
+        const parsedRes = JSON.parse(JSON.stringify(res));
+        const topTokenSnapshot = parsedRes?.[0]?.top_100_users || null;
+        // let topTokenSnapshot = await db.collection('token-top-snapshot').find({}).toArray();
+        // topTokenSnapshot = JSON.parse(JSON.stringify(topTokenSnapshot));
 
         return {
             props: {
                 isConnected: true,
                 session,
                 topTokenSnapshot,
+                // topTokenSnapshot,
             },
         };
     } catch (e) {

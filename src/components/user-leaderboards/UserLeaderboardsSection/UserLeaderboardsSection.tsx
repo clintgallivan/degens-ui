@@ -9,7 +9,9 @@ export default function UserLeaderboardsSection({ props }: any) {
             <div className="content-area">
                 <UserLeaderboardsGeneral props={props} />
                 <UserLeaderboardsSearchAndFilter props={props} />
-                <UserLeaderboardsTable props={props} />
+                <Card>
+                    <UserLeaderboardsTable props={props} />
+                </Card>
             </div>
         </>
     );

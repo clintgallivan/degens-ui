@@ -14,7 +14,17 @@ type PlaceholderTextProps = {
     xs: number;
 };
 
-export default function UserLeaderboardsTable({ props, queryData, queryIsLoading }: any) {
+export default function UserLeaderboardsTable({
+    props,
+    queryData,
+    queryIsLoading,
+    count = 100,
+}: {
+    props: any;
+    queryData?: any;
+    queryIsLoading?: boolean;
+    count?: number;
+}) {
     const [isLoading, setIsLoading] = useState(true);
     const topTokenData = !queryData ? props.topTokenSnapshot : queryData.data;
 
@@ -48,7 +58,7 @@ export default function UserLeaderboardsTable({ props, queryData, queryIsLoading
     };
 
     const RowHandler = () => {
-        return topTokenData.slice(0, 100).map((item: any, index: number) => {
+        return topTokenData.slice(0, count).map((item: any, index: number) => {
             return (
                 <tr key={item.name} className={styles.rows_container}>
                     <td className={styles.row_container}>
@@ -121,32 +131,30 @@ export default function UserLeaderboardsTable({ props, queryData, queryIsLoading
     };
 
     return (
-        <Card>
-            <div className={styles.container}>
-                <Table>
-                    <thead className={styles.head}>
-                        <tr className={styles.head_row}>
-                            <th>
-                                <div className={styles.head_container}>Rank</div>
-                            </th>
-                            <th>
-                                <div className={styles.head_container}>Name</div>
-                            </th>
+        <div className={styles.container}>
+            <Table>
+                <thead className={styles.head}>
+                    <tr className={styles.head_row}>
+                        <th>
+                            <div className={styles.head_container}>Rank</div>
+                        </th>
+                        <th>
+                            <div className={styles.head_container}>Name</div>
+                        </th>
 
-                            <th>
-                                <div className={styles.head_container}>Degen score</div>
-                            </th>
-                            <th>
-                                <div className={styles.head_container}>Title</div>
-                            </th>
-                            <th>
-                                <div className={styles.head_container}>Risk score</div>
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody className={styles.body}>{RowHandler()}</tbody>
-                </Table>
-            </div>
-        </Card>
+                        <th>
+                            <div className={styles.head_container}>Degen score</div>
+                        </th>
+                        <th>
+                            <div className={styles.head_container}>Title</div>
+                        </th>
+                        <th>
+                            <div className={styles.head_container}>Risk score</div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody className={styles.body}>{RowHandler()}</tbody>
+            </Table>
+        </div>
     );
 }
