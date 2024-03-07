@@ -19,7 +19,6 @@ export default function AccountSection({ props }: { props: AccountPageProps }) {
 
     const handleSubmit = async () => {
         showSuccessToast('Profile Updated', 'Your profile has been updated successfully!');
-        showErrorToast('Profile ', 'Your profile has been updated successfully!');
         // const validateEmail = () =>
         //     String(email)
         //         .toLowerCase()

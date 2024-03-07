@@ -1,5 +1,6 @@
 import { Alert as A } from 'react-bootstrap';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useSwipeable } from 'react-swipeable';
 import styles from './Alert.module.scss';
 
 type AlertProps = {
@@ -19,17 +20,24 @@ type AlertProps = {
 };
 
 export default function Alert({ variant, header, text, show, setShow }: AlertProps) {
-    // const [show, setShow] = useState(true);
+    const [animation, setAnimation] = useState(show ? styles.slideIn : styles.slideOut);
 
-    if (show) {
-        return (
-            <div className={styles.container}>
-                <A variant={variant} onClose={() => setShow(false)} dismissible>
-                    <A.Heading>{header}</A.Heading>
-                    <p>{text}</p>
-                </A>
-            </div>
-        );
-    }
-    return <></>;
+    useEffect(() => {
+        setAnimation(show ? styles.slideIn : styles.slideOut);
+    }, [show]);
+
+    const handlers = useSwipeable({
+        onSwipedUp: () => setShow(false),
+        // preventDefaultTouchmoveEvent: true,
+        trackMouse: false,
+    });
+
+    return (
+        <div className={`${styles.container} ${animation}`} {...handlers}>
+            <A variant={variant} onClose={() => setShow(false)} dismissible>
+                <A.Heading>{header}</A.Heading>
+                <p>{text}</p>
+            </A>
+        </div>
+    );
 }

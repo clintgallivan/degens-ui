@@ -1,8 +1,41 @@
 .container {
   position: fixed;
-  top: 5%;
-  right: 20%;
+  top: 0;
   left: 20%;
-  opacity: .9;
+  right: 20%;
   z-index: 999;
+}
+
+@keyframes slideIn {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideOut {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-100%);
+  }
+}
+
+.slideIn {
+  animation: slideIn 0.5s forwards;
+}
+
+.slideOut {
+  animation: slideOut 0.5s forwards;
+}
+// media breakpoint for mobile
+@media (max-width: 768px) {
+  .container {
+    top: 0;
+    left: 0;
+    right: 0;
+  }
 }
