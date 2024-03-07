@@ -5,6 +5,7 @@ import SocialLinksInputCard from './components/SocialLinksInputCard';
 import { useState } from 'react';
 import { AccountPageProps } from 'src/pages/settings/account';
 import BioInputCard from './components/BioInputCard';
+import { useToast } from '@context/toastContext';
 
 export default function AccountSection({ props }: { props: AccountPageProps }) {
     const [bio, setBio] = useState(props.user?.description || '');
@@ -14,8 +15,35 @@ export default function AccountSection({ props }: { props: AccountPageProps }) {
     const [redditLink, setRedditLink] = useState(props.user?.links?.reddit_link || '');
     const [otherLink, setOtherLink] = useState(props.user?.links?.bio_link_1 || '');
 
-    const handleSubmit = () => {
-        console.log('submit');
+    const { showSuccessToast, showErrorToast } = useToast();
+
+    const handleSubmit = async () => {
+        showSuccessToast('Profile Updated', 'Your profile has been updated successfully!');
+        showErrorToast('Profile ', 'Your profile has been updated successfully!');
+        // const validateEmail = () =>
+        //     String(email)
+        //         .toLowerCase()
+        //         .match(
+        //             /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+        //         );
+        // if (validateEmail() != null) {
+        //     try {
+        //         const res = await axios.post(
+        //             '/api/email',
+        //             { email },
+        //             {
+        //                 headers: {
+        //                     'Content-Type': 'application/json',
+        //                 },
+        //             },
+        //         );
+        //         res.status === 201 ? setEmailSuccessAlert(true) : null;
+        //     } catch (e) {
+        //         setEmailAlert(true);
+        //     }
+        // } else {
+        //     setEmailAlert(true);
+        // }
     };
 
     return (
