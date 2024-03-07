@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import styles from './EmailFormButton.module.scss';
+import styles from './SignInButton.module.scss';
 
 type ButtonProps = {
     children: any;
@@ -7,7 +7,7 @@ type ButtonProps = {
     onClick: any;
 };
 
-export default function EmailFormButton({ children, onClick }: ButtonProps) {
+export default function SignInButton({ children, onClick }: ButtonProps) {
     return (
         <button onClick={onClick} className={styles.container}>
             {children}

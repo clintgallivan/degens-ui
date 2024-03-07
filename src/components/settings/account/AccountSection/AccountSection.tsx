@@ -6,6 +6,8 @@ import { useState } from 'react';
 import { AccountPageProps } from 'src/pages/settings/account';
 import BioInputCard from './components/BioInputCard';
 import { useToast } from '@context/toastContext';
+import { ResData } from 'src/pages/api/handle-update-account-settings';
+import { internalApi, toAxiosError } from '@utils/api';
 
 export default function AccountSection({ props }: { props: AccountPageProps }) {
     const [bio, setBio] = useState(props.user?.description || '');
@@ -18,31 +20,21 @@ export default function AccountSection({ props }: { props: AccountPageProps }) {
     const { showSuccessToast, showErrorToast } = useToast();
 
     const handleSubmit = async () => {
-        showSuccessToast('Profile Updated', 'Your profile has been updated successfully!');
-        // const validateEmail = () =>
-        //     String(email)
-        //         .toLowerCase()
-        //         .match(
-        //             /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-        //         );
-        // if (validateEmail() != null) {
-        //     try {
-        //         const res = await axios.post(
-        //             '/api/email',
-        //             { email },
-        //             {
-        //                 headers: {
-        //                     'Content-Type': 'application/json',
-        //                 },
-        //             },
-        //         );
-        //         res.status === 201 ? setEmailSuccessAlert(true) : null;
-        //     } catch (e) {
-        //         setEmailAlert(true);
-        //     }
-        // } else {
-        //     setEmailAlert(true);
-        // }
+        try {
+            const res = await internalApi.post<ResData>('/handle-update-account-settings', {
+                uid: props?.session?.user?.uid || null,
+                bio: bio.length > 0 ? bio : null,
+                instagramLink: instagramLink.length > 0 ? instagramLink : null,
+                youtubeLink: youtubeLink.length > 0 ? youtubeLink : null,
+                tiktokLink: tiktokLink.length > 0 ? tiktokLink : null,
+                redditLink: redditLink.length > 0 ? redditLink : null,
+                otherLink: otherLink.length > 0 ? otherLink : null,
+            });
+            showSuccessToast('Success', res?.data?.message || '');
+        } catch (error: any) {
+            const axiosError = toAxiosError(error);
+            showErrorToast('Failure', axiosError?.data?.message || error?.message || '');
+        }
     };
 
     return (

@@ -5,7 +5,7 @@ import Alert from '@components/common/Alert';
 import RetroButton from '@components/common/RetroButton';
 import SpinningCoin from '@components/common/SpinningCoin';
 import EmailForm from '@components/Home/components/EmailForm';
-import EmailFormButton from '@components/Home/components/EmailFormButton';
+import SignInButton from '@components/Home/components/SignInButton';
 import styles from './IntroSection.module.scss';
 import { BsArrowRight, BsTwitterX } from 'react-icons/bs';
 import { signIn } from 'next-auth/react';
@@ -13,53 +13,9 @@ import { useRouter } from 'next/router';
 
 export default function IntroSection({ props }: any) {
     const router = useRouter();
-    const [email, setEmail] = useState('');
-    const [emailAlert, setEmailAlert] = useState(false);
-    const [emailSuccessAlert, setEmailSuccessAlert] = useState(false);
-
-    const handleEmailSubmit = async () => {
-        const validateEmail = () =>
-            String(email)
-                .toLowerCase()
-                .match(
-                    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-                );
-        if (validateEmail() != null) {
-            try {
-                const res = await axios.post(
-                    '/api/email',
-                    { email },
-                    {
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                    },
-                );
-                res.status === 201 ? setEmailSuccessAlert(true) : null;
-            } catch (e) {
-                setEmailAlert(true);
-            }
-        } else {
-            setEmailAlert(true);
-        }
-    };
 
     return (
         <>
-            <Alert
-                variant="warning"
-                header="Invalid Email!"
-                text="Please Enter a valid email address."
-                show={emailAlert}
-                setShow={() => setEmailAlert(false)}
-            />
-            <Alert
-                variant="success"
-                header="Email was submitted!"
-                // text={''}
-                show={emailSuccessAlert}
-                setShow={() => setEmailSuccessAlert(false)}
-            />
             <div className={styles.total_container}>
                 <div className={styles.container}>
                     <div>
@@ -76,7 +32,7 @@ export default function IntroSection({ props }: any) {
                 </div>
                 <div className={styles.email_container}>
                     {props?.session?.user ? (
-                        <EmailFormButton
+                        <SignInButton
                             variant="orange"
                             onClick={() => router.push(`/users/${props.session.user.uid}`)}
                         >
@@ -84,14 +40,14 @@ export default function IntroSection({ props }: any) {
                                 <div className={styles.sign_in_button_text}>View my profile</div>
                                 <BsArrowRight size={20} className={styles.icon} />
                             </div>
-                        </EmailFormButton>
+                        </SignInButton>
                     ) : (
-                        <EmailFormButton variant="orange" onClick={() => signIn('twitter')}>
+                        <SignInButton variant="orange" onClick={() => signIn('twitter')}>
                             <div className={styles.sign_in_text_container}>
                                 <div className={styles.sign_in_button_text}>Sign in with</div>
                                 <BsTwitterX size={20} className={styles.icon} />
                             </div>
-                        </EmailFormButton>
+                        </SignInButton>
                     )}
                 </div>
             </div>
