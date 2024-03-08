@@ -29,6 +29,7 @@ function runMiddleware(req: NextApiRequest, res: NextApiResponse, fn: Function) 
             return resolve(result);
         });
     });
+}
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<ResData>) {
     await runMiddleware(req, res, corsMiddleware);
