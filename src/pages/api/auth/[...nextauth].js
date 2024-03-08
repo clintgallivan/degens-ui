@@ -2,6 +2,8 @@ import axios from 'axios';
 import NextAuth from 'next-auth';
 import TwitterProvider from 'next-auth/providers/twitter';
 import moment from 'moment-timezone';
+import jwt from 'jsonwebtoken';
+import { clientApi } from '@utils/api';
 
 export default NextAuth({
     // secret:process.env.NEXTAUTH_SECRET,
@@ -43,21 +45,13 @@ export default NextAuth({
 
 const handleSecondTwitterCall = async (session) => {
   try {
-    const res = await axios.post(
-      // '/api/users',
-      // 'http://127.0.0.1:3000/api/users',
-      `${process.env.BASE_URL}/api/users`,
-
+    const res = await clientApi.post(
+      '/api/users',
       {
         uid: session.uid,
         name: session.name,
         image: session.image,
         image_hi_res: session.image_hi_res,
-      },
-      {
-        headers: {
-          'Content-Type': 'application/json',
-        },
       }
     );
     return res;

@@ -9,6 +9,7 @@ import RetroButton from '@components/common/RetroButton';
 import axios from 'axios';
 import humanizeDuration from 'humanize-duration';
 import { log } from '@utils/console';
+import { clientApi } from '@utils/api';
 
 export type Portfolio = 'season_1' | 'all_time';
 
@@ -144,36 +145,20 @@ export default function PortfolioSection({ props }: any) {
                     historical.portfolios[pKey] = [pValue[0]];
                 }
             });
-            await axios.post(
-                '/api/handle-update-stats',
-                {
-                    uid: props.user[0].uid,
-                    portfolio_metadata: props.user[0].portfolio_metadata,
-                    historical,
-                },
-                {
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                },
-            );
+            await clientApi.post('/api/handle-update-stats', {
+                uid: props.user[0].uid,
+                portfolio_metadata: props.user[0].portfolio_metadata,
+                historical,
+            });
             await new Promise(r => setTimeout(r, 750));
 
             const historical2 = JSON.parse(JSON.stringify(historical));
             historical2.portfolios[selectedPortfolio][0].tokens = weightValue;
-            const res2 = await axios.post(
-                '/api/handle-update-stats',
-                {
-                    uid: props.user[0].uid,
-                    portfolio_metadata: props.user[0].portfolio_metadata,
-                    historical: historical2,
-                },
-                {
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                },
-            );
+            const res2 = await clientApi.post('/api/handle-update-stats', {
+                uid: props.user[0].uid,
+                portfolio_metadata: props.user[0].portfolio_metadata,
+                historical: historical2,
+            });
             res2.status === 200 ? refreshData() : log('failed to update');
         } catch (e) {
             log(e);

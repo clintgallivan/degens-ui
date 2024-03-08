@@ -10,6 +10,7 @@ import { useLayoutContext } from '@context/layoutContext';
 
 import ListItems from './components/Listitems';
 import styles from './PortfolioSettingsSearchBar.module.scss';
+import { clientApi } from '@utils/api';
 
 export default function PortfolioSettingsSearchBar({ props, addTokenRow }: any) {
     const [portfolioSearchIsExpanded, setPortfolioSearchIsExpanded] = useState(false);
@@ -21,38 +22,27 @@ export default function PortfolioSettingsSearchBar({ props, addTokenRow }: any) 
         const controller = new AbortController();
         const signal = controller.signal;
 
-        const handleSubstrQuery = async () => {
+        // Debounce setup
+        const timeoutId = setTimeout(async () => {
             try {
-                const res = await axios.get('/api/token-list', {
+                const res = await clientApi.get('/api/token-list', {
                     signal,
                     params: { string: searchValue },
                 });
-                let arr = [];
-                let arrFinal = [];
-                let arrNull: any = [];
-                let arrNotNull: any = [];
-                arr = res.data;
 
-                arr = arr.sort((a: any, b: any) => a.market_cap_rank - b.market_cap_rank);
-                arr.forEach((item: any) => {
-                    if (!item.market_cap_rank) {
-                        arrNull.push(item);
-                    } else {
-                        arrNotNull.push(item);
-                    }
-                });
-
-                arrFinal = arrNotNull.concat(arrNull);
-                setResults(arrFinal);
-                return;
+                const sortedResults = res.data.sort(
+                    (a, b) => (a.market_cap_rank || Infinity) - (b.market_cap_rank || Infinity),
+                );
+                setResults(sortedResults);
             } catch (e) {
+                console.error(e);
                 setResults([]);
-                return;
             }
-        };
-        handleSubstrQuery();
+        }, 500); // Adjust debounce time as needed
+
         return () => {
             controller.abort();
+            clearTimeout(timeoutId);
         };
     }, [searchValue]);
 

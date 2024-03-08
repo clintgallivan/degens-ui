@@ -10,6 +10,7 @@ import { useEffect, useState } from 'react';
 // import handleUpdateStats from 'src/pages/api/handleUpdateStats';
 import ProgressBar from './ProgressBar/ProgressBar';
 import styles from './UserScoreAndStats.module.scss';
+import { clientApi } from '@utils/api';
 
 export default function UserScoreAndStats({ props }: any) {
     const router = useRouter();
@@ -44,19 +45,11 @@ export default function UserScoreAndStats({ props }: any) {
                 const pValue = portfolios[portfolio];
                 historical.portfolios[pKey] = [pValue[0]];
             });
-            const res = await axios.post(
-                '/api/handle-update-stats',
-                {
-                    uid: props.user[0].uid,
-                    portfolio_metadata: props.user[0].portfolio_metadata,
-                    historical,
-                },
-                {
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                },
-            );
+            const res = await clientApi.post('/api/handle-update-stats', {
+                uid: props.user[0].uid,
+                portfolio_metadata: props.user[0].portfolio_metadata,
+                historical,
+            });
             res.status === 200 ? refreshData() : log('failed to update');
         } catch (e) {
             log(e);

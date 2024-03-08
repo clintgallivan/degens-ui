@@ -16,6 +16,7 @@ import { useEffect } from 'react';
 import axios from 'axios';
 import { error, log } from '@utils/console';
 import EmptyPage from '@components/common/EmptyPage';
+import { clientApi } from '@utils/api';
 
 // type QueryProps = {
 //   user: any
@@ -60,19 +61,11 @@ const Portfolio: NextPage = (props: any) => {
                     const pValue = portfolios[portfolio];
                     historical.portfolios[pKey] = [pValue[0]];
                 });
-                const res = await axios.post(
-                    '/api/handle-update-stats',
-                    {
-                        uid: props.user[0].uid,
-                        portfolio_metadata: props.user[0].portfolio_metadata,
-                        historical,
-                    },
-                    {
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                    },
-                );
+                const res = await clientApi.post('/api/handle-update-stats', {
+                    uid: props.user[0].uid,
+                    portfolio_metadata: props.user[0].portfolio_metadata,
+                    historical,
+                });
                 res.status === 200 ? refreshData() : log('failed to update');
             } catch (e) {
                 log(e);

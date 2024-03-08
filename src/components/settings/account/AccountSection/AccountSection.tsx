@@ -7,7 +7,7 @@ import { AccountPageProps } from 'src/pages/settings/account';
 import BioInputCard from './components/BioInputCard';
 import { useToast } from '@context/toastContext';
 import { ResData } from 'src/pages/api/handle-update-account-settings';
-import { internalApi, toAxiosError } from '@utils/api';
+import { clientApi, toAxiosError } from '@utils/api';
 
 export default function AccountSection({ props }: { props: AccountPageProps }) {
     const [bio, setBio] = useState(props.user?.description || '');
@@ -21,7 +21,7 @@ export default function AccountSection({ props }: { props: AccountPageProps }) {
 
     const handleSubmit = async () => {
         try {
-            const res = await internalApi.post<ResData>('/handle-update-account-settings', {
+            const res = await clientApi.post<ResData>('/api/handle-update-account-settings', {
                 uid: props?.session?.user?.uid || null,
                 bio: bio.length > 0 ? bio : null,
                 instagramLink: instagramLink.length > 0 ? instagramLink : null,
