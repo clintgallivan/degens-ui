@@ -1,7 +1,6 @@
 import NextAuth from 'next-auth';
 import TwitterProvider from 'next-auth/providers/twitter';
 import moment from 'moment-timezone';
-import jwt from 'jsonwebtoken';
 import { clientApi } from '@utils/api';
 
 export default NextAuth({
