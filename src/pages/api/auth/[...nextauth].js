@@ -1,4 +1,3 @@
-import axios from 'axios';
 import NextAuth from 'next-auth';
 import TwitterProvider from 'next-auth/providers/twitter';
 import moment from 'moment-timezone';

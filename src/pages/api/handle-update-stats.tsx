@@ -1,7 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import clientPromise from '@utils/mongodb';
 import moment from 'moment-timezone';
-import axios from 'axios';
 import { log } from '@utils/console';
 import { coingeckoApi } from '@utils/api';
 import cors from 'cors';
@@ -42,7 +41,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 
     const client = await clientPromise;
     const db = client.db(process.env.MONGODB_DB);
-    const coingeckoBaseUrl = process.env.COINGECKO_BASE_URL;
     const now: any = new Date();
     // * update the "last_updated_at" object with the most recent values (hit the coins/markets api)
     // * make an api call to coingecko for live price on thier tokens

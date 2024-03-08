@@ -13,7 +13,6 @@ import Header from '@components/common/Header';
 // import UserSection from '@components/users/userSection';
 import PortfolioSection from '@components/settings/portfolio/ProfileSection';
 import { useEffect } from 'react';
-import axios from 'axios';
 import { error, log } from '@utils/console';
 import EmptyPage from '@components/common/EmptyPage';
 import { clientApi } from '@utils/api';

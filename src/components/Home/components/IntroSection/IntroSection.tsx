@@ -1,6 +1,4 @@
-import axios from 'axios';
 import { useState } from 'react';
-
 import Alert from '@components/common/Alert';
 import RetroButton from '@components/common/RetroButton';
 import SpinningCoin from '@components/common/SpinningCoin';

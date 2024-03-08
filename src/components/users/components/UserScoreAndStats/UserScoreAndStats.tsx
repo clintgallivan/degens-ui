@@ -4,7 +4,6 @@ import RetroButton from '@components/common/RetroButton';
 import UseScoreLabelGenerator from '@hooks/useScoreLabelGenerator';
 import { log } from '@utils/console';
 import { toFixedNumber } from '@utils/text';
-import axios from 'axios';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 // import handleUpdateStats from 'src/pages/api/handleUpdateStats';

@@ -1,8 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import clientPromise from '@utils/mongodb';
 // import moment from 'moment-timezone';
-import axios from 'axios';
-import jwt from 'jsonwebtoken';
 import cors from 'cors';
 
 type Data = {

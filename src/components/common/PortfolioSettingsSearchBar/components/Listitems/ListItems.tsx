@@ -1,4 +1,3 @@
-import axios from 'axios';
 import Image, { ImageLoaderProps } from 'next/image';
 import Link from 'next/link';
 import { useEffect } from 'react';

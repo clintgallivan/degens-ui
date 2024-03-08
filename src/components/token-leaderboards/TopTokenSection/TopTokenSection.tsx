@@ -6,7 +6,6 @@ import RetroButton from '@components/common/RetroButton';
 import { MdFilterAlt } from 'react-icons/md';
 import { IoClose } from 'react-icons/io5';
 import FilterAccordian from '../FilterAccordian';
-import axios from 'axios';
 import { useRouter } from 'next/router';
 import { clientApi } from '@utils/api';
 

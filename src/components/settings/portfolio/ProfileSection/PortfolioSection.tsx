@@ -6,7 +6,6 @@ import EditableDistributionTable from './components/EditableDistributionTable';
 import styles from './PortfolioSection.module.scss';
 import Dropdown from '@components/common/Dropdown';
 import RetroButton from '@components/common/RetroButton';
-import axios from 'axios';
 import humanizeDuration from 'humanize-duration';
 import { log } from '@utils/console';
 import { clientApi } from '@utils/api';

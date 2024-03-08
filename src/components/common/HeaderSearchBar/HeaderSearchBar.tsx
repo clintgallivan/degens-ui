@@ -3,7 +3,6 @@ import { Button } from 'react-bootstrap';
 import { FaSearch } from 'react-icons/fa';
 import { IoClose } from 'react-icons/io5';
 import { GrFormSearch } from 'react-icons/gr';
-import axios from 'axios';
 
 import useWindowSize from '@hooks/useWindowSize';
 import { useLayoutContext } from '@context/layoutContext';
@@ -12,11 +11,20 @@ import ListItems from './components/Listitems';
 import styles from './HeaderSearchBar.module.scss';
 import { clientApi } from '@utils/api';
 
+type SubstrSearchedRes = {
+    _id: string;
+    coingecko_id: string;
+    iterator: string[];
+    market_cap_rank: number | null;
+    degen_rank: number;
+    image: URL;
+}[];
+
 export default function HeaderSearchBar({ props }: any) {
     const { headerSearchIsExpanded, setHeaderSearchIsExpanded } = useLayoutContext();
     const [searchValue, setSearchValue] = useState('');
     const { width = 0 } = useWindowSize();
-    const [results, setResults] = useState([]);
+    const [results, setResults] = useState<SubstrSearchedRes>([]);
 
     useEffect(() => {
         const controller = new AbortController();
@@ -25,12 +33,14 @@ export default function HeaderSearchBar({ props }: any) {
         // Debounce setup
         const timeoutId = setTimeout(async () => {
             try {
-                const res = await clientApi.get('/api/token-list', {
+                const res = await clientApi.get('/api/substr-search', {
                     signal,
                     params: { string: searchValue },
                 });
 
-                const sortedResults = res.data.sort(
+                const searchedResults: SubstrSearchedRes = res.data;
+
+                const sortedResults = searchedResults.sort(
                     (a, b) => (a.market_cap_rank || Infinity) - (b.market_cap_rank || Infinity),
                 );
                 setResults(sortedResults);
