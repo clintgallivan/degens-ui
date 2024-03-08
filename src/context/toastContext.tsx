@@ -2,7 +2,7 @@ import { createContext, useContext, useState, ReactNode } from 'react';
 import Alert from '@components/common/Alert';
 
 type ToastContextType = {
-    showSuccessToast: (header: string, text: string) => void;
+    showSuccessToast: (header?: string, text?: string) => void;
     showErrorToast: (header: string, text: string) => void;
 };
 
@@ -15,7 +15,7 @@ type ToastProviderProps = {
 export const ToastProvider: React.FC<ToastProviderProps> = ({ children }) => {
     const [toast, setToast] = useState({ show: false, variant: '', header: '', text: '' });
 
-    const showSuccessToast = (header: string, text: string) => {
+    const showSuccessToast = (header: string = 'Success', text: string = '') => {
         setToast({ show: true, variant: 'success', header, text });
     };
 

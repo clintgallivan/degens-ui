@@ -10,8 +10,11 @@ export type ResData = {
 // Initialize cors middleware with options
 const corsMiddleware = cors({
     origin: process.env.CLIENT_ORIGIN, // replace with your client's origin
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Add 'OPTIONS' to the list of methods
     allowedHeaders: ['Content-Type', 'x-auth-token'],
+    credentials: true, // Enable cookies to be sent with requests
+    preflightContinue: false, // Respond to preflight requests with a status of 204
+    optionsSuccessStatus: 204,
 });
 
 // Helper method to wait for a middleware to execute before continuing
@@ -26,7 +29,6 @@ function runMiddleware(req: NextApiRequest, res: NextApiResponse, fn: Function) 
             return resolve(result);
         });
     });
-}
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<ResData>) {
     await runMiddleware(req, res, corsMiddleware);
