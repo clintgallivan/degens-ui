@@ -32,14 +32,26 @@ const initialState = {
     bottom2: 'dataMin-20',
     animation: true,
 };
-type Category = 'score' | 'average_mcap_rank';
+type Category =
+    | 'score'
+    | 'average_mcap_rank'
+    | 'rank'
+    | 'change_7_days'
+    | 'change_7_days_rank'
+    | 'change_30_days'
+    | 'change_30_days_rank';
 
 enum ScoreDropdownText {
     'score' = 'Portfolio Score',
     'average_mcap_rank' = 'Average Mcap Rank',
+    'rank' = 'Rank',
+    'change_7_days' = '7 day change',
+    'change_7_days_rank' = '7 day change - ranked',
+    'change_30_days' = '30 day change',
+    'change_30_days_rank' = '30 day change - ranked',
 }
 enum PortfolioDropdownText {
-    'season_1' = 'Current Season Portfolio',
+    'season_1' = 'Season 1 Portfolio',
     'all_time' = 'All Time Portfolio',
 }
 
@@ -73,19 +85,21 @@ export default function UserChart({
     const [category, setCategory] = useState<Category>('score');
     // const [selectedTimestamp, setselectedTimestamp] = useState(null);
 
-    const arr = props.user[0].historical.portfolios[portfolio].slice().sort((a: any, b: any) => {
-        const keyA = new Date(a.timestamp);
-        const keyB = new Date(b.timestamp);
-        // Compare the 2 dates
-        if (keyA < keyB) return -1;
-        if (keyA > keyB) return 1;
-        return 0;
-    });
+    const arr = props.user[0].historical.portfolios?.[portfolio]
+        ?.slice()
+        ?.sort((a: any, b: any) => {
+            const keyA = new Date(a.timestamp);
+            const keyB = new Date(b.timestamp);
+            // Compare the 2 dates
+            if (keyA < keyB) return -1;
+            if (keyA > keyB) return 1;
+            return 0;
+        });
     const handleDataArr = () => {
         // Sort the array by timestamp
 
         const output: any[] = [];
-        arr.forEach((i: any, index: number) => {
+        arr?.forEach((i: any, index: number) => {
             if (
                 i.timestamp <=
                 props.user[0].last_updated_snapshot.portfolios[portfolio][0].timestamp
@@ -107,11 +121,25 @@ export default function UserChart({
         return output;
     };
 
+    const setPorfolioDropdownList = () => {
+        const portfolios = props.user[0].historical.portfolios;
+        let output: { text: string; value: string }[] = [];
+
+        const portfolioKeys = Object.keys(portfolios);
+        const portfolioObjects = portfolioKeys.map(key => {
+            return { text: PortfolioDropdownText[key], value: key };
+        });
+
+        output = [...output, ...portfolioObjects];
+
+        return output;
+    };
+
     function CustomTooltip({ active, payload, label }: any) {
         function numberWithCommasDecimal(x: number) {
             return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
         }
-        if (payload[0] !== undefined) {
+        if (payload?.[0] !== undefined) {
             if (payload[0].payload.timestamp !== selectedTimestamp) {
                 setselectedTimestamp(payload[0].payload.timestamp);
             }
@@ -155,10 +183,7 @@ export default function UserChart({
                             selectedChild={PortfolioDropdownText[portfolio]}
                             onClick={item => setPortfolio(item.value)}
                         >
-                            {[
-                                { text: 'Current Season Portfolio', value: 'season_1' },
-                                { text: 'All Time Portfolio', value: 'all_time' },
-                            ]}
+                            {setPorfolioDropdownList()}
                         </Dropdown>
                         <div>{moment(selectedTimestamp).format('MMMM Do YYYY')}</div>
 
@@ -169,6 +194,11 @@ export default function UserChart({
                             {[
                                 { text: 'Portfolio Score', value: 'score' },
                                 { text: 'Average Mcap Rank', value: 'average_mcap_rank' },
+                                { text: 'Rank', value: 'rank' },
+                                { text: '7 day change', value: 'change_7_days' },
+                                { text: '7 day change - ranked', value: 'change_7_days_rank' },
+                                { text: '30 day change', value: 'change_30_days' },
+                                { text: '30 day change - ranked', value: 'change_30_days_rank' },
                             ]}
                         </Dropdown>
                     </div>

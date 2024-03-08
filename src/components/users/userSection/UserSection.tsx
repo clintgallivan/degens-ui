@@ -10,7 +10,7 @@ import { Portfolio } from '@components/settings/portfolio/ProfileSection/Portfol
 export default function UserSection({ props }: any) {
     const [portfolio, setPortfolio] = useState<Portfolio>('season_1');
     const [selectedTimestamp, setselectedTimestamp] = useState(
-        props.user[0].last_updated_snapshot.portfolios[portfolio][0].timestamp,
+        props.user[0].last_updated_snapshot.portfolios?.[portfolio]?.[0]?.timestamp || undefined,
     );
     return props.user.length > 0 ? (
         <div className={styles.content_area}>
@@ -28,13 +28,13 @@ export default function UserSection({ props }: any) {
                 />
                 <RecentStats props={props} />
             </div>
-            <PortfolioDistribution
+            {/* <PortfolioDistribution
                 props={props}
                 portfolio={portfolio}
                 setPortfolio={setPortfolio}
                 selectedTimestamp={selectedTimestamp}
                 setselectedTimestamp={setselectedTimestamp}
-            />
+            /> */}
         </div>
     ) : (
         <div className={styles.content_area}>

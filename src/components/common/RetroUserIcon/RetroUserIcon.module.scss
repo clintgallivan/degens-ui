@@ -1,10 +1,9 @@
-
-
 .container {
+  position: relative; // Add this line
   overflow: visible;
   outline: none;
-  background-color: black;
   color: black;
+  background-color: black;
   align-items: center;
   justify-content: center;
   box-sizing:border-box;
@@ -18,15 +17,26 @@
 .parent {
  padding: 0px;
 }
+
 .image {
   height: 95px;
   width: 95px;
   border-radius: 50%;
-  }
+}
 
 .no_image {
   background-color: var(--purple-10);
   height: 95px;
   width: 95px;
   border-radius: 50%;
-  }
+}
+
+.checkmark_container {
+  z-index: 10;
+  position: absolute; // Change this line
+  bottom: -3px; // Add this line
+  right: -3px; // Add this line
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
