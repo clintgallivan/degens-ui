@@ -127,7 +127,10 @@ export default function UserChart({
 
         const portfolioKeys = Object.keys(portfolios);
         const portfolioObjects = portfolioKeys.map(key => {
-            return { text: PortfolioDropdownText[key], value: key };
+            return {
+                text: PortfolioDropdownText[key as keyof typeof PortfolioDropdownText],
+                value: key,
+            };
         });
 
         output = [...output, ...portfolioObjects];

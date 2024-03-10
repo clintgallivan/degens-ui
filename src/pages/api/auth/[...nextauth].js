@@ -24,18 +24,18 @@ export default NextAuth({
         uid: token.sub,
       };
 
-      // const generateUsername = async () => {
-      //   let output = 'error';
+      const generateUsername = async () => {
+        let output = 'error';
 
-      //   const apiRes = await handleSecondTwitterCall(session.user);
+        const apiRes = await handleSecondTwitterCall(session.user);
 
-      //   output =
-      //     apiRes.status == 201
-      //       ? apiRes.data.body.username
-      //       : apiRes.data.body[0].username;
-      //   return output;
-      // };
-      // session.user['username'] = await generateUsername();
+        output =
+          apiRes.status == 201
+            ? apiRes.data.body.username
+            : apiRes.data.body[0].username;
+        return output;
+      };
+      session.user['username'] = await generateUsername();
       return session;
     },
   },
