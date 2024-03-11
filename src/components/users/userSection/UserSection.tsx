@@ -28,13 +28,13 @@ export default function UserSection({ props }: any) {
                 />
                 <RecentStats props={props} />
             </div>
-            {/* <PortfolioDistribution
+            <PortfolioDistribution
                 props={props}
                 portfolio={portfolio}
                 setPortfolio={setPortfolio}
                 selectedTimestamp={selectedTimestamp}
                 setselectedTimestamp={setselectedTimestamp}
-            /> */}
+            />
         </div>
     ) : (
         <div className={styles.content_area}>
