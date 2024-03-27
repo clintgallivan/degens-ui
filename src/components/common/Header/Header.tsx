@@ -5,7 +5,7 @@ import RetroButton from '../RetroButton';
 import DegenLogo from '../DegenLogo';
 import HeaderSearchBar from '../HeaderSearchBar';
 import HeaderProfile from '../HeaderProfile';
-import HeaderSignIn from '../HeaderSignIn';
+import HeaderSignInWithX from '../HeaderSignInWithX';
 
 export default function Header({ props }: any) {
     const { width = 0 } = useWindowSize();
@@ -31,7 +31,7 @@ export default function Header({ props }: any) {
                     {props.session ? (
                         <HeaderProfile props={props} />
                     ) : (
-                        <HeaderSignIn props={props} />
+                        <HeaderSignInWithX props={props} />
                     )}
                 </div>
             </div>

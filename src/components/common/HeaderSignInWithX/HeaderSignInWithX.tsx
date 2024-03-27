@@ -4,9 +4,9 @@ import Tooltip from 'react-bootstrap/Tooltip';
 import { BsTwitter, BsTwitterX } from 'react-icons/bs';
 import { FiLogIn } from 'react-icons/fi';
 import useWindowSize from '@hooks/useWindowSize';
-import styles from './HeaderSignIn.module.scss';
+import styles from './HeaderSignInWithX.module.scss';
 
-export default function HeaderSignIn({ props }: any) {
+export default function HeaderSignInWithX({ props }: any) {
     const { width = 0 } = useWindowSize();
 
     const renderTooltip = (props: any) => {
