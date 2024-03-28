@@ -61,16 +61,20 @@ body {
   
   
 }
-
+div {
+  color: var(--white)
+}
 
 th {
   color: var(--white);
+  background-color: transparent !important;
 }
 
 td {
   font-size: var(--font-size-md);
   font-weight: var(--font-weight-b);
   color: var(--white);
+  background-color: transparent !important;
 }
 
 //* header text's font

@@ -8,6 +8,7 @@ import { MdLogout } from "react-icons/md";
 import { BsPerson } from "react-icons/bs";
 import { AiOutlinePieChart } from "react-icons/ai";
 import styles from "./HeaderProfile.module.scss";
+import useWindowSize from "@hooks/useWindowSize";
 
 type ToggleProps = {
     children: any;
@@ -15,6 +16,7 @@ type ToggleProps = {
 };
 
 export default function HeaderProfile({ props }: any) {
+    const { width = 0 } = useWindowSize();
     const imageLoader = ({ src, width, quality }: ImageLoaderProps) => {
         return src;
     };
@@ -35,8 +37,8 @@ export default function HeaderProfile({ props }: any) {
                     loader={imageLoader}
                     src={props?.session?.user?.image || ""}
                     alt="User profile picture"
-                    width={50}
-                    height={50}
+                    width={width >= 480 ? 50 : 30}
+                    height={width >= 480 ? 50 : 30}
                 />
             </div>
         )

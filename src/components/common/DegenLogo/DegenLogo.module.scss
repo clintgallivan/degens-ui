@@ -3,7 +3,6 @@
 }
 
 .total_container {
-  // background-color: blue;
   z-index: 1;
   position: absolute;
   left: 0px;
@@ -16,9 +15,7 @@
 
 @media screen and (min-width: 320px) {
   .container {
-    // background-color: blue;
     height: 35px;
-    width: 147px;
     border-radius: 5.6px;;
     border-right: black solid 3.5px;
     border-bottom: black solid 40.6px;
@@ -31,7 +28,7 @@
   .container:hover {
     cursor: pointer;
     margin-top: 6px;
-    margin-left: 0px;
+    margin-left: 3.5px;
     background-color: black;
     border-radius: 5.6px;;
     border-right: black solid 0px;
@@ -45,9 +42,8 @@
 }
 @media screen and (min-width: 480px) {
   .container {
-    // background-color: blue;
+    background-color: black;
     height: 50px;
-    width: 210px;
     border-radius: 8px;;
     border-right: black solid 5px;
     border-bottom: black solid 58px;
@@ -60,7 +56,7 @@
   .container:hover {
     cursor: pointer;
     margin-top: 6px;
-    margin-left: 0px;
+    margin-left: 5px;
     background-color: black;
     border-radius: 8px;;
     border-right: black solid 0px;
