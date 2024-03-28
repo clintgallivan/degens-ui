@@ -14,10 +14,12 @@ import { ToastProvider } from "@context/toastContext";
 import { headers } from "next/headers";
 import { GetServerSideProps } from "next";
 import App from "next/app";
+import { PrivyProvider } from "@privy-io/react-auth";
 
 type AppOwnProps = { example: string };
 
 function MyApp({ Component, pageProps }: AppProps & AppOwnProps) {
+    console.log(process?.env?.PRIVY_APP_ID);
     const router = useRouter();
     useEffect(() => {
         const handleRouteChange = (url: string) => {
@@ -47,29 +49,31 @@ function MyApp({ Component, pageProps }: AppProps & AppOwnProps) {
                     });
                 `}
             </Script>
-            {/* <Script
-                id="gtag-config"
-                strategy="afterInteractive"
-                dangerouslySetInnerHTML={{
-                    __html: `
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', '${gtag.GA_TRACKING_ID}', {
-              page_path: window.location.pathname,
-            });
-          `,
+            <PrivyProvider
+                appId="cluacjxrr04aq404cilia8lin"
+                config={{
+                    // Customize Privy's appearance in your app
+                    appearance: {
+                        theme: "light",
+                        accentColor: "#676FFF",
+                        logo: "https://your-logo-url",
+                    },
+                    // Create embedded wallets for users who don't have a wallet
+                    // embeddedWallets: {
+                    //     createOnLogin: "users-without-wallets",
+                    // },
                 }}
-            /> */}
-            <SessionProvider session={pageProps.session}>
-                <TokenProvider>
-                    <LayoutProvider>
-                        <ToastProvider>
-                            <Component {...pageProps} />
-                        </ToastProvider>
-                    </LayoutProvider>
-                </TokenProvider>
-            </SessionProvider>
+            >
+                <SessionProvider session={pageProps.session}>
+                    <TokenProvider>
+                        <LayoutProvider>
+                            <ToastProvider>
+                                <Component {...pageProps} />
+                            </ToastProvider>
+                        </LayoutProvider>
+                    </TokenProvider>
+                </SessionProvider>
+            </PrivyProvider>
         </>
     );
 }
