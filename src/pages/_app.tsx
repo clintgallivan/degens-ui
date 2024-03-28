@@ -11,6 +11,7 @@ import { TokenProvider } from '../context/tokenContext';
 import { LayoutProvider } from '../context/layoutContext';
 import * as gtag from '../utils/gtag';
 import { ToastProvider } from '@context/toastContext';
+// import { headers } from 'next/headers';
 
 function MyApp({ Component, pageProps }: AppProps) {
     const router = useRouter();
@@ -23,6 +24,9 @@ function MyApp({ Component, pageProps }: AppProps) {
             router.events.off('routeChangeComplete', handleRouteChange);
         };
     }, [router.events]);
+
+    // const nonce = headers().get('x-nonce');
+
     return (
         <>
             {/* Global Site Tag (gtag.js) - Google Analytics */}
