@@ -1,21 +1,21 @@
-import type { NextPage, GetServerSideProps } from 'next';
-import Head from 'next/head';
-import { useRouter } from 'next/router';
-import { getSession } from 'next-auth/react';
+import type { NextPage, GetServerSideProps } from "next";
+import Head from "next/head";
+import { useRouter } from "next/router";
+import { getSession } from "next-auth/react";
 
-import clientPromise from '@utils/mongodb';
+import clientPromise from "@utils/mongodb";
 
-import TotalPageDiv from '@components/common/Divs/TotalPageDiv';
-import NonNavDiv from '@components/common/Divs/NonNavDiv';
-import Navbar from '@components/common/Navbar';
-import Header from '@components/common/Header';
+import TotalPageDiv from "@components/common/Divs/TotalPageDiv";
+import NonNavDiv from "@components/common/Divs/NonNavDiv";
+import Navbar from "@components/common/Navbar";
+import Header from "@components/common/Header";
 // import TokenSection from '@components/tokens/TokenSection';
 // import UserSection from '@components/users/userSection';
-import PortfolioSection from '@components/settings/portfolio/ProfileSection';
-import { useEffect } from 'react';
-import { error, log } from '@utils/console';
-import EmptyPage from '@components/common/EmptyPage';
-import { clientApi } from '@utils/api';
+import PortfolioSection from "@components/settings/portfolio/ProfileSection";
+import { useEffect } from "react";
+import { error, log } from "@utils/console";
+import EmptyPage from "@components/common/EmptyPage";
+import { clientApi } from "@utils/api";
 
 // type QueryProps = {
 //   user: any
@@ -24,27 +24,29 @@ import { clientApi } from '@utils/api';
 const Portfolio: NextPage = (props: any) => {
     const router = useRouter();
     const { user } = router.query;
-    const { portfolios } = props?.user?.[0]?.historical || '';
+    const { portfolios } = props?.user?.[0]?.historical || "";
     if (!portfolios) {
         // navigate to home
         try {
-            router.push('/');
+            router.push("/");
         } catch (e) {
             // do nothingd
         }
         return <EmptyPage />;
     }
     const lastUpdatedAt: any = new Date(
-        props.user[0].last_updated_snapshot.portfolios.season_1[0].timestamp,
+        props.user[0].last_updated_snapshot.portfolios.season_1[0].timestamp
     );
     const refreshData = () => {
         router.replace(router.asPath);
     };
 
+    // eslint-disable-next-line react-hooks/rules-of-hooks
     useEffect(() => {
-        props.session ? null : router.push('/');
+        props.session ? null : router.push("/");
     }, []);
 
+    // eslint-disable-next-line react-hooks/rules-of-hooks
     useEffect(() => {
         const now: any = new Date();
         const lastUpdatedAsDate: any = new Date(lastUpdatedAt);
@@ -55,17 +57,17 @@ const Portfolio: NextPage = (props: any) => {
                 const historical: any = {
                     portfolios: {},
                 };
-                Object.keys(portfolios).forEach(portfolio => {
+                Object.keys(portfolios).forEach((portfolio) => {
                     const pKey = portfolio;
                     const pValue = portfolios[portfolio];
                     historical.portfolios[pKey] = [pValue[0]];
                 });
-                const res = await clientApi.post('/api/handle-update-stats', {
+                const res = await clientApi.post("/api/handle-update-stats", {
                     uid: props.user[0].uid,
                     portfolio_metadata: props.user[0].portfolio_metadata,
                     historical,
                 });
-                res.status === 200 ? refreshData() : log('failed to update');
+                res.status === 200 ? refreshData() : log("failed to update");
             } catch (e) {
                 log(e);
             }
@@ -79,7 +81,7 @@ const Portfolio: NextPage = (props: any) => {
     return (
         <>
             <Head>
-                <title>Degens | {user || 'Crypto'}</title>
+                <title>Degens | {user || "Crypto"}</title>
             </Head>
             <TotalPageDiv>
                 <Navbar />
@@ -96,7 +98,7 @@ const Portfolio: NextPage = (props: any) => {
 
 export default Portfolio;
 
-export const getServerSideProps: GetServerSideProps = async context => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
     const username = context.query.user;
 
     try {
@@ -105,7 +107,7 @@ export const getServerSideProps: GetServerSideProps = async context => {
         const db = client.db(process.env.MONGODB_DB);
         // console.log({ session });
         const getUser = async () => {
-            let output = await db.collection('users').find({ uid: session.user.uid }).toArray();
+            let output = await db.collection("users").find({ uid: session.user.uid }).toArray();
             return JSON.parse(JSON.stringify(output));
         };
         // console.log(getUser());

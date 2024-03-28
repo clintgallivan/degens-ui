@@ -6,7 +6,7 @@ import Link from 'next/link';
 export default function DegenLogo() {
   return (
     <div className={styles.total_container}>
-      <Link className={styles.a_tag} href="/">
+      <Link className={styles.a_tag} href="/" legacyBehavior>
         <div className={styles.container}>
           <Image src={LogoIcon} alt="" />
         </div>

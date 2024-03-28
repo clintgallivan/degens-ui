@@ -59,7 +59,7 @@ const TopTokenTable = ({ props, queryData, queryIsLoading }: any) => {
                         className={styles.a_tag}
                         href={`/tokens/${item.coingecko_id}`}
                       >
-                        <a className={styles.a_tag}>{item.name}</a>
+                        {item.name}
                       </Link>
                     </div>
                   </>

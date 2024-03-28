@@ -1,13 +1,13 @@
-import React from 'react';
-import Image, { ImageLoaderProps } from 'next/image';
-import { signOut } from 'next-auth/react';
-import Dropdown from 'react-bootstrap/Dropdown';
+import React from "react";
+import Image, { ImageLoaderProps } from "next/image";
+import { signOut } from "next-auth/react";
+import Dropdown from "react-bootstrap/Dropdown";
 
-import { FiSettings } from 'react-icons/fi';
-import { MdLogout } from 'react-icons/md';
-import { BsPerson } from 'react-icons/bs';
-import { AiOutlinePieChart } from 'react-icons/ai';
-import styles from './HeaderProfile.module.scss';
+import { FiSettings } from "react-icons/fi";
+import { MdLogout } from "react-icons/md";
+import { BsPerson } from "react-icons/bs";
+import { AiOutlinePieChart } from "react-icons/ai";
+import styles from "./HeaderProfile.module.scss";
 
 type ToggleProps = {
     children: any;
@@ -19,25 +19,31 @@ export default function HeaderProfile({ props }: any) {
         return src;
     };
 
-    const CustomToggle = React.forwardRef(({ children, onClick }: ToggleProps, ref) => (
-        <div
-            className={styles.container}
-            onClick={e => {
-                e.preventDefault();
-                onClick(e);
-            }}
-        >
-            <Image
-                unoptimized
-                className={styles.image}
-                loader={imageLoader}
-                src={props?.session?.user?.image}
-                alt=""
-                width={50}
-                height={50}
-            />
-        </div>
-    ));
+    const CustomToggle = React.forwardRef<HTMLDivElement, ToggleProps>(
+        ({ children, onClick }, ref) => (
+            <div
+                className={styles.container}
+                onClick={(e) => {
+                    e.preventDefault();
+                    onClick(e);
+                }}
+                ref={ref} // You should pass ref to the DOM element to properly forward refs
+            >
+                <Image
+                    unoptimized
+                    className={styles.image}
+                    loader={imageLoader}
+                    src={props?.session?.user?.image || ""}
+                    alt="User profile picture"
+                    width={50}
+                    height={50}
+                />
+            </div>
+        )
+    );
+
+    // Setting the display name for CustomToggle to fix the ESLint error (this is for debugging purposes when identifying the component)
+    CustomToggle.displayName = "CustomToggle";
 
     return (
         <>

@@ -1,8 +1,8 @@
-import type { NextApiRequest, NextApiResponse } from 'next';
-import clientPromise from '@utils/mongodb';
-import moment from 'moment-timezone';
-import UseLeaderboardSorter from '@hooks/useLeaderboardSorter';
-import cors from 'cors';
+import type { NextApiRequest, NextApiResponse } from "next";
+import clientPromise from "@utils/mongodb";
+import moment from "moment-timezone";
+import UseLeaderboardSorter from "@hooks/useLeaderboardSorter";
+import cors from "cors";
 
 type Data = {
     by_degen_score: object[];
@@ -25,8 +25,8 @@ type RequestTypes = {
 // Initialize cors middleware with options
 const corsMiddleware = cors({
     origin: process.env.CLIENT_ORIGIN, // replace with your client's origin
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Content-Type', 'x-auth-token'],
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "x-auth-token"],
 });
 
 // Helper method to wait for a middleware to execute before continuing
@@ -45,22 +45,22 @@ function runMiddleware(req: NextApiRequest, res: NextApiResponse, fn: Function) 
 
 export default async function handler(
     req: NextApiRequest,
-    res: NextApiResponse<Data | FailureResponse>,
+    res: NextApiResponse<Data | FailureResponse>
 ) {
     await runMiddleware(req, res, corsMiddleware);
-    if (req.headers['x-auth-token'] !== process.env.NEXT_PUBLIC_SHARED_SECRET) {
-        res.status(403).json({ message: 'Unauthorized', status: 'failure' });
+    if (req.headers["x-auth-token"] !== process.env.NEXT_PUBLIC_SHARED_SECRET) {
+        res.status(403).json({ message: "Unauthorized", status: "failure" });
         return;
     }
 
     let client = await clientPromise;
     const db = client.db(process.env.MONGODB_DB);
 
-    if (req.method === 'GET') {
+    if (req.method === "GET") {
         console.log(req);
-        if (JSON.stringify(req.query) !== '{}') {
-            const arrTransformer = (item: string | string[]) => {
-                if (typeof item == 'string') {
+        if (JSON.stringify(req.query) !== "{}") {
+            const arrTransformer = (item?: string | string[]) => {
+                if (typeof item == "string") {
                     return [item];
                 } else {
                     return item;
@@ -69,31 +69,31 @@ export default async function handler(
 
             const findObj: RequestTypes = {};
             const mapper = () => {
-                const categoryQuery = arrTransformer(req.query['categories[]']);
-                const platformQuery = arrTransformer(req.query['platforms[]']);
-                const marketCapRangeQuery = arrTransformer(req.query['marketCapRange[]']);
+                const categoryQuery = arrTransformer(req.query["categories[]"]);
+                const platformQuery = arrTransformer(req.query["platforms[]"]);
+                const marketCapRangeQuery = arrTransformer(req.query["marketCapRange[]"]);
 
                 if (categoryQuery != undefined) {
-                    findObj['categories'] = {
-                        $all: arrTransformer(req.query['categories[]']),
+                    findObj["categories"] = {
+                        $all: arrTransformer(req.query["categories[]"]),
                     };
                 }
                 if (platformQuery != undefined) {
-                    findObj['platforms'] = {
-                        $all: arrTransformer(req.query['platforms[]']),
+                    findObj["platforms"] = {
+                        $all: arrTransformer(req.query["platforms[]"]),
                     };
                 }
                 if (marketCapRangeQuery != undefined) {
-                    if (marketCapRangeQuery[1] != '9999999' || marketCapRangeQuery[0] != '0') {
-                        findObj['market_cap_rank'] = {
-                            $gt: parseInt(req.query['marketCapRange[]'][0]),
-                            $lt: parseInt(req.query['marketCapRange[]'][1]),
+                    if (marketCapRangeQuery[1] != "9999999" || marketCapRangeQuery[0] != "0") {
+                        findObj["market_cap_rank"] = {
+                            $gt: parseInt(req?.query?.["marketCapRange[]"]?.[0] || "0"),
+                            $lt: parseInt(req?.query?.["marketCapRange[]"]?.[1] || ""),
                         };
                     }
                 }
             };
             mapper();
-            let data = await db.collection('token-metadata').find(findObj).toArray();
+            let data = await db.collection("token-metadata").find(findObj).toArray();
             data = JSON.parse(JSON.stringify(data));
             // useLeaderboardSorter(data);
             if (data.length > 0) {
@@ -111,6 +111,6 @@ export default async function handler(
             res.status(200).json(data);
         }
     } else {
-        res.status(400).json({ message: 'Invalid request method', status: 'failure' });
+        res.status(400).json({ message: "Invalid request method", status: "failure" });
     }
 }

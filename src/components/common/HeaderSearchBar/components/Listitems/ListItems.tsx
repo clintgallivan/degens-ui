@@ -17,7 +17,7 @@ export default function ListItems(props: any, results: any) {
                 key={item.coingecko_id}
                 href={`/tokens/${item.coingecko_id}`}
                 className={styles.container}
-            >
+                legacyBehavior>
                 <div className={styles.row_item}>
                     <div className={styles.left_side_row}>
                         <Image

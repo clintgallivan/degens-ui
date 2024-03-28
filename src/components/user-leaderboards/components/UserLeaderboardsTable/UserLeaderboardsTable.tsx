@@ -73,17 +73,17 @@ export default function UserLeaderboardsTable({
                                     {queryIsLoading ? (
                                         <PlaceholderIcon xs={4} />
                                     ) : (
-                                        <Link href={`/users/${item.uid}`}>
-                                            <a className={styles.a_tag_image}>
-                                                <Image
-                                                    src={item.image}
-                                                    alt=""
-                                                    height={32}
-                                                    width={32}
-                                                    style={{ borderRadius: 34 / 2 }}
-                                                />
-                                            </a>
-                                        </Link>
+                                        (<Link href={`/users/${item.uid}`} className={styles.a_tag_image}>
+
+                                            <Image
+                                                src={item.image}
+                                                alt=""
+                                                height={32}
+                                                width={32}
+                                                style={{ borderRadius: 34 / 2 }}
+                                            />
+
+                                        </Link>)
                                     )}
                                 </div>
                                 <div>
@@ -91,7 +91,7 @@ export default function UserLeaderboardsTable({
                                         <PlaceholderText xs={4} />
                                     ) : (
                                         <Link className={styles.a_tag} href={`/users/${item.uid}`}>
-                                            <a className={styles.a_tag}>{item.name}</a>
+                                            {item.name}
                                         </Link>
                                     )}
                                 </div>

@@ -26,12 +26,12 @@ export default function FeatureSection({ props }: any) {
     const UserLeaderboardsButton = () => {
         return (
             <div className={styles.leaderboards_button}>
-                <Link href={'/user-leaderboards'}>
-                    <a className={styles.a_tag}>
-                        <RetroButton>
-                            <div className={styles.leaderboards_button_text}>View Leaderboards</div>
-                        </RetroButton>
-                    </a>
+                <Link href={'/user-leaderboards'} className={styles.a_tag}>
+
+                    <RetroButton>
+                        <div className={styles.leaderboards_button_text}>View Leaderboards</div>
+                    </RetroButton>
+
                 </Link>
             </div>
         );

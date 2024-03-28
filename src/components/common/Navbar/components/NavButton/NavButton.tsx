@@ -30,12 +30,12 @@ export default function NavButton({ text, icon, isExpanded, route = '', onClick 
     };
 
     return (
-        <Link href={route}>
-            <a className={isExpanded ? styles.a_tag : styles.a_tag_sm}>
-                <RetroButton onClick={onClick} variant="purple">
-                    {child()}
-                </RetroButton>
-            </a>
-        </Link>
+        (<Link href={route} className={isExpanded ? styles.a_tag : styles.a_tag_sm}>
+
+            <RetroButton onClick={onClick} variant="purple">
+                {child()}
+            </RetroButton>
+
+        </Link>)
     );
 }

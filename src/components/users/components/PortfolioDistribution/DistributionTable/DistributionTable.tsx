@@ -75,7 +75,7 @@ function DistributionTable({
                                         className={styles.a_tag}
                                         href={`/tokens/${item.coingecko_id}`}
                                     >
-                                        <a className={styles.a_tag}>{item.coingecko_id}</a>
+                                        {item.coingecko_id}
                                     </Link>
                                 </div>
                             </>
