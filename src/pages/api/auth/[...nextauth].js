@@ -1,3 +1,4 @@
+//! deprecated. this was for next-auth but now we user privy auth
 import NextAuth from 'next-auth';
 import TwitterProvider from 'next-auth/providers/twitter';
 import moment from 'moment-timezone';

@@ -1,0 +1,59 @@
+
+
+.container {
+ cursor: pointer;
+ display: flex;
+ background-color: var(--x-black);
+ padding: 5px;
+ padding-left: 10px;
+ padding-right: 10px;
+ border-radius: 15px;
+ transition: .15s;
+//  margin-bottom: 10px;
+}
+
+.container:hover {
+ margin-bottom: 3px;
+ padding: 6px;
+ padding-left: 11px;
+ padding-right: 11px;
+//  border: 2px solid black;
+ transition: .15s;
+}
+
+.parent {
+ padding: 0px;
+ 
+
+}
+.image {
+  // background-color: blue;
+  flex-grow: 100%;
+  border-radius: 50%;
+  }
+
+.text {
+  font-size: 10px;
+  color: var(--white);
+  font-weight: var(--font-weight-sb);
+  transition: .5s;
+}
+
+.hide_text {
+  font-size: 0px;
+  color: var(--white);
+  font-weight: var(--font-weight-sb);
+  transition: .5s;
+}
+
+.twitter_icon {
+  margin-left: 5px;
+  margin-right: 5px;
+  color: var(--white);
+  height: 15px;
+  width: 12px;
+
+}
+
+
+

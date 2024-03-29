@@ -9,7 +9,7 @@ export function middleware(request: NextRequest) {
     const nonce = Buffer.from(crypto.randomUUID()).toString('base64');
     const cspHeader = `
       default-src 'self';
-      img-src 'self' data: https://pbs.twimg.com https://assets.coingecko.com;
+      img-src 'self' data: https://pbs.twimg.com https://assets.coingecko.com ${process.env.NEXT_PUBLIC_BASE_URL};
       script-src 'self' 'unsafe-eval' 'unsafe-inline' https://www.googletagmanager.com https://challenges.cloudflare.com;
       style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
       font-src 'self' https://fonts.gstatic.com;

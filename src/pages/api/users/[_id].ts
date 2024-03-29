@@ -1,6 +1,8 @@
-// pages/api/users/[uid].ts
+// pages/api/users/[_id].ts
 import clientPromise from '@utils/mongodb';
 import cors from 'cors';
+import { ObjectId } from 'mongodb'
+
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 type Data = {
@@ -38,9 +40,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     
     const client = await clientPromise;
     const db = client.db(process.env.MONGODB_DB);
-    const { uid } = req.query;
+    const { _id } = req.query;
     if (req.method === 'GET') {
-        let data = await db.collection('users').find({ uid }).toArray();
+        let data = await db.collection('users').findOne({ _id: new ObjectId(_id as string) })
         res.status(200).json(data);
     } else {
         res.status(400).json({ message: 'Invalid request method', status: 'failed' });

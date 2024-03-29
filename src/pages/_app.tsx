@@ -15,11 +15,15 @@ import { headers } from "next/headers";
 import { GetServerSideProps } from "next";
 import App from "next/app";
 import { PrivyProvider } from "@privy-io/react-auth";
+import LogoIcon from "../../public/DegensLogo.svg";
+import { clientApi } from "@utils/api";
+import { log } from "@utils/console";
+import { AuthProvider } from "@context/authContext";
+// import LogoIcon from "../../public/Degen-Tab-Logo-Square.png";
 
 type AppOwnProps = { example: string };
 
 function MyApp({ Component, pageProps }: AppProps & AppOwnProps) {
-    console.log(process?.env?.PRIVY_APP_ID);
     const router = useRouter();
     useEffect(() => {
         const handleRouteChange = (url: string) => {
@@ -30,6 +34,19 @@ function MyApp({ Component, pageProps }: AppProps & AppOwnProps) {
             router.events.off("routeChangeComplete", handleRouteChange);
         };
     }, [router.events]);
+
+    const handleAuthSuccess = async (e: any) => {
+        try {
+            const userReq = {
+                uid: e.id,
+                name: "Anon",
+            };
+            const res = await clientApi.post("api/users", userReq);
+            return res;
+        } catch (e) {
+            log(e);
+        }
+    };
 
     return (
         <>
@@ -50,26 +67,23 @@ function MyApp({ Component, pageProps }: AppProps & AppOwnProps) {
                 `}
             </Script>
             <PrivyProvider
-                appId="cluacjxrr04aq404cilia8lin"
+                appId={`${process.env.NEXT_PUBLIC_PRIVY_APP_ID}`}
                 config={{
-                    // Customize Privy's appearance in your app
                     appearance: {
-                        theme: "light",
-                        accentColor: "#676FFF",
-                        logo: "https://your-logo-url",
+                        theme: "dark",
+                        logo: `${process.env.NEXT_PUBLIC_BASE_URL}/DegensLogo.svg`,
                     },
-                    // Create embedded wallets for users who don't have a wallet
-                    // embeddedWallets: {
-                    //     createOnLogin: "users-without-wallets",
-                    // },
                 }}
+                onSuccess={(e) => handleAuthSuccess(e)}
             >
                 <SessionProvider session={pageProps.session}>
                     <TokenProvider>
                         <LayoutProvider>
-                            <ToastProvider>
-                                <Component {...pageProps} />
-                            </ToastProvider>
+                            <AuthProvider>
+                                <ToastProvider>
+                                    <Component {...pageProps} />
+                                </ToastProvider>
+                            </AuthProvider>
                         </LayoutProvider>
                     </TokenProvider>
                 </SessionProvider>

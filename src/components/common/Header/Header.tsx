@@ -1,14 +1,20 @@
-import styles from './Header.module.scss';
-import useWindowSize from '../../../hooks/useWindowSize';
-import { BiLogIn } from 'react-icons/bi';
-import RetroButton from '../RetroButton';
-import DegenLogo from '../DegenLogo';
-import HeaderSearchBar from '../HeaderSearchBar';
-import HeaderProfile from '../HeaderProfile';
-import HeaderSignInWithX from '../HeaderSignInWithX';
+import styles from "./Header.module.scss";
+import useWindowSize from "../../../hooks/useWindowSize";
+import { BiLogIn } from "react-icons/bi";
+import RetroButton from "../RetroButton";
+import DegenLogo from "../DegenLogo";
+import HeaderSearchBar from "../HeaderSearchBar";
+import HeaderProfile from "../HeaderProfile";
+import HeaderSignInWithX from "../HeaderSignInWithX";
+import HeaderSignIn from "../HeaderSignIn";
+import { usePrivy } from "@privy-io/react-auth";
 
 export default function Header({ props }: any) {
     const { width = 0 } = useWindowSize();
+
+    const { ready, authenticated, login } = usePrivy();
+
+    const disableLogin = !ready || (ready && authenticated);
 
     return (
         <>
@@ -28,10 +34,11 @@ export default function Header({ props }: any) {
                     <HeaderSearchBar props={props} />
                 </div>
                 <div className={styles.profile}>
-                    {props.session ? (
-                        <HeaderProfile props={props} />
+                    {authenticated ? (
+                        // <HeaderProfile props={props} />
+                        <></>
                     ) : (
-                        <HeaderSignInWithX props={props} />
+                        <HeaderSignIn props={props} />
                     )}
                 </div>
             </div>

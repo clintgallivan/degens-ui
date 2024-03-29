@@ -52,3 +52,12 @@ export interface User {
         };
     };
 }
+
+export interface UserSession {
+    token: string;
+    refreshToken: string;
+    createdAt: number;
+    expiresAt: number;
+    updatedAt: number;
+    user: User;
+}
