@@ -34,9 +34,13 @@ export default function Header({ props }: any) {
                     <HeaderSearchBar props={props} />
                 </div>
                 <div className={styles.profile}>
-                    {authenticated ? (
-                        // <HeaderProfile props={props} />
-                        <></>
+                    {/* {authenticated ? (
+                        <HeaderProfile props={props} />
+                    ) : (
+                        <HeaderSignIn props={props} />
+                    )} */}
+                    {authenticated && ready ? (
+                        <HeaderProfile props={props} />
                     ) : (
                         <HeaderSignIn props={props} />
                     )}

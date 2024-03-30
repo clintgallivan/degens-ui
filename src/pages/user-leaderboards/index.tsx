@@ -1,17 +1,25 @@
-import type { NextPage, GetServerSideProps } from 'next';
-import Head from 'next/head';
-import { getSession } from 'next-auth/react';
+import type { NextPage, GetServerSideProps } from "next";
+import Head from "next/head";
+import { getSession } from "next-auth/react";
 
-import clientPromise from '@utils/mongodb';
+import clientPromise from "@utils/mongodb";
 
-import TotalPageDiv from '@components/common/Divs/TotalPageDiv';
-import NonNavDiv from '@components/common/Divs/NonNavDiv';
-import Navbar from '@components/common/Navbar';
-import Header from '@components/common/Header';
-import UserLeaderboardsSection from '@components/user-leaderboards/UserLeaderboardsSection';
-import { error } from '@utils/console';
+import TotalPageDiv from "@components/common/Divs/TotalPageDiv";
+import NonNavDiv from "@components/common/Divs/NonNavDiv";
+import Navbar from "@components/common/Navbar";
+import Header from "@components/common/Header";
+import UserLeaderboardsSection from "@components/user-leaderboards/UserLeaderboardsSection";
+import { error } from "@utils/console";
+import { Session } from "src/types/session";
+import { TopUsersSnapshot } from "src/types/topUsersSnapshot";
 
-const UserLeaderboards: NextPage = props => {
+type UserLeaderboardsPageProps = {
+    isConnected: boolean;
+    session?: Session;
+    topUsersSnapshot: TopUsersSnapshot;
+};
+
+const UserLeaderboards: NextPage<UserLeaderboardsPageProps> = (props) => {
     return (
         <>
             <Head>
@@ -30,18 +38,27 @@ const UserLeaderboards: NextPage = props => {
 
 export default UserLeaderboards;
 
-export const getServerSideProps: GetServerSideProps = async context => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
     try {
-        const session = await getSession(context);
         const client = await clientPromise;
         const db = client.db(process.env.MONGODB_DB);
 
-        const res = await db.collection('user-leaderboards-top-100').find({}).toArray();
-        const parsedRes = JSON.parse(JSON.stringify(res));
-        const topTokenSnapshot = parsedRes?.[0]?.top_100_users || null;
+        const getTopUsersSnapshot = async () => {
+            const res = await db.collection("user-leaderboards-top-100").find({}).toArray();
+            const parsedRes = JSON.parse(JSON.stringify(res));
+            return parsedRes?.[0]?.top_100_users || null;
+        };
 
+        const [topUsersSnapshot, session] = await Promise.all([
+            getTopUsersSnapshot(),
+            getSession(context),
+        ]);
         return {
-            props: { isConnected: true, session, topTokenSnapshot },
+            props: {
+                isConnected: true,
+                session,
+                topUsersSnapshot,
+            },
         };
     } catch (e) {
         error(e);

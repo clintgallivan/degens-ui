@@ -126,7 +126,7 @@ export default function Navbar() {
                         isExpanded={navIsExpanded}
                         text="Profile"
                         icon={<BsPerson size={24} />}
-                        route={`/users/${session?.user?.uid || ""}`}
+                        route={`/users/${session?.user?._id || ""}`}
                     />
                 )}
                 <div className={styles.break} />

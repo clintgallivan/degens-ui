@@ -1,15 +1,17 @@
-import { useState } from 'react';
-import Alert from '@components/common/Alert';
-import RetroButton from '@components/common/RetroButton';
-import SpinningCoin from '@components/common/SpinningCoin';
-import EmailForm from '@components/Home/components/EmailForm';
-import SignInButton from '@components/Home/components/SignInButton';
-import styles from './IntroSection.module.scss';
-import { BsArrowRight, BsTwitterX } from 'react-icons/bs';
-import { signIn } from 'next-auth/react';
-import { useRouter } from 'next/router';
+import { useState } from "react";
+import Alert from "@components/common/Alert";
+import RetroButton from "@components/common/RetroButton";
+import SpinningCoin from "@components/common/SpinningCoin";
+import EmailForm from "@components/Home/components/EmailForm";
+import SignInButton from "@components/Home/components/SignInButton";
+import styles from "./IntroSection.module.scss";
+import { BsArrowRight, BsTwitterX } from "react-icons/bs";
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/router";
+import { usePrivy } from "@privy-io/react-auth";
 
 export default function IntroSection({ props }: any) {
+    const { login } = usePrivy();
     const router = useRouter();
 
     return (
@@ -32,7 +34,7 @@ export default function IntroSection({ props }: any) {
                     {props?.session?.user ? (
                         <SignInButton
                             variant="orange"
-                            onClick={() => router.push(`/users/${props.session.user.uid}`)}
+                            onClick={() => router.push(`/users/${props.session.user._id}`)}
                         >
                             <div className={styles.sign_in_text_container}>
                                 <div className={styles.sign_in_button_text}>View my profile</div>
@@ -40,10 +42,9 @@ export default function IntroSection({ props }: any) {
                             </div>
                         </SignInButton>
                     ) : (
-                        <SignInButton variant="orange" onClick={() => signIn('twitter')}>
+                        <SignInButton variant="orange" onClick={login}>
                             <div className={styles.sign_in_text_container}>
-                                <div className={styles.sign_in_button_text}>Sign in with</div>
-                                <BsTwitterX size={20} className={styles.icon} />
+                                <div className={styles.sign_in_button_text}>Sign in</div>
                             </div>
                         </SignInButton>
                     )}

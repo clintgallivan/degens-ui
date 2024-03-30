@@ -9,6 +9,7 @@ import { BsPerson } from "react-icons/bs";
 import { AiOutlinePieChart } from "react-icons/ai";
 import styles from "./HeaderProfile.module.scss";
 import useWindowSize from "@hooks/useWindowSize";
+import { usePrivy } from "@privy-io/react-auth";
 
 type ToggleProps = {
     children: any;
@@ -16,6 +17,7 @@ type ToggleProps = {
 };
 
 export default function HeaderProfile({ props }: any) {
+    const { logout } = usePrivy();
     const { width = 0 } = useWindowSize();
     const imageLoader = ({ src, width, quality }: ImageLoaderProps) => {
         return src;
@@ -35,7 +37,7 @@ export default function HeaderProfile({ props }: any) {
                     unoptimized
                     className={styles.image}
                     loader={imageLoader}
-                    src={props?.session?.user?.image || ""}
+                    src={props?.session?.user?.image || "/LogoIcon.svg"}
                     alt="User profile picture"
                     width={width >= 480 ? 50 : 30}
                     height={width >= 480 ? 50 : 30}
@@ -58,7 +60,7 @@ export default function HeaderProfile({ props }: any) {
                     <Dropdown.Item
                         className={styles.item}
                         eventKey="1"
-                        href={`/users/${props.session.user.uid}`}
+                        href={`/users/${props?.session?.user?._id || ""}`}
                     >
                         <BsPerson size={14} className={styles.icon} />
                         My Profile
@@ -72,7 +74,7 @@ export default function HeaderProfile({ props }: any) {
                         <AiOutlinePieChart size={14} className={styles.icon} />
                         Portfolio
                     </Dropdown.Item>
-                    <Dropdown.Item className={styles.item} eventKey="4" onClick={() => signOut()}>
+                    <Dropdown.Item className={styles.item} eventKey="4" onClick={logout}>
                         <MdLogout size={14} className={styles.icon} />
                         Logout
                     </Dropdown.Item>

@@ -1,10 +1,11 @@
-import { signIn } from 'next-auth/react';
-import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
-import Tooltip from 'react-bootstrap/Tooltip';
-import { BsTwitter, BsTwitterX } from 'react-icons/bs';
-import { FiLogIn } from 'react-icons/fi';
-import useWindowSize from '@hooks/useWindowSize';
-import styles from './HeaderSignInWithX.module.scss';
+// ! deprecated, using privy sign in
+import { signIn } from "next-auth/react";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import Tooltip from "react-bootstrap/Tooltip";
+import { BsTwitter, BsTwitterX } from "react-icons/bs";
+import { FiLogIn } from "react-icons/fi";
+import useWindowSize from "@hooks/useWindowSize";
+import styles from "./HeaderSignInWithX.module.scss";
 
 export default function HeaderSignInWithX({ props }: any) {
     const { width = 0 } = useWindowSize();
@@ -20,7 +21,7 @@ export default function HeaderSignInWithX({ props }: any) {
     };
     return (
         <OverlayTrigger placement="bottom" delay={{ show: 250, hide: 400 }} overlay={renderTooltip}>
-            <div className={styles.container} onClick={() => signIn('twitter')}>
+            <div className={styles.container} onClick={() => signIn("twitter")}>
                 <>
                     <div className={width >= 768 ? styles.text : styles.hide_text}>
                         Sign in with

@@ -24,7 +24,20 @@ const nextConfig = {
     ];
   },
   images: {
-    domains: ['pbs.twimg.com', 'assets.coingecko.com'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'pbs.twimg.com',
+        port: '',
+        pathname: '**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'assets.coingecko.com',
+        port: '',
+        pathname: '**',
+      },
+    ],
   },
 };
 

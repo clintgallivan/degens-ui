@@ -1,28 +1,33 @@
-import Card from '@components/common/Card';
-import RetroButton from '@components/common/RetroButton';
-import styles from './AccountSection.module.scss';
-import SocialLinksInputCard from './components/SocialLinksInputCard';
-import { useState } from 'react';
-import { AccountPageProps } from 'src/pages/settings/account';
-import BioInputCard from './components/BioInputCard';
-import { useToast } from '@context/toastContext';
-import { ResData } from 'src/pages/api/handle-update-account-settings';
-import { clientApi, toAxiosError } from '@utils/api';
+import Card from "@components/common/Card";
+import RetroButton from "@components/common/RetroButton";
+import styles from "./AccountSection.module.scss";
+import SocialLinksInputCard from "./components/SocialLinksInputCard";
+import { useState } from "react";
+import { AccountPageProps } from "src/pages/settings/account";
+import BioInputCard from "./components/BioInputCard";
+import { useToast } from "@context/toastContext";
+import { ResData } from "src/pages/api/handle-update-account-settings";
+import { clientApi, toAxiosError } from "@utils/api";
 
 export default function AccountSection({ props }: { props: AccountPageProps }) {
-    const [bio, setBio] = useState(props.user?.description || '');
-    const [instagramLink, setInstagramLink] = useState(props.user?.links?.instagram_link || '');
-    const [youtubeLink, setYoutubeLink] = useState(props.user?.links?.youtube_link || '');
-    const [tiktokLink, setTiktokLink] = useState(props.user?.links?.tik_tok_link || '');
-    const [redditLink, setRedditLink] = useState(props.user?.links?.reddit_link || '');
-    const [otherLink, setOtherLink] = useState(props.user?.links?.bio_link_1 || '');
+    const [name, setName] = useState(props?.session?.user?.name || "");
+    const [bio, setBio] = useState(props?.session?.user?.description || "");
+    const [instagramLink, setInstagramLink] = useState(
+        props?.session?.user?.links?.instagram_link || ""
+    );
+    const [youtubeLink, setYoutubeLink] = useState(props?.session?.user?.links?.youtube_link || "");
+    const [tiktokLink, setTiktokLink] = useState(props?.session?.user?.links?.tik_tok_link || "");
+    const [redditLink, setRedditLink] = useState(props?.session?.user?.links?.reddit_link || "");
+    const [otherLink, setOtherLink] = useState(props?.session?.user?.links?.bio_link_1 || "");
 
     const { showSuccessToast, showErrorToast } = useToast();
 
     const handleSubmit = async () => {
         try {
-            const res = await clientApi.post<ResData>('/api/handle-update-account-settings', {
+            const res = await clientApi.post<ResData>("/api/handle-update-account-settings", {
+                _id: props?.session?.user?._id || null,
                 uid: props?.session?.user?.uid || null,
+                name: name.length > 0 ? name : "Anon",
                 bio: bio.length > 0 ? bio : null,
                 instagramLink: instagramLink.length > 0 ? instagramLink : null,
                 youtubeLink: youtubeLink.length > 0 ? youtubeLink : null,
@@ -30,10 +35,10 @@ export default function AccountSection({ props }: { props: AccountPageProps }) {
                 redditLink: redditLink.length > 0 ? redditLink : null,
                 otherLink: otherLink.length > 0 ? otherLink : null,
             });
-            showSuccessToast('Success', res?.data?.message || '');
+            showSuccessToast("Success", res?.data?.message || "");
         } catch (error: any) {
             const axiosError = toAxiosError(error);
-            showErrorToast('Failure', axiosError?.data?.message || error?.message || '');
+            showErrorToast("Failure", axiosError?.data?.message || error?.message || "");
         }
     };
 
@@ -48,6 +53,16 @@ export default function AccountSection({ props }: { props: AccountPageProps }) {
                             links on your profile.
                         </div>
                         <div className={styles.card_container}>
+                            <div className={styles.header_text}>Account</div>
+                            <div className={styles.link_columns_container}>
+                                <div className={styles.sub_header_container}>
+                                    <div className={styles.sub_header_text}>Name</div>
+                                    <SocialLinksInputCard link={name} setLink={setName} />
+                                </div>
+                                <div className={styles.sub_header_container}>
+                                    <div className={styles.sub_header_text}>Profile Picture</div>
+                                </div>
+                            </div>
                             <div className={styles.header_text}>About</div>
                             <div className={styles.sub_header_container}>
                                 <div className={styles.sub_header_text}>Bio</div>

@@ -1,20 +1,21 @@
-import Card from '@components/common/Card';
-import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
-import DraggablePieChart from './components/DraggablePieChart';
-import EditableDistributionTable from './components/EditableDistributionTable';
-import styles from './PortfolioSection.module.scss';
-import Dropdown from '@components/common/Dropdown';
-import RetroButton from '@components/common/RetroButton';
-import humanizeDuration from 'humanize-duration';
-import { log } from '@utils/console';
-import { clientApi } from '@utils/api';
+import Card from "@components/common/Card";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import DraggablePieChart from "./components/DraggablePieChart";
+import EditableDistributionTable from "./components/EditableDistributionTable";
+import styles from "./PortfolioSection.module.scss";
+import Dropdown from "@components/common/Dropdown";
+import RetroButton from "@components/common/RetroButton";
+import humanizeDuration from "humanize-duration";
+import { log } from "@utils/console";
+import { clientApi } from "@utils/api";
+import { PortfolioPageProps } from "src/pages/settings/portfolio";
 
-export type Portfolio = 'season_1' | 'all_time';
+export type Portfolio = "season_1" | "all_time";
 
 export enum DropdownText {
-    'season_1' = 'Season 1',
-    'all_time' = 'All Time',
+    "season_1" = "Season 1",
+    "all_time" = "All Time",
 }
 
 export type SubstringSearchItem = {
@@ -26,12 +27,12 @@ export type SubstringSearchItem = {
     // price: number;
 };
 
-export default function PortfolioSection({ props }: any) {
+export default function PortfolioSection({ props }: { props: PortfolioPageProps }) {
     const router = useRouter();
     const now: any = new Date();
-    const [selectedPortfolio, setSelectedPortfolio] = useState<Portfolio>('season_1');
-    const { portfolios } = props.user[0].historical;
-    const portfolioTokens = props.user[0].historical.portfolios[selectedPortfolio][0].tokens;
+    const [selectedPortfolio, setSelectedPortfolio] = useState<Portfolio>("season_1");
+    const { portfolios } = props.user.historical;
+    const portfolioTokens = props.user.historical.portfolios[selectedPortfolio][0].tokens;
     const roundPortfolioTokensToStart = () => {
         let output: any = [];
         let total = 0;
@@ -80,10 +81,10 @@ export default function PortfolioSection({ props }: any) {
     const [weightValue, setWeightValue] = useState(defaultValue);
 
     const currentTotalWeight = parseFloat(
-        weightValue.reduce((sum: any, item: any) => sum + item.percent, 0).toFixed(2),
+        weightValue.reduce((sum: any, item: any) => sum + item.percent, 0).toFixed(2)
     );
     const [remainingWeight, setRemainingWeight] = useState(
-        Math.round(100 - currentTotalWeight * 100),
+        Math.round(100 - currentTotalWeight * 100)
     );
     // const remainingWeight = Math.round(100 - currentTotalWeight * 100);
 
@@ -115,50 +116,50 @@ export default function PortfolioSection({ props }: any) {
     const handleUpdateStats = async () => {
         const tenMinutes = (60 * 60 * 1000) / 6;
         const lastUpdatedAt: any = new Date(
-            props.user[0].historical.portfolios[selectedPortfolio]?.[1]?.timestamp || tenMinutes,
+            props.user.historical.portfolios[selectedPortfolio]?.[1]?.timestamp || tenMinutes
         );
         const lastUpdatedAsDate: any = new Date(lastUpdatedAt);
         const humanReadableDuration = humanizeDuration(tenMinutes - (now - lastUpdatedAsDate), {
-            units: ['d', 'h', 'm'],
+            units: ["d", "h", "m"],
             round: true,
         });
         if (now - lastUpdatedAsDate < tenMinutes) {
             alert(
-                `Sorry, you will have to wait ${humanReadableDuration} before updating again. Thanks for your understanding.`,
+                `Sorry, you will have to wait ${humanReadableDuration} before updating again. Thanks for your understanding.`
             );
             return;
         }
 
         if (remainingWeight != 0) {
-            alert('Please make sure you have allocated all your remaining weight.');
+            alert("Please make sure you have allocated all your remaining weight.");
             return;
         }
         try {
             let historical: any = {
                 portfolios: {},
             };
-            Object.keys(portfolios).forEach(portfolio => {
+            Object.keys(portfolios).forEach((portfolio) => {
                 if (portfolio === selectedPortfolio) {
                     const pKey = portfolio;
                     const pValue = portfolios[portfolio];
                     historical.portfolios[pKey] = [pValue[0]];
                 }
             });
-            await clientApi.post('/api/handle-update-stats', {
-                uid: props.user[0].uid,
-                portfolio_metadata: props.user[0].portfolio_metadata,
+            await clientApi.post("/api/handle-update-stats", {
+                uid: props.user.uid,
+                portfolio_metadata: props.user.portfolio_metadata,
                 historical,
             });
-            await new Promise(r => setTimeout(r, 750));
+            await new Promise((r) => setTimeout(r, 750));
 
             const historical2 = JSON.parse(JSON.stringify(historical));
             historical2.portfolios[selectedPortfolio][0].tokens = weightValue;
-            const res2 = await clientApi.post('/api/handle-update-stats', {
-                uid: props.user[0].uid,
-                portfolio_metadata: props.user[0].portfolio_metadata,
+            const res2 = await clientApi.post("/api/handle-update-stats", {
+                uid: props.user.uid,
+                portfolio_metadata: props.user.portfolio_metadata,
                 historical: historical2,
             });
-            res2.status === 200 ? refreshData() : log('failed to update');
+            res2.status === 200 ? refreshData() : log("failed to update");
         } catch (e) {
             log(e);
         }
@@ -174,19 +175,19 @@ export default function PortfolioSection({ props }: any) {
     return (
         <>
             {props.session ? (
-                <div className={'content-area'}>
+                <div className={"content-area"}>
                     <Card>
                         <div className={styles.title_and_dropdown_container}>
                             <h3 className={styles.title}>Manage Portfolio</h3>
                             <Dropdown
                                 selectedChild={DropdownText[selectedPortfolio]}
-                                onClick={item => {
+                                onClick={(item) => {
                                     setSelectedPortfolio(item.portfolio);
                                 }}
                             >
                                 {[
-                                    { text: DropdownText['season_1'], portfolio: 'season_1' },
-                                    { text: DropdownText['all_time'], portfolio: 'all_time' },
+                                    { text: DropdownText["season_1"], portfolio: "season_1" },
+                                    { text: DropdownText["all_time"], portfolio: "all_time" },
                                 ]}
                             </Dropdown>
                         </div>
@@ -201,11 +202,11 @@ export default function PortfolioSection({ props }: any) {
                                     addTokenRow={(item: SubstringSearchItem) => {
                                         if (
                                             weightValue.some(
-                                                (i: any) => i.coingecko_id === item.coingecko_id,
+                                                (i: any) => i.coingecko_id === item.coingecko_id
                                             )
                                         ) {
                                             alert(
-                                                'This coingeckoId already exists in your portfolio!',
+                                                "This coingeckoId already exists in your portfolio!"
                                             );
                                         } else {
                                             addTokenRow(item);
@@ -221,7 +222,7 @@ export default function PortfolioSection({ props }: any) {
                         <h3
                             className={styles.remaining_weight}
                             style={{
-                                color: remainingWeight <= 0 ? 'var(--green-10)' : 'var(--red-10)',
+                                color: remainingWeight <= 0 ? "var(--green-10)" : "var(--red-10)",
                             }}
                         >
                             Remaining weight: {remainingWeight}

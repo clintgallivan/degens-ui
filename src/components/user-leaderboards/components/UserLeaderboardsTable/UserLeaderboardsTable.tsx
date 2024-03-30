@@ -1,14 +1,14 @@
-import { useState } from 'react';
-import Image, { ImageLoaderProps } from 'next/image';
-import { Placeholder, Table } from 'react-bootstrap';
-import { BsAward } from 'react-icons/bs';
+import { useState } from "react";
+import Image, { ImageLoaderProps } from "next/image";
+import { Placeholder, Table } from "react-bootstrap";
+import { BsAward } from "react-icons/bs";
 
-import RetroButton from '@components/common/RetroButton';
-import styles from './UserLeaderboardsTable.module.scss';
-import Link from 'next/link';
-import { ImArrowDown2 } from 'react-icons/im';
-import Card from '@components/common/Card';
-import Badge from '@components/common/Badge';
+import RetroButton from "@components/common/RetroButton";
+import styles from "./UserLeaderboardsTable.module.scss";
+import Link from "next/link";
+import { ImArrowDown2 } from "react-icons/im";
+import Card from "@components/common/Card";
+import Badge from "@components/common/Badge";
 
 type PlaceholderTextProps = {
     xs: number;
@@ -26,7 +26,8 @@ export default function UserLeaderboardsTable({
     count?: number;
 }) {
     const [isLoading, setIsLoading] = useState(true);
-    const topTokenData = !queryData ? props.topTokenSnapshot : queryData.data;
+    console.log(props);
+    const topUserData = !queryData ? props.topUsersSnapshot : queryData.data;
 
     const PlaceholderText = ({ xs }: PlaceholderTextProps) => {
         return (
@@ -58,7 +59,7 @@ export default function UserLeaderboardsTable({
     };
 
     const RowHandler = () => {
-        return topTokenData.slice(0, count).map((item: any, index: number) => {
+        return topUserData.slice(0, count).map((item: any, index: number) => {
             return (
                 <tr key={item.name} className={styles.rows_container}>
                     <td className={styles.row_container}>
@@ -73,24 +74,25 @@ export default function UserLeaderboardsTable({
                                     {queryIsLoading ? (
                                         <PlaceholderIcon xs={4} />
                                     ) : (
-                                        (<Link href={`/users/${item.uid}`} className={styles.a_tag_image}>
-
+                                        <Link
+                                            href={`/users/${item._id}`}
+                                            className={styles.a_tag_image}
+                                        >
                                             <Image
-                                                src={item.image}
+                                                src={item?.image || "LogoIcon.svg"}
                                                 alt=""
                                                 height={32}
                                                 width={32}
                                                 style={{ borderRadius: 34 / 2 }}
                                             />
-
-                                        </Link>)
+                                        </Link>
                                     )}
                                 </div>
                                 <div>
                                     {queryIsLoading ? (
                                         <PlaceholderText xs={4} />
                                     ) : (
-                                        <Link className={styles.a_tag} href={`/users/${item.uid}`}>
+                                        <Link className={styles.a_tag} href={`/users/${item._id}`}>
                                             {item.name}
                                         </Link>
                                     )}
@@ -103,7 +105,7 @@ export default function UserLeaderboardsTable({
                             {queryIsLoading ? (
                                 <PlaceholderNumber xs={4} />
                             ) : (
-                                item?.score.toFixed(1) || '--'
+                                item?.score.toFixed(1) || "--"
                             )}
                         </div>
                     </td>
@@ -121,7 +123,7 @@ export default function UserLeaderboardsTable({
                             {queryIsLoading ? (
                                 <PlaceholderNumber xs={4} />
                             ) : (
-                                item?.average_mcap_rank.toFixed(1) || '--'
+                                item?.average_mcap_rank.toFixed(1) || "--"
                             )}
                         </div>
                     </td>

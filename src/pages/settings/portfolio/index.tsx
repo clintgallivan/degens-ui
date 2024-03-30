@@ -1,7 +1,6 @@
 import type { NextPage, GetServerSideProps } from "next";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { getSession } from "next-auth/react";
 
 import clientPromise from "@utils/mongodb";
 
@@ -16,15 +15,21 @@ import { useEffect } from "react";
 import { error, log } from "@utils/console";
 import EmptyPage from "@components/common/EmptyPage";
 import { clientApi } from "@utils/api";
+import getSession from "@utils/getSession";
+import { ObjectId } from "mongodb";
+import { Session } from "src/types/session";
+import { User } from "src/types/user";
 
-// type QueryProps = {
-//   user: any
-// }
+export type PortfolioPageProps = {
+    isConnected: boolean;
+    session: Session;
+    user: User;
+};
 
-const Portfolio: NextPage = (props: any) => {
+const Portfolio: NextPage<PortfolioPageProps> = (props) => {
     const router = useRouter();
     const { user } = router.query;
-    const { portfolios } = props?.user?.[0]?.historical || "";
+    const { portfolios } = props?.user?.historical || "";
     if (!portfolios) {
         // navigate to home
         try {
@@ -35,7 +40,7 @@ const Portfolio: NextPage = (props: any) => {
         return <EmptyPage />;
     }
     const lastUpdatedAt: any = new Date(
-        props.user[0].last_updated_snapshot.portfolios.season_1[0].timestamp
+        props.user.last_updated_snapshot.portfolios.season_1[0].timestamp
     );
     const refreshData = () => {
         router.replace(router.asPath);
@@ -63,8 +68,8 @@ const Portfolio: NextPage = (props: any) => {
                     historical.portfolios[pKey] = [pValue[0]];
                 });
                 const res = await clientApi.post("/api/handle-update-stats", {
-                    uid: props.user[0].uid,
-                    portfolio_metadata: props.user[0].portfolio_metadata,
+                    uid: props.user.uid,
+                    portfolio_metadata: props.user.portfolio_metadata,
                     historical,
                 });
                 res.status === 200 ? refreshData() : log("failed to update");
@@ -99,31 +104,18 @@ const Portfolio: NextPage = (props: any) => {
 export default Portfolio;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-    const username = context.query.user;
-
     try {
-        const session: any = await getSession(context);
         const client = await clientPromise;
         const db = client.db(process.env.MONGODB_DB);
-        // console.log({ session });
+
         const getUser = async () => {
-            let output = await db.collection("users").find({ uid: session.user.uid }).toArray();
+            const sessionRes = await getSession(context);
+            let output = await db
+                .collection("users")
+                .findOne({ _id: new ObjectId(sessionRes?.user?._id as string) });
             return JSON.parse(JSON.stringify(output));
         };
-        // console.log(getUser());
-        // const getTokenTimeseries = async () => {
-        //   let output = await db
-        //     .collection('token-timeseries')
-        //     .find({ coingecko_id: id })
-        //     .toArray();
-        //   return JSON.parse(JSON.stringify(output));
-        // };
-
-        // let [tokenMetadata, tokenTimeseries] = await Promise.all([
-        //   getTokenMetadata(),
-        //   getTokenTimeseries(),
-        // ]);
-        let [user] = await Promise.all([getUser()]);
+        let [user, session] = await Promise.all([getUser(), getSession(context)]);
 
         return {
             props: {
