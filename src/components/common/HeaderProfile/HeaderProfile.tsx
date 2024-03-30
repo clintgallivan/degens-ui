@@ -5,11 +5,13 @@ import Dropdown from "react-bootstrap/Dropdown";
 
 import { FiSettings } from "react-icons/fi";
 import { MdLogout } from "react-icons/md";
-import { BsPerson } from "react-icons/bs";
+import { BsPerson, BsTwitterX } from "react-icons/bs";
 import { AiOutlinePieChart } from "react-icons/ai";
 import styles from "./HeaderProfile.module.scss";
 import useWindowSize from "@hooks/useWindowSize";
 import { usePrivy } from "@privy-io/react-auth";
+import { PiSealCheckFill } from "react-icons/pi";
+import { BiSolidBookAdd, BiWallet } from "react-icons/bi";
 
 type ToggleProps = {
     children: any;
@@ -17,7 +19,7 @@ type ToggleProps = {
 };
 
 export default function HeaderProfile({ props }: any) {
-    const { logout } = usePrivy();
+    const { logout, connectWallet, linkTwitter } = usePrivy();
     const { width = 0 } = useWindowSize();
     const imageLoader = ({ src, width, quality }: ImageLoaderProps) => {
         return src;
@@ -73,6 +75,15 @@ export default function HeaderProfile({ props }: any) {
                     <Dropdown.Item className={styles.item} eventKey="3" href="/settings/portfolio">
                         <AiOutlinePieChart size={14} className={styles.icon} />
                         Portfolio
+                    </Dropdown.Item>
+                    <Dropdown.Item className={styles.item} eventKey="4" onClick={connectWallet}>
+                        <BiSolidBookAdd size={14} className={styles.icon} />
+                        Add wallet
+                    </Dropdown.Item>
+                    <Dropdown.Item className={styles.item} eventKey="4" onClick={linkTwitter}>
+                        <PiSealCheckFill size={14} className={styles.icon} />
+                        Verify With
+                        <BsTwitterX size={14} className={styles.icon_right} />
                     </Dropdown.Item>
                     <Dropdown.Item className={styles.item} eventKey="4" onClick={logout}>
                         <MdLogout size={14} className={styles.icon} />

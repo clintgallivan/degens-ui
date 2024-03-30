@@ -26,7 +26,6 @@ export default function UserLeaderboardsTable({
     count?: number;
 }) {
     const [isLoading, setIsLoading] = useState(true);
-    console.log(props);
     const topUserData = !queryData ? props.topUsersSnapshot : queryData.data;
 
     const PlaceholderText = ({ xs }: PlaceholderTextProps) => {

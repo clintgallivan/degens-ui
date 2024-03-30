@@ -12,6 +12,7 @@ import { error } from "@utils/console";
 import getSession from "@utils/getSession";
 import { Session } from "src/types/session";
 import { TopUsersSnapshot } from "src/types/topUsersSnapshot";
+import { useWallets } from "@privy-io/react-auth";
 
 type HomePageProps = {
     isConnected: boolean;
@@ -20,6 +21,8 @@ type HomePageProps = {
 };
 
 const Home: NextPage<HomePageProps> = (props) => {
+    // const { wallets } = useWallets();
+    // console.log(wallets);
     return (
         <>
             <Head>
