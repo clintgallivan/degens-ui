@@ -9,10 +9,42 @@ import { BsArrowRight, BsTwitterX } from "react-icons/bs";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/router";
 import { usePrivy } from "@privy-io/react-auth";
+import { useSessionContext } from "@context/SessionContext";
+import cookie from "cookie";
+import { clientApi } from "@utils/api";
+import { Placeholder } from "react-bootstrap";
+
+type PlaceholderTextProps = {
+    xs: number;
+};
 
 export default function IntroSection({ props }: any) {
+    const { session, isLoading } = useSessionContext();
     const { login } = usePrivy();
     const router = useRouter();
+
+    const handleClick = () => {
+        if (isLoading) {
+            // If isLoading is true, do nothing
+            return;
+        }
+        if (session) {
+            // If there's a session, navigate to user profile
+            router.push(`/users/${props.session.user._id}`);
+        } else {
+            // If there's no session, trigger the login function
+            login();
+        }
+    };
+
+    const ButtonTextPlaceholder = ({ xs }: PlaceholderTextProps) => {
+        return (
+            <Placeholder animation="glow">
+                <div className={styles.button_text_placeholder}></div>
+                <Placeholder xs={xs} />
+            </Placeholder>
+        );
+    };
 
     return (
         <>
@@ -20,7 +52,6 @@ export default function IntroSection({ props }: any) {
                 <div className={styles.container}>
                     <div>
                         <div style={{ height: 24 }} />
-
                         <h1 className={styles.h1}>Flex your crypto calls</h1>
                         <div style={{ height: 24 }} />
                         <p className="fs-md fw-t">Rise to the top in the degen community</p>
@@ -31,23 +62,25 @@ export default function IntroSection({ props }: any) {
                     </div>
                 </div>
                 <div className={styles.email_container}>
-                    {props?.session?.user ? (
-                        <SignInButton
-                            variant="orange"
-                            onClick={() => router.push(`/users/${props.session.user._id}`)}
-                        >
-                            <div className={styles.sign_in_text_container}>
-                                <div className={styles.sign_in_button_text}>View my profile</div>
-                                <BsArrowRight size={20} className={styles.icon} />
-                            </div>
-                        </SignInButton>
-                    ) : (
-                        <SignInButton variant="orange" onClick={login}>
-                            <div className={styles.sign_in_text_container}>
-                                <div className={styles.sign_in_button_text}>Sign in</div>
-                            </div>
-                        </SignInButton>
-                    )}
+                    <SignInButton variant="orange" onClick={handleClick}>
+                        <div className={styles.sign_in_text_container}>
+                            {/* Conditionally render button text or nothing based on isLoading */}
+                            {!isLoading ? (
+                                session ? (
+                                    <>
+                                        <div className={styles.sign_in_button_text}>
+                                            View my profile
+                                        </div>
+                                        <BsArrowRight size={20} className={styles.icon} />
+                                    </>
+                                ) : (
+                                    <div className={styles.sign_in_button_text}>Sign in</div>
+                                )
+                            ) : (
+                                <ButtonTextPlaceholder xs={12} />
+                            )}
+                        </div>
+                    </SignInButton>
                 </div>
             </div>
         </>

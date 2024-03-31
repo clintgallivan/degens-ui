@@ -21,7 +21,7 @@ const User: NextPage = function (props: any) {
                 <title>{titleText}</title>
             </Head>
             <TotalPageDiv>
-                <Navbar />
+                <Navbar props={props} />
                 <NonNavDiv>
                     <Header props={props} />
                     <UserSection props={props} />

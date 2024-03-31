@@ -26,7 +26,7 @@ const UserLeaderboards: NextPage<UserLeaderboardsPageProps> = (props) => {
                 <title>User Leaderboards</title>
             </Head>
             <TotalPageDiv>
-                <Navbar />
+                <Navbar props={props} />
                 <NonNavDiv>
                     <Header props={props} />
                     <UserLeaderboardsSection props={props} />

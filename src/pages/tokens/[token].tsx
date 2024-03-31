@@ -1,16 +1,16 @@
-import type { NextPage, GetServerSideProps } from 'next';
-import Head from 'next/head';
-import { useRouter } from 'next/router';
-import { getSession } from 'next-auth/react';
+import type { NextPage, GetServerSideProps } from "next";
+import Head from "next/head";
+import { useRouter } from "next/router";
+import { getSession } from "next-auth/react";
 
-import clientPromise from '@utils/mongodb';
+import clientPromise from "@utils/mongodb";
 
-import TotalPageDiv from '@components/common/Divs/TotalPageDiv';
-import NonNavDiv from '@components/common/Divs/NonNavDiv';
-import Navbar from '@components/common/Navbar';
-import Header from '@components/common/Header';
-import TokenSection from '@components/tokens/TokenSection';
-import { error } from '@utils/console';
+import TotalPageDiv from "@components/common/Divs/TotalPageDiv";
+import NonNavDiv from "@components/common/Divs/NonNavDiv";
+import Navbar from "@components/common/Navbar";
+import Header from "@components/common/Header";
+import TokenSection from "@components/tokens/TokenSection";
+import { error } from "@utils/console";
 
 const Token: NextPage = (props: any) => {
     const router = useRouter();
@@ -19,10 +19,10 @@ const Token: NextPage = (props: any) => {
     return (
         <>
             <Head>
-                <title>Degens | {props.tokenMetadata[0].name || 'Crypto'}</title>
+                <title>Degens | {props.tokenMetadata[0].name || "Crypto"}</title>
             </Head>
             <TotalPageDiv>
-                <Navbar />
+                <Navbar props={props} />
                 <NonNavDiv>
                     <Header props={props} />
                     <TokenSection props={props} />
@@ -34,7 +34,7 @@ const Token: NextPage = (props: any) => {
 
 export default Token;
 
-export const getServerSideProps: GetServerSideProps = async context => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
     const id = context.query.token;
     try {
         const session = await getSession(context);
@@ -42,12 +42,12 @@ export const getServerSideProps: GetServerSideProps = async context => {
         const db = client.db(process.env.MONGODB_DB);
 
         const getTokenMetadata = async () => {
-            let output = await db.collection('token-metadata').find({ coingecko_id: id }).toArray();
+            let output = await db.collection("token-metadata").find({ coingecko_id: id }).toArray();
             return JSON.parse(JSON.stringify(output));
         };
         const getTokenTimeseries = async () => {
             let output = await db
-                .collection('token-timeseries')
+                .collection("token-timeseries")
                 .find({ coingecko_id: id })
                 .toArray();
             return JSON.parse(JSON.stringify(output));

@@ -16,7 +16,6 @@ import { useLayoutContext } from "@context/layoutContext";
 import useWindowSize from "@hooks/useWindowSize";
 import NavButton from "./components/NavButton";
 import styles from "./Navbar.module.scss";
-import { signIn, signOut, useSession } from "next-auth/react";
 import { Session } from "src/types/session";
 import { motion } from "framer-motion";
 import { usePrivy } from "@privy-io/react-auth";
@@ -26,8 +25,7 @@ type LinkItemPropTypes = {
     logo: any;
 };
 
-export default function Navbar() {
-    const { data: session }: { data: Session | any } = useSession();
+export default function Navbar({ props }: any) {
     const { width = 1024 } = useWindowSize();
     const { navIsExpanded, setNavIsExpanded } = useLayoutContext();
     const { ready, authenticated, login, logout } = usePrivy();
@@ -121,19 +119,19 @@ export default function Navbar() {
                     route="/user-leaderboards"
                 />
                 <div className={styles.break} />
-                {session && (
+                {props?.session && (
                     <NavButton
                         isExpanded={navIsExpanded}
                         text="Profile"
                         icon={<BsPerson size={24} />}
-                        route={`/users/${session?.user?._id || ""}`}
+                        route={`/users/${props?.session?.user?._id || ""}`}
                     />
                 )}
                 <div className={styles.break} />
                 <div className={styles.break} />
                 <div className={styles.break} />
                 <div className={styles.break} />
-                {session && (
+                {props?.session && (
                     <>
                         <NavButton
                             isExpanded={navIsExpanded}

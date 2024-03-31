@@ -89,7 +89,7 @@ const Portfolio: NextPage<PortfolioPageProps> = (props) => {
                 <title>Degens | {user || "Crypto"}</title>
             </Head>
             <TotalPageDiv>
-                <Navbar />
+                <Navbar props={props} />
                 <NonNavDiv>
                     <Header props={props} />
                     {props.session ? <PortfolioSection props={props} /> : null}

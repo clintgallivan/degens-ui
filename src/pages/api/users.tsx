@@ -1,7 +1,8 @@
-import type { NextApiRequest, NextApiResponse } from 'next';
-import clientPromise from '@utils/mongodb';
+import type { NextApiRequest, NextApiResponse } from "next";
+import clientPromise from "@utils/mongodb";
 // import moment from 'moment-timezone';
-import cors from 'cors';
+import cors from "cors";
+import { UserSession } from "src/types/session";
 
 type Data = {
     message: string;
@@ -11,8 +12,8 @@ type Data = {
 
 const corsMiddleware = cors({
     origin: process.env.CLIENT_ORIGIN, // replace with your client's origin
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Content-Type', 'x-auth-token'],
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "x-auth-token"],
 });
 
 // Helper method to wait for a middleware to execute before continuing
@@ -31,15 +32,15 @@ function runMiddleware(req: NextApiRequest, res: NextApiResponse, fn: Function) 
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
     await runMiddleware(req, res, corsMiddleware);
-    if (req.headers['x-auth-token'] !== process.env.NEXT_PUBLIC_SHARED_SECRET) {
-        res.status(403).json({ message: 'Unauthorized', status: 'failed' });
+    if (req.headers["x-auth-token"] !== process.env.NEXT_PUBLIC_SHARED_SECRET) {
+        res.status(403).json({ message: "Unauthorized", status: "failed" });
         return;
     }
 
     const client = await clientPromise;
     const db = client.db(process.env.MONGODB_DB);
 
-    if (req.method === 'POST') {
+    if (req.method === "POST") {
         const localDate = new Date();
         const yesterday = new Date(new Date().valueOf() - 1000 * 60 * 60 * 24);
         const twoDaysAgo = new Date(new Date().valueOf() - 1000 * 60 * 60 * 24 * 2);
@@ -47,15 +48,32 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 
         // const timestamp2 = moment.utc(twoDaysAgo).format();
         const payload = req.body;
-        const existingDocument = await db.collection('users').find({ uid: payload.uid }).toArray();
+        const existingDocument: UserSession[] = await db
+            .collection("users")
+            .find(
+                { uid: payload.uid },
+                {
+                    projection: {
+                        date_created: 1,
+                        uid: 1,
+                        username: 1,
+                        name: 1,
+                        image: 1,
+                        image_hi_res: 1,
+                        description: 1,
+                        links: 1,
+                    },
+                }
+            )
+            .toArray();
         if (existingDocument.length != 0) {
-            res.status(409).json({ message: 'User already exists', body: existingDocument });
+            res.status(409).json({ message: "User already exists", body: existingDocument[0] });
         } else {
             const params = new URLSearchParams();
-            params.append('ids', payload.uid);
-            params.append('user.fields', 'description,url,username');
+            params.append("ids", payload.uid);
+            params.append("user.fields", "description,url,username");
 
-            const twitterOutput = { username: '', description: '', url: '' };
+            const twitterOutput = { username: "", description: "", url: "" };
             try {
                 // * disabled for now because twitter api is not paid for
                 // const twitterRes = await axios.get(
@@ -70,7 +88,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
                 // do nothing
             }
 
-            await db.collection('users').insertOne({
+            await db.collection("users").insertOne({
                 date_created: localDate,
                 uid: payload.uid,
                 username: twitterOutput.username,
@@ -81,13 +99,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
                 url: twitterOutput.url,
                 links: {
                     bio_link_1: twitterOutput.url,
-                    twitter_link: '',
-                    discord_link: '',
-                    youtube_link: '',
-                    telegram_link: '',
-                    instagram_link: '',
-                    tik_tok_link: '',
-                    reddit_link: '',
+                    twitter_link: "",
+                    discord_link: "",
+                    youtube_link: "",
+                    telegram_link: "",
+                    instagram_link: "",
+                    tik_tok_link: "",
+                    reddit_link: "",
                 },
                 portfolio_metadata: {
                     season_1: {
@@ -106,11 +124,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
                                 average_mcap_rank: 9,
                                 tokens: [
                                     {
-                                        coingecko_id: 'usd-coin',
+                                        coingecko_id: "usd-coin",
                                         price: 1,
                                         percent: 1,
                                         mcap_rank: 8,
-                                        image: 'https://assets.coingecko.com/coins/images/6319/large/USD_Coin_icon.png?1547042389',
+                                        image: "https://assets.coingecko.com/coins/images/6319/large/USD_Coin_icon.png?1547042389",
                                     },
                                 ],
                             },
@@ -150,11 +168,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
                                 average_mcap_rank: 9,
                                 tokens: [
                                     {
-                                        coingecko_id: 'usd-coin',
+                                        coingecko_id: "usd-coin",
                                         price: 1,
                                         percent: 1,
                                         mcap_rank: 8,
-                                        image: 'https://assets.coingecko.com/coins/images/6319/large/USD_Coin_icon.png?1547042389',
+                                        image: "https://assets.coingecko.com/coins/images/6319/large/USD_Coin_icon.png?1547042389",
                                     },
                                 ],
                             },
@@ -191,11 +209,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
                                 average_mcap_rank: 9,
                                 tokens: [
                                     {
-                                        coingecko_id: 'usd-coin',
+                                        coingecko_id: "usd-coin",
                                         price: 1,
                                         percent: 1,
                                         mcap_rank: 8,
-                                        image: 'https://assets.coingecko.com/coins/images/6319/large/USD_Coin_icon.png?1547042389',
+                                        image: "https://assets.coingecko.com/coins/images/6319/large/USD_Coin_icon.png?1547042389",
                                     },
                                 ],
                             },
@@ -235,11 +253,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
                                 average_mcap_rank: 9,
                                 tokens: [
                                     {
-                                        coingecko_id: 'usd-coin',
+                                        coingecko_id: "usd-coin",
                                         price: 1,
                                         percent: 1,
                                         mcap_rank: 8,
-                                        image: 'https://assets.coingecko.com/coins/images/6319/large/USD_Coin_icon.png?1547042389',
+                                        image: "https://assets.coingecko.com/coins/images/6319/large/USD_Coin_icon.png?1547042389",
                                     },
                                 ],
                             },
@@ -269,15 +287,34 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
                 },
             });
 
+            const res1: UserSession[] = await db
+                .collection("users")
+                .find(
+                    { uid: payload.uid },
+                    {
+                        projection: {
+                            date_created: 1,
+                            uid: 1,
+                            username: 1,
+                            name: 1,
+                            image: 1,
+                            image_hi_res: 1,
+                            description: 1,
+                            links: 1,
+                        },
+                    }
+                )
+                .toArray();
+
             res.status(201).json({
                 message: `${payload.name} was added to the database`,
-                body: { username: twitterOutput.username },
+                body: res1[0],
             });
         }
-    } else if (req.method === 'GET') {
-        let data = await db.collection('users').find({}).toArray();
+    } else if (req.method === "GET") {
+        let data = await db.collection("users").find({}).toArray();
         res.status(200).json(data);
     } else {
-        res.status(400).json({ message: 'Invalid request method', status: 'failed' });
+        res.status(400).json({ message: "Invalid request method", status: "failed" });
     }
 }

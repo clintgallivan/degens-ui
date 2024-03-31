@@ -8,7 +8,7 @@ interface Links {
     tik_tok_link: string;
     reddit_link: string;
 }
-interface User {
+export interface UserSession {
     _id: string;
     date_created: number;
     uid: string;
@@ -21,6 +21,6 @@ interface User {
 }
 
 export interface Session {
-    user: User;
-    expires: string;
+    user: UserSession;
+    expiresAt: Date;
 }

@@ -2,29 +2,30 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "../styles/design_tokens.scss";
 import "../styles/globals.scss";
 import "../styles/utilities.scss";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import type { AppContext, AppInitialProps, AppProps } from "next/app";
 import { useRouter } from "next/router";
 import Script from "next/script";
-import { SessionProvider } from "next-auth/react";
 import { TokenProvider } from "../context/tokenContext";
 import { LayoutProvider } from "../context/layoutContext";
 import * as gtag from "../utils/gtag";
-import { ToastProvider } from "@context/toastContext";
+import { ToastProvider, useToast } from "@context/toastContext";
 import { headers } from "next/headers";
 import { GetServerSideProps } from "next";
 import App from "next/app";
-import { PrivyProvider } from "@privy-io/react-auth";
+import { PrivyProvider, User } from "@privy-io/react-auth";
 import LogoIcon from "../../public/DegensLogo.svg";
 import { clientApi } from "@utils/api";
 import { log } from "@utils/console";
-import { AuthProvider } from "@context/authContext";
-// import LogoIcon from "../../public/Degen-Tab-Logo-Square.png";
+import { SystemInfoProvider, useSystemInfoContext } from "@context/SystemInfoContext";
+import AuthSuccessHandler from "@utils/auth/authSuccessHandler";
+import { SessionProvider } from "@context/SessionContext";
 
 type AppOwnProps = { example: string };
 
 function MyApp({ Component, pageProps }: AppProps & AppOwnProps) {
     const router = useRouter();
+    const [privyUser, setPrivyUser] = useState<User | null>(null);
     useEffect(() => {
         const handleRouteChange = (url: string) => {
             gtag.pageview(url);
@@ -34,19 +35,6 @@ function MyApp({ Component, pageProps }: AppProps & AppOwnProps) {
             router.events.off("routeChangeComplete", handleRouteChange);
         };
     }, [router.events]);
-
-    const handleAuthSuccess = async (e: any) => {
-        try {
-            const userReq = {
-                uid: e.id,
-                name: "Anon",
-            };
-            const res = await clientApi.post("api/users", userReq);
-            return res;
-        } catch (e) {
-            log(e);
-        }
-    };
 
     return (
         <>
@@ -66,28 +54,29 @@ function MyApp({ Component, pageProps }: AppProps & AppOwnProps) {
                     });
                 `}
             </Script>
-            <PrivyProvider
-                appId={`${process.env.NEXT_PUBLIC_PRIVY_APP_ID}`}
-                config={{
-                    appearance: {
-                        theme: "dark",
-                        logo: `${process.env.NEXT_PUBLIC_BASE_URL}/DegensLogo.svg`,
-                    },
-                }}
-                onSuccess={(e) => handleAuthSuccess(e)}
-            >
-                <SessionProvider session={pageProps.session}>
-                    <TokenProvider>
-                        <LayoutProvider>
-                            <AuthProvider>
+            <SystemInfoProvider>
+                <PrivyProvider
+                    appId={`${process.env.NEXT_PUBLIC_PRIVY_APP_ID}`}
+                    config={{
+                        appearance: {
+                            theme: "dark",
+                            logo: `${process.env.NEXT_PUBLIC_BASE_URL}/DegensLogo.svg`,
+                        },
+                    }}
+                    onSuccess={(privyUser: User) => setPrivyUser(privyUser)}
+                >
+                    <SessionProvider>
+                        <TokenProvider>
+                            <LayoutProvider>
                                 <ToastProvider>
+                                    <AuthSuccessHandler privyUser={privyUser} />
                                     <Component {...pageProps} />
                                 </ToastProvider>
-                            </AuthProvider>
-                        </LayoutProvider>
-                    </TokenProvider>
-                </SessionProvider>
-            </PrivyProvider>
+                            </LayoutProvider>
+                        </TokenProvider>
+                    </SessionProvider>
+                </PrivyProvider>
+            </SystemInfoProvider>
         </>
     );
 }

@@ -12,7 +12,6 @@ import { error } from "@utils/console";
 import getSession from "@utils/getSession";
 import { Session } from "src/types/session";
 import { TopUsersSnapshot } from "src/types/topUsersSnapshot";
-import { useWallets } from "@privy-io/react-auth";
 
 type HomePageProps = {
     isConnected: boolean;
@@ -29,7 +28,7 @@ const Home: NextPage<HomePageProps> = (props) => {
                 <title>Degen Analytics | Crypto</title>
             </Head>
             <TotalPageDiv>
-                <Navbar />
+                <Navbar props={props} />
                 <NonNavDiv>
                     <Header props={props} />
                     <FeatureSection props={props} />

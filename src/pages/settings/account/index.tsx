@@ -9,6 +9,7 @@ import AccountSection from "@components/settings/account/AccountSection";
 import { error } from "@utils/console";
 import getSession from "@utils/getSession";
 import { Session } from "src/types/session";
+import EmptyPage from "@components/common/EmptyPage";
 
 export type AccountPageProps = {
     isConnected: boolean;
@@ -17,6 +18,15 @@ export type AccountPageProps = {
 
 const Account: NextPage<AccountPageProps> = (props) => {
     const router = useRouter();
+    if (!props?.session) {
+        // navigate to home
+        try {
+            router.push("/");
+        } catch (e) {
+            // do nothingd
+        }
+        return <EmptyPage />;
+    }
 
     return (
         <>
@@ -24,7 +34,7 @@ const Account: NextPage<AccountPageProps> = (props) => {
                 <title>Account Settings</title>
             </Head>
             <TotalPageDiv>
-                <Navbar />
+                <Navbar props={props} />
                 <NonNavDiv>
                     <Header props={props} />
                     <AccountSection props={props} />
