@@ -18,7 +18,7 @@ import NavButton from "./components/NavButton";
 import styles from "./Navbar.module.scss";
 import { Session } from "src/types/session";
 import { motion } from "framer-motion";
-import { usePrivy } from "@privy-io/react-auth";
+import { useSessionContext } from "@context/SessionContext";
 
 type LinkItemPropTypes = {
     href: string;
@@ -28,9 +28,7 @@ type LinkItemPropTypes = {
 export default function Navbar({ props }: any) {
     const { width = 1024 } = useWindowSize();
     const { navIsExpanded, setNavIsExpanded } = useLayoutContext();
-    const { ready, authenticated, login, logout } = usePrivy();
-
-    const disableLogin = !ready || (ready && authenticated);
+    const { session, login, logout } = useSessionContext();
 
     const [expandedCSS, setExpandedCSS] = useState("");
 
@@ -145,9 +143,9 @@ export default function Navbar({ props }: any) {
                 )}
                 <NavButton
                     isExpanded={navIsExpanded}
-                    text={authenticated ? "Logout" : "Login"}
-                    icon={authenticated ? <BiLogOut size={24} /> : <BiLogIn size={24} />}
-                    onClick={authenticated ? logout : login}
+                    text={session ? "Logout" : "Login"}
+                    icon={session ? <BiLogOut size={24} /> : <BiLogIn size={24} />}
+                    onClick={session ? logout : login}
                 />
                 {/* <div className={styles.break} /> */}
                 {/* <div className={styles.break} /> */}

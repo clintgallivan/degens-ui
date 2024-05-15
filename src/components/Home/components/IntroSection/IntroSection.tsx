@@ -8,7 +8,6 @@ import styles from "./IntroSection.module.scss";
 import { BsArrowRight, BsTwitterX } from "react-icons/bs";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/router";
-import { usePrivy } from "@privy-io/react-auth";
 import { useSessionContext } from "@context/SessionContext";
 import cookie from "cookie";
 import { clientApi } from "@utils/api";
@@ -19,20 +18,16 @@ type PlaceholderTextProps = {
 };
 
 export default function IntroSection({ props }: any) {
-    const { session, isLoading } = useSessionContext();
-    const { login } = usePrivy();
+    const { session, isLoading, login, logout } = useSessionContext();
     const router = useRouter();
 
     const handleClick = () => {
         if (isLoading) {
-            // If isLoading is true, do nothing
             return;
         }
         if (session) {
-            // If there's a session, navigate to user profile
             router.push(`/users/${props.session.user._id}`);
         } else {
-            // If there's no session, trigger the login function
             login();
         }
     };

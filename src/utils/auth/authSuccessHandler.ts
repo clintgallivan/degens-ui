@@ -4,7 +4,7 @@ import { useToast } from '@context/toastContext';
 import { useSystemInfoContext } from '@context/SystemInfoContext';
 import { clientApi } from '@utils/api';
 import { log } from '@utils/console';
-import { User, usePrivy } from '@privy-io/react-auth';
+import { User } from '@privy-io/react-auth';
 import getSession from '@utils/getSession';
 import cookie from "cookie";
 import { time } from 'console';

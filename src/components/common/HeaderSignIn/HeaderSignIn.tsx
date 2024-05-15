@@ -8,15 +8,13 @@ import { usePrivy } from "@privy-io/react-auth";
 import { clientApi } from "@utils/api";
 import { useSystemInfoContext } from "@context/SystemInfoContext";
 import { useToast } from "@context/toastContext";
+import { useSessionContext } from "@context/SessionContext";
 
 export default function HeaderSignIn({ props }: any) {
     const { info } = useSystemInfoContext();
+    const { login } = useSessionContext();
     const { showSuccessToast, showErrorToast } = useToast();
     const { width = 0 } = useWindowSize();
-    const { ready, authenticated, login } = usePrivy();
-
-    // TODO: utilize this disableLogin variable
-    const disableLogin = !ready || (ready && authenticated);
 
     const handleLogin = () => {
         if (info.login_enabled) {
@@ -28,7 +26,7 @@ export default function HeaderSignIn({ props }: any) {
     const renderTooltip = (props: any) => {
         return width < 768 ? (
             <Tooltip id="button-tooltip" className={styles.tooltip} {...props}>
-                Sign in
+                Login / Sign up
             </Tooltip>
         ) : (
             <></>
@@ -38,7 +36,9 @@ export default function HeaderSignIn({ props }: any) {
         <OverlayTrigger placement="bottom" delay={{ show: 250, hide: 400 }} overlay={renderTooltip}>
             <div className={styles.container} onClick={handleLogin}>
                 <>
-                    <div className={width >= 768 ? styles.text : styles.hide_text}>Sign in</div>
+                    <div className={width >= 768 ? styles.text : styles.hide_text}>
+                        Login / Sign up
+                    </div>
                     {width < 768 && <FiLogIn className={styles.twitter_icon} />}
                 </>
             </div>

@@ -20,15 +20,11 @@ type ToggleProps = {
 };
 
 export default function HeaderProfile({ props }: any) {
-    const { setSession } = useSessionContext();
-    const { logout, connectWallet, linkTwitter } = usePrivy();
+    const { session, logout } = useSessionContext();
+    const { connectWallet, linkTwitter } = usePrivy();
     const { width = 0 } = useWindowSize();
     const imageLoader = ({ src, width, quality }: ImageLoaderProps) => {
         return src;
-    };
-    const handleLogout = () => {
-        logout();
-        setSession(undefined);
     };
 
     const CustomToggle = React.forwardRef<HTMLDivElement, ToggleProps>(
@@ -68,7 +64,7 @@ export default function HeaderProfile({ props }: any) {
                     <Dropdown.Item
                         className={styles.item}
                         eventKey="1"
-                        href={`/users/${props?.session?.user?._id || ""}`}
+                        href={`/users/${session?.user?._id || ""}`}
                     >
                         <BsPerson size={14} className={styles.icon} />
                         My Profile
@@ -91,7 +87,7 @@ export default function HeaderProfile({ props }: any) {
                         Verify With
                         <BsTwitterX size={14} className={styles.icon_right} />
                     </Dropdown.Item>
-                    <Dropdown.Item className={styles.item} eventKey="4" onClick={handleLogout}>
+                    <Dropdown.Item className={styles.item} eventKey="4" onClick={logout}>
                         <MdLogout size={14} className={styles.icon} />
                         Logout
                     </Dropdown.Item>
