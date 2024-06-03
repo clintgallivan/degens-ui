@@ -20,7 +20,6 @@ export const SessionProvider: React.FC<SessionContextProviderProps> = ({ childre
     const { logout, login } = usePrivy();
     const [isLoading, setIsLoading] = useState(true); // Initialize isLoading to true
     const [session, setSession] = useState<Session | undefined>(() => {
-        console.log("1");
         // Initially, don't try to load the session here; do it in an effect to ensure it runs client-side
         return undefined;
     });
@@ -38,9 +37,6 @@ export const SessionProvider: React.FC<SessionContextProviderProps> = ({ childre
         // This effect runs once on mount and attempts to load the session from localStorage
         if (typeof window !== "undefined") {
             const storedSession = localStorage.getItem("session");
-            console.log("2");
-            console.log(localStorage);
-            console.log(3);
             setSession(storedSession ? JSON.parse(storedSession) : undefined);
             setIsLoading(false); // Once the attempt is made, set isLoading to false
         }

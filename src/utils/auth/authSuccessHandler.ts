@@ -41,7 +41,7 @@ const AuthSuccessHandler = ({ privyUser }: { privyUser: User | null }) => {
                     name: "Anon",
                 };
                 try {
-                    const res = await clientApi.post("api/users", userReq);
+                    const res = await clientApi.post("api/v2/users", userReq);
                     const { isValid, expiresAt } = await sessionInfo()
                     if (isValid) {
                         const userSession: UserSession = res?.data?.userSession as UserSession
@@ -74,7 +74,6 @@ const AuthSuccessHandler = ({ privyUser }: { privyUser: User | null }) => {
                 log(e);
             }
         };
-
         if (privyUser) {
             handleAuthSuccess();
         }

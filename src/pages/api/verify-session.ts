@@ -12,7 +12,7 @@ interface VerifySessionRequest extends NextApiRequest {
 
 type Data = {
     sessionValid?: boolean;
-    expiresAt?: string;
+    expiresAt?: number;
     message?: string;
     status?: string;
 };
@@ -48,7 +48,7 @@ export default async function handler(req: VerifySessionRequest, res: NextApiRes
             const payload = req.body;
             const privyToken = payload?.privyToken || ''
             const { valid, decoded, error } = await verifyPrivyToken(privyToken);
-            const expiresAt = decoded?.exp ? new Date(decoded?.exp * 1000).toISOString() : undefined;
+            const expiresAt = decoded?.exp ? new Date(decoded?.exp * 1000).getTime() : undefined;
             res.status(200).json({ sessionValid: valid, expiresAt});
         } catch (e) {
             log(e);
