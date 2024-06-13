@@ -6,10 +6,12 @@ import TotalPageDiv from "@components/common/Divs/TotalPageDiv";
 import NonNavDiv from "@components/common/Divs/NonNavDiv";
 import Navbar from "@components/common/Navbar";
 import Header from "@components/common/Header";
-import UserSection from "@components/users/userSection";
 import { error } from "@utils/console";
 import { ObjectId } from "mongodb";
 import getSession from "@utils/getSession";
+import UserSection from "@components/users/v2/userSection";
+import { database } from "@utils/config";
+import { User } from "src/types/user";
 
 const User: NextPage = function (props: any) {
     const router = useRouter();
@@ -36,11 +38,13 @@ export default User;
 export const getServerSideProps: GetServerSideProps = async (context) => {
     try {
         const client = await clientPromise;
-        const db = client.db(process.env.MONGODB_DB);
+        const db = client.db(database);
 
         const getUser = async () => {
             const _id = context.query.user;
-            let output = await db.collection("users").findOne({ _id: new ObjectId(_id as string) });
+            let output: User = await db
+                .collection("users")
+                .findOne({ _id: new ObjectId(_id as string) });
             return JSON.parse(JSON.stringify(output));
         };
 
@@ -50,7 +54,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
             props: {
                 isConnected: true,
                 session,
-                user: [user],
+                user,
             },
         };
     } catch (e) {

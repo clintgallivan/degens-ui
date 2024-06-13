@@ -1,3 +1,3 @@
-import UserSection from './UserSection';
+import UserSection from "./UserSection";
 
 export default UserSection;
