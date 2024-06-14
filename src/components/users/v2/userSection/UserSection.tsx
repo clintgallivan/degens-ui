@@ -37,20 +37,13 @@ export default function UserSection({ props }: any) {
     };
 
     const handleClick = async () => {
-        if (isLoading) {
-            return;
-        }
-        if (session) {
-            try {
-                await navigator.clipboard.writeText(
-                    `${process.env.NEXT_PUBLIC_BASE_URL}/users/${props.user._id}`
-                );
-                showSuccessToast("Profile link copied to clipboard!");
-            } catch (err) {
-                // do nothing
-            }
-        } else {
-            login();
+        try {
+            await navigator.clipboard.writeText(
+                `${process.env.NEXT_PUBLIC_BASE_URL}/users/${props.user._id}`
+            );
+            showSuccessToast("Profile link copied to clipboard!");
+        } catch (err) {
+            // do nothing
         }
     };
 
@@ -69,7 +62,7 @@ export default function UserSection({ props }: any) {
             </div>
             <div className={styles.second_row}>
                 <WalletStats props={props} />
-                <WalletStats props={props} />
+                {/* <WalletStats props={props} /> */}
             </div>
             <div className={styles.second_row}>
                 <Watchlist props={props} />

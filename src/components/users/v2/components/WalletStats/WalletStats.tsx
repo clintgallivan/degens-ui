@@ -48,11 +48,16 @@ export default function WalletStats({ props }: { props: any }) {
                         <div className={styles.enterWalletButtonText}>Enter Wallet</div>
                     </RetroButtonRound>
                 </div>
-                <div className={styles.empty_text_line_3}>
-                    <BsInfoCircle size={20} /> We use Privy to handle wallet authentication. We only
-                    store the wallet public address to keep track of the wallet performance & we
-                    don’t store data to keep your crypto secure. We’ll only display percentage
-                    breakdowns of your assets.
+                <div className={styles.empty_text_line_3_container}>
+                    <div className={styles.info_circle_container}>
+                        <BsInfoCircle size={20} />
+                    </div>
+                    <div className={styles.empty_text_line_3}>
+                        We use Privy to handle wallet authentication. We only store the wallet
+                        public address to keep track of the wallet performance & we don’t store data
+                        to keep your crypto secure. We’ll only display percentage breakdowns of your
+                        assets.
+                    </div>
                 </div>
             </div>
         );
