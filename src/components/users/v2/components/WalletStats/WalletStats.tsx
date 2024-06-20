@@ -38,6 +38,8 @@ export default function WalletStats({ props }: { props: any }) {
     const { login, session } = useSessionContext();
     const isEmpty = true;
     const { unlinkWallet } = usePrivy();
+    // console.log(props);
+    // console.log(session);
 
     // * TESTING WHILE SOLANA UNSUPPORTED
     const linkWalletSuccessCallback = async (user: User, linkedAccountType: string) => {
@@ -116,7 +118,7 @@ export default function WalletStats({ props }: { props: any }) {
                     </div>
                     <div className={styles.empty_button_container}>
                         <RetroButtonRound variant="orange" onClick={handleAddWallet}>
-                            <div className={styles.enterWalletButtonText}>Enter Wallet</div>
+                            <div className={styles.enterWalletButtonText}>Enter Solana wallet</div>
                         </RetroButtonRound>
                         <RetroButtonRound variant="orange" onClick={handleDeleteWallet}>
                             <div className={styles.enterWalletButtonText}>DELETE Wallet</div>
@@ -150,7 +152,7 @@ export default function WalletStats({ props }: { props: any }) {
                 <div className={styles.empty_rocket_container}>
                     <Image src={SkullIcon} alt="" width={width >= 480 ? 75 : 50} />
                 </div>
-                <div className={styles.empty_text_line_1}>No wallets in competition</div>
+                <div className={styles.empty_text_line_1}>1 wallet in competition</div>
             </div>
         );
     };
@@ -158,7 +160,6 @@ export default function WalletStats({ props }: { props: any }) {
         <div className={styles.container}>
             <Card>
                 <div className={styles.header_container}>
-                    {/* <div className={styles.header_text}>Leaderboard Stats</div> */}
                     <div className="text-2xl leading-10 font-medium">Leaderboard Stats</div>
                     {/* <div style={{ backgroundColor: "green" }}>DropdownPlaceholder</div> */}
                 </div>
