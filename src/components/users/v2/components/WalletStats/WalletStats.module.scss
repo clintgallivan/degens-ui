@@ -1,0 +1,136 @@
+.container {
+  flex: 1;
+}
+
+.card_container {
+  width: 100%;
+}
+
+.tooltip_container {
+  margin-left: -40px;
+  box-shadow: 50px;
+  filter: drop-shadow(2px 2px 2px var(--black-50));
+  border-radius: 30px;
+}
+
+.enterWalletButtonText {
+  color: var(--black);
+}
+
+.tooltip_val {
+  margin-right: 5px;
+  font-size: var(--font-size-sm);
+  text-decoration: underline;
+  text-decoration-color: var(--orange-20);
+  text-decoration-thickness: 3px;
+  text-underline-offset: 4px;
+}
+
+.chart {
+  flex: 1;
+  display: flex;
+}
+
+.no_data {
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 200px;
+  left: 0;
+  right: 0;
+  z-index: 999;
+  text-align: center;
+  font-size: var(--font-size-md);
+}
+
+.header_container {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.header_text {
+  font-size: var(--font-size-l);
+  font-weight: var(--font-weight-b)
+}
+
+.empty_rocket_container {
+  margin-bottom: 24px;
+  display: flex;
+  justify-content: center;
+}
+
+.empty_text_line_1 {
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-b);
+  margin-bottom: 8px;
+}
+
+.empty_text_line_2 {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-reg);
+  margin-bottom: 24px;
+}
+
+.empty_button_container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 32px;
+}
+
+.empty_text_line_3_container {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 30px;
+  justify-content: center;
+  align-items: center;
+}
+
+.empty_text_line_3 {
+  font-size: var(--font-size-xxsm);
+  font-weight: var(--font-weight-reg);
+}
+
+.info_circle_container {
+  align-self: flex-start; 
+}
+
+@media screen and (min-width: 320px) {
+  .row_container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  .tooltip_value_row {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .tooltip_container {
+    box-shadow: 50px;
+    filter: drop-shadow(2px 2px 2px var(--black-50));
+    border-radius: 30px;
+  }
+  .tooltip_value_row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+}
+
+@media screen and (min-width: 880px) {
+  .row_container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+}

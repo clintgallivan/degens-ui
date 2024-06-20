@@ -20,6 +20,7 @@ import { log } from "@utils/console";
 import { SystemInfoProvider, useSystemInfoContext } from "@context/SystemInfoContext";
 import AuthSuccessHandler from "@utils/auth/authSuccessHandler";
 import { SessionProvider } from "@context/SessionContext";
+import { authWithDegensCoreApiNode } from "@utils/auth/authenticateClient";
 
 type AppOwnProps = { example: string };
 
@@ -35,6 +36,10 @@ function MyApp({ Component, pageProps }: AppProps & AppOwnProps) {
             router.events.off("routeChangeComplete", handleRouteChange);
         };
     }, [router.events]);
+
+    useEffect(() => {
+        authWithDegensCoreApiNode();
+    }, []);
 
     return (
         <>
@@ -61,7 +66,10 @@ function MyApp({ Component, pageProps }: AppProps & AppOwnProps) {
                         appearance: {
                             theme: "dark",
                             logo: `${process.env.NEXT_PUBLIC_BASE_URL}/DegensLogo.svg`,
+                            accentColor: "#373D9D",
+                            walletList: ["phantom"],
                         },
+                        loginMethods: ["email", "google", "apple", "twitter", "sms"],
                     }}
                     onSuccess={(privyUser: User) => setPrivyUser(privyUser)}
                 >

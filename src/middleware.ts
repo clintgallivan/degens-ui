@@ -13,7 +13,7 @@ export function middleware(request: NextRequest) {
       script-src 'self' 'unsafe-eval' 'unsafe-inline' https://www.googletagmanager.com https://challenges.cloudflare.com;
       style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
       font-src 'self' https://fonts.gstatic.com;
-      connect-src 'self' https://www.google-analytics.com ${process.env.NEXT_PUBLIC_BASE_URL} https://auth.privy.io wss://relay.walletconnect.com wss://relay.walletconnect.org wss://www.walletlink.org https://*.rpc.privy.systems https://*.infura.io https://*.blastapi.io;
+      connect-src 'self' https://www.google-analytics.com ${process.env.NEXT_PUBLIC_BASE_URL} https://auth.privy.io wss://relay.walletconnect.com wss://relay.walletconnect.org wss://www.walletlink.org https://*.rpc.privy.systems https://*.infura.io https://*.blastapi.io https://degens-core-api-node.onrender.com http://localhost:8000
       frame-ancestors 'self';
       frame-src 'self' https://auth.privy.io https://verify.walletconnect.com https://verify.walletconnect.org https://challenges.cloudflare.com;
       child-src 'self' https://auth.privy.io https://verify.walletconnect.com https://verify.walletconnect.org;

@@ -1,26 +1,27 @@
+import { ObjectId } from "mongodb";
+
 interface Links {
-    bio_link_1: string;
-    twitter_link: string;
-    discord_link: string;
-    youtube_link: string;
-    telegram_link: string;
-    instagram_link: string;
-    tik_tok_link: string;
-    reddit_link: string;
+    bio_link_1: string | null;
+    twitter_link: string | null;
+    discord_link: string | null;
+    youtube_link: string | null;
+    telegram_link: string | null;
+    instagram_link: string | null;
+    tik_tok_link: string | null;
+    reddit_link: string | null;
 }
 export interface UserSession {
-    _id: string;
-    date_created: number;
+    _id: ObjectId;
+    created_at: number;
     uid: string;
-    username: string;
-    name: string;
-    image: string;
-    image_hi_res: string;
-    description: string;
+    username: string | null;
+    name: string | null;
+    image: string | null;
+    description: string | null;
     links: Links;
 }
 
 export interface Session {
     user: UserSession;
-    expiresAt: Date;
+    expiresAt: number;
 }
