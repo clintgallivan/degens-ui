@@ -57,7 +57,7 @@ export default async function handler(
     const db = client.db(process.env.MONGODB_DB);
 
     if (req.method === "GET") {
-        console.log(req);
+        // console.log(req);
         if (JSON.stringify(req.query) !== "{}") {
             const arrTransformer = (item?: string | string[]) => {
                 if (typeof item == "string") {

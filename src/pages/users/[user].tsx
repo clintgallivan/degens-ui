@@ -11,7 +11,7 @@ import { ObjectId } from "mongodb";
 import getSession from "@utils/getSession";
 import UserSection from "@components/users/v2/userSection";
 import { database } from "@utils/config";
-import { User } from "src/types/user";
+import { User as UserType } from "src/types/user";
 
 const User: NextPage = function (props: any) {
     const router = useRouter();
@@ -42,7 +42,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
         const getUser = async () => {
             const _id = context.query.user;
-            let output: User = await db
+            let output: UserType = await db
                 .collection("users")
                 .findOne({ _id: new ObjectId(_id as string) });
             return JSON.parse(JSON.stringify(output));

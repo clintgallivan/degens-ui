@@ -42,7 +42,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     const db = client.db(process.env.MONGODB_DB);
     if (req.method === "POST") {
         const payload = req.body;
-        console.log(payload);
         const user = await db
             .collection("users")
             .findOne({ _id: new ObjectId(payload._id as string) });

@@ -15,7 +15,6 @@ import RetroButtonRound from "@components/common/RetroButtonRound";
 import Watchlist from "../components/Watchlist";
 
 export default function UserSection({ props }: any) {
-    console.log(props);
     // const [portfolio, setPortfolio] = useState<Portfolio>("season_1");
     // const [selectedTimestamp, setselectedTimestamp] = useState(
     //     props.user[0].last_updated_snapshot.portfolios?.[portfolio]?.[0]?.timestamp || undefined
