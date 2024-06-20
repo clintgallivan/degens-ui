@@ -35,7 +35,7 @@ export default function UserSection({ props }: any) {
         );
     };
 
-    const handleClick = async () => {
+    const handleShareProfile = async () => {
         try {
             await navigator.clipboard.writeText(
                 `${process.env.NEXT_PUBLIC_BASE_URL}/users/${props.user._id}`
@@ -50,7 +50,7 @@ export default function UserSection({ props }: any) {
         <div className={styles.content_area} style={{ backgroundColor: "blue" }}>
             <div className={styles.first_row} style={{ backgroundColor: "red" }}>
                 <UserGeneral props={props} />
-                <RetroButtonRound variant="orange" onClick={handleClick}>
+                <RetroButtonRound variant="orange" onClick={handleShareProfile}>
                     <div className={styles.sign_in_text_container}>
                         <>
                             <IoMdShare size={20} className={styles.icon} />
