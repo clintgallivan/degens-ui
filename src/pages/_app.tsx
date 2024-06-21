@@ -76,13 +76,13 @@ function MyApp({ Component, pageProps }: AppProps & AppOwnProps) {
                 >
                     <SessionProvider>
                         <TokenProvider>
-                            <LayoutProvider>
-                                <ToastProvider>
+                            <ToastProvider>
+                                <LayoutProvider>
                                     <AuthSuccessHandler privyUser={privyUser} />
                                     <NextTopLoader color="#F17749" />
                                     <Component {...pageProps} />
-                                </ToastProvider>
-                            </LayoutProvider>
+                                </LayoutProvider>
+                            </ToastProvider>
                         </TokenProvider>
                     </SessionProvider>
                 </PrivyProvider>

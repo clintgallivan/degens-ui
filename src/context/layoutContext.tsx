@@ -1,4 +1,5 @@
-import { createContext, useContext, useState, useEffect } from 'react';
+import { createContext, useContext, useState, useEffect } from "react";
+import { Spinner } from "react-bootstrap";
 
 type LayoutContextProviderProps = {
     children: React.ReactNode;
@@ -9,6 +10,21 @@ const LayoutContext = createContext({});
 export const LayoutProvider = ({ children }: LayoutContextProviderProps) => {
     const [navIsExpanded, setNavIsExpanded] = useState(false);
     const [headerSearchIsExpanded, setHeaderSearchIsExpanded] = useState(false);
+    const [appIsLoading, setAppIsLoading] = useState(false);
+
+    const LoadingProvider = ({ children }: { children: React.ReactNode }) => {
+        const className = appIsLoading ? "blur-sm" : "";
+        return (
+            <>
+                {appIsLoading && (
+                    <div className="fixed inset-0 z-50 flex justify-center items-center">
+                        <Spinner animation="border" variant="light" />
+                    </div>
+                )}
+                <div className={`${className}`}>{children}</div>
+            </>
+        );
+    };
 
     return (
         <LayoutContext.Provider
@@ -17,9 +33,11 @@ export const LayoutProvider = ({ children }: LayoutContextProviderProps) => {
                 setNavIsExpanded,
                 headerSearchIsExpanded,
                 setHeaderSearchIsExpanded,
+                appIsLoading,
+                setAppIsLoading,
             }}
         >
-            {children}
+            <LoadingProvider>{children}</LoadingProvider>
         </LayoutContext.Provider>
     );
 };

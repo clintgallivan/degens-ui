@@ -31,11 +31,13 @@ import { User, useLinkAccount, usePrivy } from "@privy-io/react-auth";
 import { addWalletRequest, deleteWalletRequest } from "src/api/wallets";
 import { toAxiosError } from "@utils/api";
 import { useToast } from "@context/toastContext";
+import { useLayoutContext } from "@context/layoutContext";
 
 export default function WalletStats({ props }: { props: any }) {
     const { width = 0 } = useWindowSize();
     const { showSuccessToast, showErrorToast } = useToast();
     const { login, session } = useSessionContext();
+    const { appIsLoading, setAppIsLoading } = useLayoutContext();
     const isEmpty = true;
     const { unlinkWallet } = usePrivy();
     // console.log(props);
@@ -43,6 +45,7 @@ export default function WalletStats({ props }: { props: any }) {
 
     // * TESTING WHILE SOLANA UNSUPPORTED
     const linkWalletSuccessCallback = async (user: User, linkedAccountType: string) => {
+        setAppIsLoading(true);
         const walletAddress = "5vysY9Jes27TxN2VDkkGwU8hntDH2gX4N4Z7C4E1cVfT";
         const userId = JSON.parse(JSON.stringify(session?.user?._id));
         try {
@@ -55,6 +58,7 @@ export default function WalletStats({ props }: { props: any }) {
             if (walletAddress) {
                 unlinkWallet(user?.wallet?.address || "");
             }
+            setAppIsLoading(false);
         }
     };
 
@@ -88,6 +92,7 @@ export default function WalletStats({ props }: { props: any }) {
     };
 
     const handleDeleteWallet = async (userId: string, walletAddress: string) => {
+        setAppIsLoading(true);
         userId = "665dc1dbe24e2c85d6a2f00c";
         walletAddress = "5vysY9Jes27TxN2VDkkGwU8hntDH2gX4N4Z7C4E1cVfT";
         try {
@@ -100,6 +105,7 @@ export default function WalletStats({ props }: { props: any }) {
             const axiosError = toAxiosError(error);
             showErrorToast("Failure", axiosError?.data?.message || error?.message || "");
         } finally {
+            setAppIsLoading(false);
             // unlinkWallet(walletAddress);
         }
     };
