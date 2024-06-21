@@ -21,6 +21,7 @@ import { SystemInfoProvider, useSystemInfoContext } from "@context/SystemInfoCon
 import AuthSuccessHandler from "@utils/auth/authSuccessHandler";
 import { SessionProvider } from "@context/SessionContext";
 import { authWithDegensCoreApiNode } from "@utils/auth/authenticateClient";
+import NextTopLoader from "nextjs-toploader";
 
 type AppOwnProps = { example: string };
 
@@ -55,9 +56,9 @@ function MyApp({ Component, pageProps }: AppProps & AppOwnProps) {
                     function gtag(){dataLayer.push(arguments);}
                     gtag('js', new Date());
                     gtag('config', '${gtag.GA_TRACKING_ID}', {
-                      page_path: window.location.pathname,
-                    });
-                `}
+                        page_path: window.location.pathname,
+                        });
+                        `}
             </Script>
             <SystemInfoProvider>
                 <PrivyProvider
@@ -78,6 +79,7 @@ function MyApp({ Component, pageProps }: AppProps & AppOwnProps) {
                             <LayoutProvider>
                                 <ToastProvider>
                                     <AuthSuccessHandler privyUser={privyUser} />
+                                    <NextTopLoader color="#F17749" />
                                     <Component {...pageProps} />
                                 </ToastProvider>
                             </LayoutProvider>
